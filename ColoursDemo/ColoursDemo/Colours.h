@@ -59,6 +59,9 @@
 
 @interface Colours : NSObject
 
+// Color Methods
++(UIColor *)colorFromHex:(NSString *)hexString;
++(NSArray *)rgbaArrayFromColor:(UIColor *)color;
 
 
 @end
