@@ -19,6 +19,7 @@
     return [UIColor colorWithRed:((rgbValue & 0xFF0000) >> 16)/255.0 green:((rgbValue & 0xFF00) >> 8)/255.0 blue:(rgbValue & 0xFF)/255.0 alpha:1.0];
 }
 
+#pragma mark - RGBA from UIColor
 +(NSArray *)rgbaArrayFromColor:(UIColor *)color {
     // Takes a UIColor and returns R,G,B,A values in NSNumber form
     float r=0,g=0,b=0,a=0;
