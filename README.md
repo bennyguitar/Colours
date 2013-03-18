@@ -14,8 +14,64 @@ Import Colours.h into your ViewController.h file, and that's it.
 ## Using Colours ##
 **Using Predefined Colors**
 
-It's very simple. Whenever you set a property that is a UIColor, like self.view.backgroundColor, instead of doing something like <code>self.view.backgroundColor = [UIColor redColor]</code> use one of the new colors like so <code>self.view.backgroundColor = ColorTeal</code> 
+It's very simple. Whenever you set a property that is a UIColor, like self.view.backgroundColor, instead of doing something like <code>self.view.backgroundColor = [UIColor redColor]</code> use one of the new colors like so <code>self.view.backgroundColor = ColorTeal</code>
 
+**System Colors**
+
+* ColorInfoBlue
+* ColorSuccess
+* ColorWarning
+* ColorDanger
+
+**Grays**
+
+* Color25PercentBlack
+* Color50PercentBlack
+* Color75PercentBlack
+* ColorWarmGray
+* ColorCoolGray
+
+**Blues**
+
+* ColorTeal
+* ColorSteelBlue
+* ColorRobinEgg
+* ColorPastelBlue
+
+**Greens**
+
+* ColorEmerald
+* ColorGrass
+* ColorPastelGreen
+* ColorSeafoam
+* ColorPaleGreen
+
+**Reds**
+
+* ColorSalmon
+* ColorBrickRed
+* ColorEasterPink
+* ColorGrapefruit
+* ColorPink
+
+**Purples**
+
+* ColorEggplant
+* ColorPastelPurple
+* ColorPalePurple
+* ColorCoolPurple
+
+**Yellows**
+
+* ColorGoldenrod
+* ColorYellowGreen
+* ColorBanana
+
+**Oranges**
+
+* ColorPeach
+* ColorBurntOrange
+* ColorPastelOrange
 **Color Methods**
 
 You can grab a UIColor from a hexString by calling colorFromHex:
