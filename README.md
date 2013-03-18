@@ -2,6 +2,7 @@ Colours for iOS
 =============
 
 A beautiful set of predefined UIColors, and UIColor methods, ready to use in your next iOS project.
+
 ![ScreenShot](https://raw.github.com/bennyguitar/Colours-for-iOS/master/Screenshots/iphone1.png)![ScreenShot](https://raw.github.com/bennyguitar/Colours-for-iOS/master/Screenshots/iphone2.png)
 
 ## Installation ##
@@ -87,12 +88,29 @@ It's very simple. Whenever you set a property that is a UIColor, like self.view.
 * ColorGoldenrod
 * ColorYellowGreen
 * ColorBanana
+* ColorMustard
+* ColorButtermilk
+* ColorGold
 
 **Oranges**
 
 * ColorPeach
 * ColorBurntOrange
 * ColorPastelOrange
+* ColorCantaloupe
+* ColorCarrot
+
+**Browns**
+
+* ColorChiliPowder
+* ColorBurntSienna
+* ColorChocolate
+* ColorCoffee
+* ColorCinnamon
+* ColorAlmond
+* ColorEggshell
+* ColorCoffee
+* ColorSand
 
 ## Colours Methods ##
 
