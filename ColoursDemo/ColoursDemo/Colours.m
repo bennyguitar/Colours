@@ -79,9 +79,8 @@
     UIColor *colorAbove2 = [UIColor colorWithHue:[Colours addDegrees:30 toDegree:h]/360 saturation:(s-5)/100 brightness:(b-10)/100 alpha:a];
     UIColor *colorBelow1 = [UIColor colorWithHue:[Colours addDegrees:-15 toDegree:h]/360 saturation:(s-5)/100 brightness:(b-5)/100 alpha:a];
     UIColor *colorBelow2 = [UIColor colorWithHue:[Colours addDegrees:-30 toDegree:h]/360 saturation:(s-5)/100 brightness:(b-10)/100 alpha:a];
-    UIColor *mainColor = [UIColor colorWithHue:h/360 saturation:s/100 brightness:b/100 alpha:a];
     
-    return @[colorAbove2,colorAbove1,mainColor,colorBelow1,colorBelow2];
+    return @[colorAbove2,colorAbove1,colorBelow1,colorBelow2];
 }
 
 +(NSArray *)monochromaticColorsFromHue:(float)h saturation:(float)s brightness:(float)b alpha:(float)a {
@@ -90,9 +89,8 @@
     UIColor *colorAbove2 = [UIColor colorWithHue:h/360 saturation:(s/2)/100 brightness:(b/3)/100 alpha:a];
     UIColor *colorBelow1 = [UIColor colorWithHue:h/360 saturation:(s/3)/100 brightness:(2*b/3)/100 alpha:a];
     UIColor *colorBelow2 = [UIColor colorWithHue:h/360 saturation:s/100 brightness:(4*b/5)/100 alpha:a];
-    UIColor *mainColor = [UIColor colorWithHue:h/360 saturation:s/100 brightness:b/100 alpha:a];
     
-    return @[colorAbove2,colorAbove1,mainColor,colorBelow1,colorBelow2];
+    return @[colorAbove2,colorAbove1,colorBelow1,colorBelow2];
 }
 
 +(NSArray *)triadColorsFromHue:(float)h saturation:(float)s brightness:(float)b alpha:(float)a {
@@ -101,9 +99,8 @@
     UIColor *colorAbove2 = [UIColor colorWithHue:[Colours addDegrees:120 toDegree:h]/360 saturation:(s-5)/100 brightness:(b-5)/100 alpha:a];
     UIColor *colorBelow1 = [UIColor colorWithHue:[Colours addDegrees:-120 toDegree:h]/360 saturation:s/100 brightness:b/100 alpha:a];
     UIColor *colorBelow2 = [UIColor colorWithHue:[Colours addDegrees:-120 toDegree:h]/360 saturation:(s-5)/100 brightness:(b-5)/100 alpha:a];
-    UIColor *mainColor = [UIColor colorWithHue:h/360 saturation:s/100 brightness:b/100 alpha:a];
     
-    return @[colorAbove2,colorAbove1,mainColor,colorBelow1,colorBelow2];
+    return @[colorAbove2,colorAbove1,colorBelow1,colorBelow2];
 }
 
 +(NSArray *)complementaryColorsFromHue:(float)h saturation:(float)s brightness:(float)b alpha:(float)a {
@@ -112,9 +109,8 @@
     UIColor *colorAbove2 = [UIColor colorWithHue:h/360 saturation:s/100 brightness:(4*b/5)/100 alpha:a];
     UIColor *colorBelow1 = [UIColor colorWithHue:[Colours addDegrees:180 toDegree:h]/360 saturation:s/100 brightness:b/100 alpha:a];
     UIColor *colorBelow2 = [UIColor colorWithHue:[Colours addDegrees:180 toDegree:h]/360 saturation:(5*s/7)/100 brightness:b/100 alpha:a];
-    UIColor *mainColor = [UIColor colorWithHue:h/360 saturation:s/100 brightness:b/100 alpha:a];
     
-    return @[colorAbove2,colorAbove1,mainColor,colorBelow1,colorBelow2];
+    return @[colorAbove2,colorAbove1,colorBelow1,colorBelow2];
 }
 
 

@@ -18,7 +18,7 @@
 {
     [super viewDidLoad];
     [self buildButtons];
-    [self setColorsForAnalagousColorScheme:ColorWatermelon];
+    [self setColorsForAnalagousColorScheme:ColorSeafoam];
     [self setColorsForMonochromaticColorScheme:ColorPlum];
     [self setColorsForTriadColorScheme:ColorDenim];
     [self setColorsForComplementaryColorScheme:ColorPeach];
@@ -57,36 +57,36 @@
     NSArray *colorScheme = [Colours generateColorSchemeFromColor:color ofType:ColorSchemeAnalagous];
     anColor1.backgroundColor = colorScheme[0];
     anColor2.backgroundColor = colorScheme[1];
-    anColor3.backgroundColor = colorScheme[2];
-    anColor4.backgroundColor = colorScheme[3];
-    anColor5.backgroundColor = colorScheme[4];
+    anColor3.backgroundColor = color;
+    anColor4.backgroundColor = colorScheme[2];
+    anColor5.backgroundColor = colorScheme[3];
 }
 
 -(void)setColorsForMonochromaticColorScheme:(UIColor *)color {
     NSArray *colorScheme = [Colours generateColorSchemeFromColor:color ofType:ColorSchemeMonochromatic];
     monColor1.backgroundColor = colorScheme[0];
     monColor2.backgroundColor = colorScheme[1];
-    monColor3.backgroundColor = colorScheme[2];
-    monColor4.backgroundColor = colorScheme[3];
-    monColor5.backgroundColor = colorScheme[4];
+    monColor3.backgroundColor = color;
+    monColor4.backgroundColor = colorScheme[2];
+    monColor5.backgroundColor = colorScheme[3];
 }
 
 -(void)setColorsForTriadColorScheme:(UIColor *)color {
     NSArray *colorScheme = [Colours generateColorSchemeFromColor:color ofType:ColorSchemeTriad];
     triColor1.backgroundColor = colorScheme[0];
     triColor2.backgroundColor = colorScheme[1];
-    triColor3.backgroundColor = colorScheme[2];
-    triColor4.backgroundColor = colorScheme[3];
-    triColor5.backgroundColor = colorScheme[4];
+    triColor3.backgroundColor = color;
+    triColor4.backgroundColor = colorScheme[2];
+    triColor5.backgroundColor = colorScheme[3];
 }
 
 -(void)setColorsForComplementaryColorScheme:(UIColor *)color {
     NSArray *colorScheme = [Colours generateColorSchemeFromColor:color ofType:ColorSchemeComplementary];
     comColor1.backgroundColor = colorScheme[0];
     comColor1.backgroundColor = colorScheme[1];
-    comColor3.backgroundColor = colorScheme[2];
-    comColor4.backgroundColor = colorScheme[3];
-    comColor5.backgroundColor = colorScheme[4];
+    comColor3.backgroundColor = color;
+    comColor4.backgroundColor = colorScheme[2];
+    comColor5.backgroundColor = colorScheme[3];
 }
 
 
