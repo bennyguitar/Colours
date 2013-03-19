@@ -27,6 +27,28 @@
     __weak IBOutlet UIButton *seafoamBtn;
     __weak IBOutlet UIButton *salmonBtn;
     __weak IBOutlet UIButton *warmGrayBtn;
+    
+    // Analagous Color Scheme
+    __weak IBOutlet UIView *anColor1;
+    __weak IBOutlet UIView *anColor2;
+    __weak IBOutlet UIView *anColor3;
+    __weak IBOutlet UIView *anColor4;
+    __weak IBOutlet UIView *anColor5;
+    
+    // Monochromatic Color Scheme
+    __weak IBOutlet UIView *monColor1;
+    __weak IBOutlet UIView *monColor2;
+    __weak IBOutlet UIView *monColor3;
+    __weak IBOutlet UIView *monColor5;
+    __weak IBOutlet UIView *monColor4;
+    
+    // Triad Color Scheme
+    __weak IBOutlet UIView *triColor1;
+    __weak IBOutlet UIView *triColor2;
+    __weak IBOutlet UIView *triColor3;
+    __weak IBOutlet UIView *triColor4;
+    __weak IBOutlet UIView *triColor5;
+    
 }
 
 @end

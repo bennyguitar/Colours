@@ -95,11 +95,23 @@
 #define ColorCoffee [UIColor colorWithRed:141/255.0f green:60/255.0f blue:15/255.0f alpha:1.0]
 #define ColorSand [UIColor colorWithRed:222/255.0f green:182/255.0f blue:151/255.0f alpha:1.0]
 
+
+// Color Scheme Creation Enum
+typedef enum {
+    ColorSchemeAnalagous = 0,
+    ColorSchemeMonochromatic,
+    ColorSchemeTriad,
+    ColorSchemeComplementary
+}ColorScheme;
+
 @interface Colours : NSObject
 
 // Color Methods
 +(UIColor *)colorFromHex:(NSString *)hexString;
 +(NSArray *)rgbaArrayFromColor:(UIColor *)color;
++(NSArray *)hsbaArrayFromColor:(UIColor *)color;
 
+// Generate Color Scheme
++(NSArray *)generateColorSchemeFromColor:(UIColor *)color ofType:(ColorScheme)type;
 
 @end

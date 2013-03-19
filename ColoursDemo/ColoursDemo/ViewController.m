@@ -18,6 +18,9 @@
 {
     [super viewDidLoad];
     [self buildButtons];
+    [self setColorsForAnalagousColorScheme];
+    [self setColorsForMonochromaticColorScheme];
+    [self setColorsForTriadColorScheme];
     
     // Set Up Scroll
     [colorScroll addSubview:scrollContentView];
@@ -47,6 +50,33 @@
     seafoamBtn.backgroundColor = ColorSeafoam;
     salmonBtn.backgroundColor = ColorSalmon;
     warmGrayBtn.backgroundColor = ColorWarmGray;
+}
+
+-(void)setColorsForAnalagousColorScheme {
+    NSArray *colorScheme = [Colours generateColorSchemeFromColor:ColorSeafoam ofType:ColorSchemeAnalagous];
+    anColor1.backgroundColor = colorScheme[0];
+    anColor2.backgroundColor = colorScheme[1];
+    anColor3.backgroundColor = colorScheme[2];
+    anColor4.backgroundColor = colorScheme[3];
+    anColor5.backgroundColor = colorScheme[4];
+}
+
+-(void)setColorsForMonochromaticColorScheme {
+    NSArray *colorScheme = [Colours generateColorSchemeFromColor:ColorSeafoam ofType:ColorSchemeMonochromatic];
+    monColor1.backgroundColor = colorScheme[0];
+    monColor2.backgroundColor = colorScheme[1];
+    monColor3.backgroundColor = colorScheme[2];
+    monColor4.backgroundColor = colorScheme[3];
+    monColor5.backgroundColor = colorScheme[4];
+}
+
+-(void)setColorsForTriadColorScheme {
+    NSArray *colorScheme = [Colours generateColorSchemeFromColor:ColorSeafoam ofType:ColorSchemeTriad];
+    triColor1.backgroundColor = colorScheme[0];
+    triColor2.backgroundColor = colorScheme[1];
+    triColor3.backgroundColor = colorScheme[2];
+    triColor4.backgroundColor = colorScheme[3];
+    triColor5.backgroundColor = colorScheme[4];
 }
 
 
