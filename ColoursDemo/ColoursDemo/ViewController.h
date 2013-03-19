@@ -49,6 +49,12 @@
     __weak IBOutlet UIView *triColor4;
     __weak IBOutlet UIView *triColor5;
     
+    // Complementary Color Scheme
+    __weak IBOutlet UIView *comColor1;
+    __weak IBOutlet UIView *comColor2;
+    __weak IBOutlet UIView *comColor3;
+    __weak IBOutlet UIView *comColor4;
+    __weak IBOutlet UIView *comColor5;
 }
 
 @end
