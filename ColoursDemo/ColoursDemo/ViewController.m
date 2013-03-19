@@ -18,10 +18,10 @@
 {
     [super viewDidLoad];
     [self buildButtons];
-    [self setColorsForAnalagousColorScheme:ColorSeafoam];
-    [self setColorsForMonochromaticColorScheme:ColorPlum];
-    [self setColorsForTriadColorScheme:ColorDenim];
-    [self setColorsForComplementaryColorScheme:ColorPeach];
+    [self setColorsForAnalagousColorScheme:ColorRobinEgg];
+    [self setColorsForMonochromaticColorScheme:ColorRobinEgg];
+    [self setColorsForTriadColorScheme:ColorRobinEgg];
+    [self setColorsForComplementaryColorScheme:ColorRobinEgg];
     
     // Set Up Scroll
     [colorScroll addSubview:scrollContentView];
