@@ -18,9 +18,9 @@
 {
     [super viewDidLoad];
     [self buildButtons];
-    [self setColorsForAnalagousColorScheme:ColorPeach];
-    [self setColorsForMonochromaticColorScheme:ColorPeach];
-    [self setColorsForTriadColorScheme:ColorPeach];
+    [self setColorsForAnalagousColorScheme:ColorWatermelon];
+    [self setColorsForMonochromaticColorScheme:ColorPlum];
+    [self setColorsForTriadColorScheme:ColorDenim];
     [self setColorsForComplementaryColorScheme:ColorPeach];
     
     // Set Up Scroll
