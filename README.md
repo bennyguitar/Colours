@@ -130,7 +130,7 @@ float a = [colorArray[3] floatValue];
 
 ## Generating Color Schemes ##
 
-You can create a 5-color scheme based off of a UIColor using the following method. It takes in a UIColor and one of the ColorSchemeTypes defined in Colours. It returns an NSArray of 5 UIColor objects, the 2nd index (very middle of the array) is the color you passed in.
+You can create a 5-color scheme based off of a UIColor using the following method. It takes in a UIColor and one of the ColorSchemeTypes defined in Colours. It returns an NSArray of 4 new UIColor objects to create a pretty nice color scheme that complements the root color you passed in..
 ```shell
 NSArray *colorScheme = [Colours generateColorSchemeFromColor:(UIColor *)color ofType:ColorSchemeType];
 ```
