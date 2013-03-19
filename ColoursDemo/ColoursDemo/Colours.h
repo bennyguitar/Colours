@@ -108,6 +108,7 @@ typedef enum {
 
 // Color Methods
 +(UIColor *)colorFromHex:(NSString *)hexString;
++(NSString *)hexFromColor:(UIColor *)color;
 +(NSArray *)rgbaArrayFromColor:(UIColor *)color;
 +(NSArray *)hsbaArrayFromColor:(UIColor *)color;
 

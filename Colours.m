@@ -10,6 +10,7 @@
 
 @implementation Colours
 
+
 #pragma mark - UIColor from Hex
 +(UIColor *)colorFromHex:(NSString *)hexString {
     unsigned rgbValue = 0;
@@ -17,6 +18,18 @@
     NSScanner *scanner = [NSScanner scannerWithString:hexString];
     [scanner scanHexInt:&rgbValue];
     return [UIColor colorWithRed:((rgbValue & 0xFF0000) >> 16)/255.0 green:((rgbValue & 0xFF00) >> 8)/255.0 blue:(rgbValue & 0xFF)/255.0 alpha:1.0];
+}
+
+#pragma mark - Hex from UIColor
++(NSString *)hexFromColor:(UIColor *)color {
+    NSArray *colorArray = [Colours rgbaArrayFromColor:color];
+    int r = [colorArray[0] floatValue] * 255;
+    int g = [colorArray[1] floatValue] * 255;
+    int b = [colorArray[2] floatValue] * 255;
+    NSString *red = [NSString stringWithFormat:@"%02x", r];
+    NSString *green = [NSString stringWithFormat:@"%02x", g];
+    NSString *blue = [NSString stringWithFormat:@"%02x", b];
+    return [NSString stringWithFormat:@"#%@%@%@", red, green, blue];
 }
 
 #pragma mark - RGBA from UIColor
@@ -73,6 +86,8 @@
     }
 }
 
+
+#pragma mark - Color Scheme Generation - Helper methods
 +(NSArray *)analagousColorsFromHue:(float)h saturation:(float)s brightness:(float)b alpha:(float)a {
     
     UIColor *colorAbove1 = [UIColor colorWithHue:[Colours addDegrees:15 toDegree:h]/360 saturation:(s-5)/100 brightness:(b-5)/100 alpha:a];
