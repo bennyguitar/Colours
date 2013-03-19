@@ -119,6 +119,13 @@ You can grab a UIColor from a hexString by calling colorFromHex:
 NSString *hexString = @"#f587e4";
 UIColor *newColor = [Colours colorFromHex:hexString];
 ```
+
+You can also grab a Hex string by calling hexFromColor:
+```shell
+NSString *hexString = [Colours hexFromColor:ColorRobinEgg];
+// Output: #8ddaf7
+```
+
 If you'd like the RGBA values of any UIColor, just call the rgbaArrayFromColor method. It returns an array of 4 NSNumbers, RGBA - in that order. Here's how you'd call this:
 ```shell
 NSArray *colorArray = [Colours rgbaArrayFromColor:self.view.backgroundColor];
