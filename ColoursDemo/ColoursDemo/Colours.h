@@ -20,6 +20,7 @@
 #define Color75PercentBlack [UIColor colorWithWhite:0.75 alpha:1.0 alpha:1.0];
 #define ColorWarmGray [UIColor colorWithRed:133/255.0f green:117/255.0f blue:112/255.0f alpha:1.0]
 #define ColorCoolGray [UIColor colorWithRed:118/255.0f green:122/255.0f blue:133/255.0f alpha:1.0]
+#define ColorCharcoal [UIColor colorWithRed:34/255.0f green:34/255.0f blue:34/255.0f alpha:1.0]
 
 // Blues
 #define ColorTeal [UIColor colorWithRed:28/255.0f green:160/255.0f blue:170/255.0f alpha:1.0]
@@ -32,6 +33,9 @@
 #define ColorDenim [UIColor colorWithRed:67/255.0f green:114/255.0f blue:170/255.0f alpha:1.0]
 #define ColorBlueberry [UIColor colorWithRed:89/255.0f green:113/255.0f blue:173/255.0f alpha:1.0]
 #define ColorCornflower [UIColor colorWithRed:100/255.0f green:149/255.0f blue:237/255.0f alpha:1.0]
+#define ColorBabyBlue [UIColor colorWithRed:190/255.0f green:220/255.0f blue:230/255.0f alpha:1.0]
+#define ColorMidnightBlue [UIColor colorWithRed:13/255.0f green:26/255.0f blue:35/255.0f alpha:1.0]
+#define ColorFadedBlue [UIColor colorWithRed:23/255.0f green:137/255.0f blue:155/255.0f alpha:1.0]
 
 // Greens
 #define ColorEmerald [UIColor colorWithRed:1/255.0f green:152/255.0f blue:117/255.0f alpha:1.0]
@@ -68,6 +72,8 @@
 #define ColorRaspberry [UIColor colorWithRed:135/255.0f green:38/255.0f blue:87/255.0f alpha:1.0]
 #define ColorFuschia [UIColor colorWithRed:255/255.0f green:20/255.0f blue:147/255.0f alpha:1.0]
 #define ColorGrape [UIColor colorWithRed:54/255.0f green:11/255.0f blue:88/255.0f alpha:1.0]
+#define ColorPeriwinkle [UIColor colorWithRed:135/255.0f green:159/255.0f blue:237/255.0f alpha:1.0]
+
 
 // Yellows
 #define ColorGoldenrod [UIColor colorWithRed:215/255.0f green:170/255.0f blue:51/255.0f alpha:1.0]
@@ -76,6 +82,8 @@
 #define ColorMustard [UIColor colorWithRed:205/255.0f green:171/255.0f blue:45/255.0f alpha:1.0]
 #define ColorButtermilk [UIColor colorWithRed:254/255.0f green:241/255.0f blue:181/255.0f alpha:1.0]
 #define ColorGold [UIColor colorWithRed:139/255.0f green:117/255.0f blue:18/255.0f alpha:1.0]
+#define ColorCream [UIColor colorWithRed:240/255.0f green:226/255.0f blue:187/255.0f alpha:1.0]
+#define ColorLightCream [UIColor colorWithRed:240/255.0f green:238/255.0f blue:215/255.0f alpha:1.0]
 
 // Oranges
 #define ColorPeach [UIColor colorWithRed:242/255.0f green:187/255.0f blue:97/255.0f alpha:1.0]
@@ -83,6 +91,7 @@
 #define ColorPastelOrange [UIColor colorWithRed:248/255.0f green:197/255.0f blue:143/255.0f alpha:1.0]
 #define ColorCantaloupe [UIColor colorWithRed:250/255.0f green:154/255.0f blue:79/255.0f alpha:1.0]
 #define ColorCarrot [UIColor colorWithRed:237/255.0f green:145/255.0f blue:33/255.0f alpha:1.0]
+#define ColorMandarin [UIColor colorWithRed:247/255.0f green:145/255.0f blue:55/255.0f alpha:1.0]
 
 // Browns
 #define ColorChiliPowder [UIColor colorWithRed:199/255.0f green:63/255.0f blue:23/255.0f alpha:1.0]
@@ -94,6 +103,7 @@
 #define ColorEggshell [UIColor colorWithRed:252/255.0f green:230/255.0f blue:201/255.0f alpha:1.0]
 #define ColorCoffee [UIColor colorWithRed:141/255.0f green:60/255.0f blue:15/255.0f alpha:1.0]
 #define ColorSand [UIColor colorWithRed:222/255.0f green:182/255.0f blue:151/255.0f alpha:1.0]
+#define ColorMud [UIColor colorWithRed:70/255.0f green:45/255.0f blue:29/255.0f alpha:1.0]
 
 
 // Color Scheme Creation Enum
