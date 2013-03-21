@@ -1,7 +1,7 @@
 Colours for iOS
 =============
 
-A beautiful set of predefined UIColors, and UIColor methods, ready to use in your next iOS project.
+A beautiful set of 100 predefined UIColors, and UIColor methods, ready to use in your next iOS project.
 
 ![ScreenShot](https://raw.github.com/bennyguitar/Colours-for-iOS/master/Screenshots/iphone1.png)![ScreenShot](https://raw.github.com/bennyguitar/Colours-for-iOS/master/Screenshots/iphone2.png)
 
