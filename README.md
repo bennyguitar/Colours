@@ -124,19 +124,19 @@ It's very simple. Whenever you set a property that is a UIColor, like self.view.
 ## Colours Methods ##
 
 You can grab a UIColor from a hexString by calling colorFromHex:
-```shell
+```objc
 NSString *hexString = @"#f587e4";
 UIColor *newColor = [Colours colorFromHex:hexString];
 ```
 
 You can also grab a Hex string by calling hexFromColor:
-```shell
+```objc
 NSString *hexString = [Colours hexFromColor:ColorRobinEgg];
 // Output: #8ddaf7
 ```
 
 If you'd like the RGBA values of any UIColor, just call the rgbaArrayFromColor method. It returns an array of 4 NSNumbers, RGBA - in that order. Here's how you'd call this:
-```shell
+```objc
 NSArray *colorArray = [Colours rgbaArrayFromColor:self.view.backgroundColor];
 float r = [colorArray[0] floatValue];
 float g = [colorArray[1] floatValue];
@@ -147,7 +147,7 @@ float a = [colorArray[3] floatValue];
 ## Generating Color Schemes ##
 
 You can create a 5-color scheme based off of a UIColor using the following method. It takes in a UIColor and one of the ColorSchemeTypes defined in Colours. It returns an NSArray of 4 new UIColor objects to create a pretty nice color scheme that complements the root color you passed in.
-```shell
+```objc
 NSArray *colorScheme = [Colours generateColorSchemeFromColor:(UIColor *)color ofType:ColorSchemeType];
 ```
 
