@@ -30,6 +30,7 @@ It's very simple. Whenever you set a property that is a UIColor, like self.view.
 * Color75PercentBlack
 * ColorWarmGray
 * ColorCoolGray
+* ColorCharcoal
 
 **Blues**
 
@@ -43,6 +44,9 @@ It's very simple. Whenever you set a property that is a UIColor, like self.view.
 * ColorDenim
 * ColorBlueberry
 * ColorCornflower
+* ColorBabyBlue
+* ColorMidnightBlue
+* ColorFadedBlue
 
 **Greens**
 
@@ -82,6 +86,7 @@ It's very simple. Whenever you set a property that is a UIColor, like self.view.
 * ColorRaspberry
 * ColorFuschia
 * ColorGrape
+* ColorPeriwinkle
 
 **Yellows**
 
@@ -91,6 +96,8 @@ It's very simple. Whenever you set a property that is a UIColor, like self.view.
 * ColorMustard
 * ColorButtermilk
 * ColorGold
+* ColorCream
+* ColorLightCream
 
 **Oranges**
 
@@ -99,6 +106,7 @@ It's very simple. Whenever you set a property that is a UIColor, like self.view.
 * ColorPastelOrange
 * ColorCantaloupe
 * ColorCarrot
+* ColorMandarin
 
 **Browns**
 
@@ -111,6 +119,7 @@ It's very simple. Whenever you set a property that is a UIColor, like self.view.
 * ColorEggshell
 * ColorCoffee
 * ColorSand
+* ColorMud
 
 ## Colours Methods ##
 
