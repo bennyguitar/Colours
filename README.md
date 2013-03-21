@@ -125,8 +125,7 @@ It's very simple. Whenever you set a property that is a UIColor, like self.view.
 
 You can grab a UIColor from a hexString by calling colorFromHex:
 ```objc
-NSString *hexString = @"#f587e4";
-UIColor *newColor = [Colours colorFromHex:hexString];
+UIColor *newColor = [Colours colorFromHex:@"#f587e4"];
 ```
 
 You can also grab a Hex string by calling hexFromColor:
