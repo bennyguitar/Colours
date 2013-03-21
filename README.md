@@ -23,6 +23,16 @@ It's very simple. Whenever you set a property that is a UIColor, like self.view.
 * ColorWarning
 * ColorDanger
 
+**Whites**
+
+* ColorAntiqueWhite
+* ColorOldLace
+* ColorIvory
+* ColorSeashell
+* ColorGhostWhite
+* ColorSnow
+* ColorLinen
+
 **Grays**
 
 * Color25PercentBlack
@@ -47,6 +57,8 @@ It's very simple. Whenever you set a property that is a UIColor, like self.view.
 * ColorBabyBlue
 * ColorMidnightBlue
 * ColorFadedBlue
+* ColorIceberg
+* ColorWave
 
 **Greens**
 
@@ -59,7 +71,11 @@ It's very simple. Whenever you set a property that is a UIColor, like self.view.
 * ColorChartreuse
 * ColorHollyGreen
 * ColorOlive
+* ColorOliveDrab
 * ColorMoneyGreen
+* ColorHoneydew
+* ColorLime
+* ColorCardTable
 
 **Reds**
 
@@ -73,6 +89,10 @@ It's very simple. Whenever you set a property that is a UIColor, like self.view.
 * ColorCoral
 * ColorMaroon
 * ColorWatermelon
+* ColorTomato
+* ColorPinkLipstick
+* ColorPaleRose
+* ColorCrimson
 
 **Purples**
 
@@ -87,6 +107,7 @@ It's very simple. Whenever you set a property that is a UIColor, like self.view.
 * ColorFuschia
 * ColorGrape
 * ColorPeriwinkle
+* ColorOrchid
 
 **Yellows**
 
@@ -98,6 +119,8 @@ It's very simple. Whenever you set a property that is a UIColor, like self.view.
 * ColorGold
 * ColorCream
 * ColorLightCream
+* ColorWheat
+* ColorBeige
 
 **Oranges**
 
@@ -120,6 +143,8 @@ It's very simple. Whenever you set a property that is a UIColor, like self.view.
 * ColorCoffee
 * ColorSand
 * ColorMud
+* ColorSienna
+* ColorDust
 
 ## Colours Methods ##
 
