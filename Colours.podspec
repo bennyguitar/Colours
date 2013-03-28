@@ -7,7 +7,7 @@ Pod::Spec.new do |s|
   }
   s.source = {
     :git => 'https://github.com/bennyguitar/Colours-for-iOS.git',
-    :commit => 'e2b6023'
+    :commit => '1.0.0'
   }
   s.homepage    = 'http://subvertapps.com'
   s.license     = 'LICENSE'
