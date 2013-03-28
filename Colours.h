@@ -24,9 +24,9 @@
 #define ColorLinen [UIColor colorWithRed:250/255.0f green:240/255.0f blue:230/255.0f alpha:1.0]
 
 // Grays
-#define Color25PercentBlack [UIColor colorWithWhite:0.25 alpha:1.0 alpha:1.0];
-#define Color50PercentBlack [UIColor colorWithWhite:0.5 alpha:1.0 alpha:1.0];
-#define Color75PercentBlack [UIColor colorWithWhite:0.75 alpha:1.0 alpha:1.0];
+#define Color25PercentBlack [UIColor colorWithWhite:0.25 alpha:1.0];
+#define Color50PercentBlack [UIColor colorWithWhite:0.5 alpha:1.0];
+#define Color75PercentBlack [UIColor colorWithWhite:0.75 alpha:1.0];
 #define ColorWarmGray [UIColor colorWithRed:133/255.0f green:117/255.0f blue:112/255.0f alpha:1.0]
 #define ColorCoolGray [UIColor colorWithRed:118/255.0f green:122/255.0f blue:133/255.0f alpha:1.0]
 #define ColorCharcoal [UIColor colorWithRed:34/255.0f green:34/255.0f blue:34/255.0f alpha:1.0]
