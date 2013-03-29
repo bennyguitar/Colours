@@ -182,6 +182,9 @@ NSArray *colorScheme = [Colours generateColorSchemeFromColor:(UIColor *)color of
 * ColorSchemeTriad
 * ColorSchemeComplementary
 
+## CocoaPods ##
+
+<code>pod 'Colours', '~> 0.0.1'</code>
 
 Reap What I Sow!
 ================
