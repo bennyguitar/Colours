@@ -184,7 +184,7 @@ NSArray *colorScheme = [Colours generateColorSchemeFromColor:(UIColor *)color of
 
 ## CocoaPods ##
 
-<code>pod 'Colours', '~> 0.0.1'</code>
+<code>pod 'Colours', '~> 1.0.1'</code>
 
 For help setting up and maintaining dependencies using CocoaPods check out this link: http://cocoapods.org/
 
