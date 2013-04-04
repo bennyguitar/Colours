@@ -18,10 +18,10 @@
 {
     [super viewDidLoad];
     [self buildButtons];
-    [self setColorsForAnalagousColorScheme:ColorSeafoam];
-    [self setColorsForMonochromaticColorScheme:ColorSeafoam];
-    [self setColorsForTriadColorScheme:ColorSeafoam];
-    [self setColorsForComplementaryColorScheme:ColorSeafoam];
+    [self setColorsForAnalagousColorScheme:[UIColor seafoamColor]];
+    [self setColorsForMonochromaticColorScheme:[UIColor seafoamColor]];
+    [self setColorsForTriadColorScheme:[UIColor seafoamColor]];
+    [self setColorsForComplementaryColorScheme:[UIColor seafoamColor]];
     
     // Set Up Scroll
     [colorScroll addSubview:scrollContentView];
@@ -39,22 +39,22 @@
     }
     
     // Now set the colors
-    infoBlue.backgroundColor = ColorInfoBlue;
-    successBtn.backgroundColor = ColorSuccess;
-    warningBtn.backgroundColor = ColorWarning;
-    dangerBtn.backgroundColor = ColorDanger;
-    tealBtn.backgroundColor = ColorTeal;
-    grapefruitBtn.backgroundColor = ColorGrapefruit;
-    bananaBtn.backgroundColor = ColorBanana;
-    robinEggBtn.backgroundColor = ColorRobinEgg;
-    peachBtn.backgroundColor = ColorPeach;
-    seafoamBtn.backgroundColor = ColorSeafoam;
-    salmonBtn.backgroundColor = ColorSalmon;
-    warmGrayBtn.backgroundColor = ColorWarmGray;
+    infoBlue.backgroundColor = [UIColor infoBlueColor];
+    successBtn.backgroundColor = [UIColor successColor];
+    warningBtn.backgroundColor = [UIColor warningColor];
+    dangerBtn.backgroundColor = [UIColor dangerColor];
+    tealBtn.backgroundColor = [UIColor tealColor];
+    grapefruitBtn.backgroundColor = [UIColor grapefruitColor];
+    bananaBtn.backgroundColor = [UIColor bananaColor];
+    robinEggBtn.backgroundColor = [UIColor robinEggColor];
+    peachBtn.backgroundColor = [UIColor peachColor];
+    seafoamBtn.backgroundColor = [UIColor seafoamColor];
+    salmonBtn.backgroundColor = [UIColor salmonColor];
+    warmGrayBtn.backgroundColor = [UIColor warmGrayColor];
 }
 
 -(void)setColorsForAnalagousColorScheme:(UIColor *)color {
-    NSArray *colorScheme = [Colours generateColorSchemeFromColor:color ofType:ColorSchemeAnalagous];
+	NSArray *colorScheme = [color colorSchemeOfType:ColorSchemeAnalagous];
     anColor1.backgroundColor = colorScheme[0];
     anColor2.backgroundColor = colorScheme[1];
     anColor3.backgroundColor = color;
@@ -63,7 +63,7 @@
 }
 
 -(void)setColorsForMonochromaticColorScheme:(UIColor *)color {
-    NSArray *colorScheme = [Colours generateColorSchemeFromColor:color ofType:ColorSchemeMonochromatic];
+    NSArray *colorScheme = [color colorSchemeOfType:ColorSchemeMonochromatic];
     monColor1.backgroundColor = colorScheme[0];
     monColor2.backgroundColor = colorScheme[1];
     monColor3.backgroundColor = color;
@@ -72,7 +72,7 @@
 }
 
 -(void)setColorsForTriadColorScheme:(UIColor *)color {
-    NSArray *colorScheme = [Colours generateColorSchemeFromColor:color ofType:ColorSchemeTriad];
+    NSArray *colorScheme = [color colorSchemeOfType:ColorSchemeTriad];
     triColor1.backgroundColor = colorScheme[0];
     triColor2.backgroundColor = colorScheme[1];
     triColor3.backgroundColor = color;
@@ -81,7 +81,7 @@
 }
 
 -(void)setColorsForComplementaryColorScheme:(UIColor *)color {
-    NSArray *colorScheme = [Colours generateColorSchemeFromColor:color ofType:ColorSchemeComplementary];
+    NSArray *colorScheme = [color colorSchemeOfType:ColorSchemeComplementary];
     comColor1.backgroundColor = colorScheme[0];
     comColor1.backgroundColor = colorScheme[1];
     comColor3.backgroundColor = color;
