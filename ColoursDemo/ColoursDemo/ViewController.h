@@ -8,7 +8,7 @@
 
 #import <UIKit/UIKit.h>
 #import <QuartzCore/QuartzCore.h>
-#import "Colours.h"
+#import "UIColor+Colours.h"
 
 @interface ViewController : UIViewController {
     __weak IBOutlet UIScrollView *colorScroll;

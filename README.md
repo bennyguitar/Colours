@@ -7,14 +7,14 @@ A beautiful set of 100 predefined UIColors, and UIColor methods, ready to use in
 
 ## Installation ##
 
-Drag the included **Colours.h and Colours.m** files into your project. They are located in the top-level directory. You can see a demo of how to use these with the included Xcode project as well.
+Drag the included **UIColor+Colours.h and UIColor+Colours.m** files into your project. They are located in the top-level directory. You can see a demo of how to use these with the included Xcode project as well.
 
-Import Colours.h into your ViewController.h file, and that's it.
+Import UIColor+Colours.h into your ViewController.h file, and that's it.
 
 
 ## Using Colours ##
 
-It's very simple. Whenever you set a property that is a UIColor, like self.view.backgroundColor, instead of doing something like <code>self.view.backgroundColor = [UIColor redColor]</code> use one of the new colors like so <code>self.view.backgroundColor = ColorTeal</code>
+It's very simple. Whenever you set a property that is a UIColor, like self.view.backgroundColor, instead of doing something like <code>self.view.backgroundColor = [UIColor redColor]</code> use one of the new colors like so <code>self.view.backgroundColor = [UIColor tealColor]</code>
 
 **System Colors**
 
@@ -150,18 +150,18 @@ It's very simple. Whenever you set a property that is a UIColor, like self.view.
 
 You can grab a UIColor from a hexString by calling colorFromHex:
 ```objc
-UIColor *newColor = [Colours colorFromHex:@"#f587e4"];
+UIColor *newColor = [UIColor colorFromHexString:@"#f587e4"];
 ```
 
-You can also grab a Hex string by calling hexFromColor:
+You can also grab a Hex string by calling hexString:
 ```objc
-NSString *hexString = [Colours hexFromColor:ColorRobinEgg];
+NSString *hexString = [color hexString];
 // Output: #8ddaf7
 ```
 
 If you'd like the RGBA values of any UIColor, just call the rgbaArrayFromColor method. It returns an array of 4 NSNumbers, RGBA - in that order. Here's how you'd call this:
 ```objc
-NSArray *colorArray = [Colours rgbaArrayFromColor:self.view.backgroundColor];
+NSArray *colorArray = [self.view.backgroundColor rgbaArray];
 float r = [colorArray[0] floatValue];
 float g = [colorArray[1] floatValue];
 float b = [colorArray[2] floatValue];
@@ -172,7 +172,7 @@ float a = [colorArray[3] floatValue];
 
 You can create a 5-color scheme based off of a UIColor using the following method. It takes in a UIColor and one of the ColorSchemeTypes defined in Colours. It returns an NSArray of 4 new UIColor objects to create a pretty nice color scheme that complements the root color you passed in.
 ```objc
-NSArray *colorScheme = [Colours generateColorSchemeFromColor:(UIColor *)color ofType:ColorSchemeType];
+NSArray *colorScheme = [color generateColorSchemeOfType:ColorSchemeType];
 ```
 
 **ColorSchemeTypes**

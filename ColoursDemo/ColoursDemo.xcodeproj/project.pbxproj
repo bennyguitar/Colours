@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		0935EC3E170D6BD200DCA335 /* UIColor+Colours.m in Sources */ = {isa = PBXBuildFile; fileRef = 0935EC3D170D6BD200DCA335 /* UIColor+Colours.m */; };
 		C06758B616F6824200CE7AA1 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C06758B516F6824200CE7AA1 /* UIKit.framework */; };
 		C06758B816F6824200CE7AA1 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C06758B716F6824200CE7AA1 /* Foundation.framework */; };
 		C06758BA16F6824200CE7AA1 /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C06758B916F6824200CE7AA1 /* CoreGraphics.framework */; };
@@ -18,7 +19,6 @@
 		C06758CC16F6824200CE7AA1 /* Default-568h@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = C06758CB16F6824200CE7AA1 /* Default-568h@2x.png */; };
 		C06758CF16F6824200CE7AA1 /* ViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = C06758CE16F6824200CE7AA1 /* ViewController.m */; };
 		C06758D216F6824200CE7AA1 /* ViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = C06758D016F6824200CE7AA1 /* ViewController.xib */; };
-		C06758DB16F6836100CE7AA1 /* Colours.m in Sources */ = {isa = PBXBuildFile; fileRef = C06758DA16F6836100CE7AA1 /* Colours.m */; };
 		C06758DD16F68FDC00CE7AA1 /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C06758DC16F68FDC00CE7AA1 /* QuartzCore.framework */; };
 		C06758E016F691E000CE7AA1 /* icon57.png in Resources */ = {isa = PBXBuildFile; fileRef = C06758DE16F691E000CE7AA1 /* icon57.png */; };
 		C06758E116F691E000CE7AA1 /* icon114.png in Resources */ = {isa = PBXBuildFile; fileRef = C06758DF16F691E000CE7AA1 /* icon114.png */; };
@@ -27,6 +27,8 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		0935EC3C170D6BD200DCA335 /* UIColor+Colours.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIColor+Colours.h"; sourceTree = "<group>"; };
+		0935EC3D170D6BD200DCA335 /* UIColor+Colours.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIColor+Colours.m"; sourceTree = "<group>"; };
 		C06758B216F6824200CE7AA1 /* ColoursDemo.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = ColoursDemo.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		C06758B516F6824200CE7AA1 /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
 		C06758B716F6824200CE7AA1 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
@@ -43,8 +45,6 @@
 		C06758CD16F6824200CE7AA1 /* ViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ViewController.h; sourceTree = "<group>"; };
 		C06758CE16F6824200CE7AA1 /* ViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ViewController.m; sourceTree = "<group>"; };
 		C06758D116F6824200CE7AA1 /* en */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = en; path = en.lproj/ViewController.xib; sourceTree = "<group>"; };
-		C06758D916F6836100CE7AA1 /* Colours.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Colours.h; sourceTree = "<group>"; };
-		C06758DA16F6836100CE7AA1 /* Colours.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Colours.m; sourceTree = "<group>"; };
 		C06758DC16F68FDC00CE7AA1 /* QuartzCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = QuartzCore.framework; path = System/Library/Frameworks/QuartzCore.framework; sourceTree = SDKROOT; };
 		C06758DE16F691E000CE7AA1 /* icon57.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = icon57.png; sourceTree = "<group>"; };
 		C06758DF16F691E000CE7AA1 /* icon114.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = icon114.png; sourceTree = "<group>"; };
@@ -100,8 +100,8 @@
 		C06758BB16F6824200CE7AA1 /* ColoursDemo */ = {
 			isa = PBXGroup;
 			children = (
-				C06758D916F6836100CE7AA1 /* Colours.h */,
-				C06758DA16F6836100CE7AA1 /* Colours.m */,
+				0935EC3C170D6BD200DCA335 /* UIColor+Colours.h */,
+				0935EC3D170D6BD200DCA335 /* UIColor+Colours.m */,
 				C06758C416F6824200CE7AA1 /* AppDelegate.h */,
 				C06758C516F6824200CE7AA1 /* AppDelegate.m */,
 				C06758CD16F6824200CE7AA1 /* ViewController.h */,
@@ -201,7 +201,7 @@
 				C06758C216F6824200CE7AA1 /* main.m in Sources */,
 				C06758C616F6824200CE7AA1 /* AppDelegate.m in Sources */,
 				C06758CF16F6824200CE7AA1 /* ViewController.m in Sources */,
-				C06758DB16F6836100CE7AA1 /* Colours.m in Sources */,
+				0935EC3E170D6BD200DCA335 /* UIColor+Colours.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
