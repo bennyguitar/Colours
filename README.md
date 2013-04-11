@@ -14,7 +14,7 @@ Import UIColor+Colours.h into your ViewController.h file, and that's it.
 
 ## Using Colours ##
 
-It's very simple. Whenever you set a property that is a UIColor, like self.view.backgroundColor, instead of doing something like <code>self.view.backgroundColor = [UIColor redColor]</code> use one of the new colors like so <code>self.view.backgroundColor = [UIColor tealColor]</code>
+It's very simple. Whenever you set a property that is a UIColor, like self.view.backgroundColor, use one of the new colors as you would the system colors. So, instead of: <code>self.view.backgroundColor = [UIColor redColor]</code> do something like this: <code>self.view.backgroundColor = [UIColor tomatoColor]</code>
 
 **System Colors**
 
