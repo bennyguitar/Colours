@@ -18,133 +18,133 @@ It's very simple. Whenever you set a property that is a UIColor, like self.view.
 
 **System Colors**
 
-* ColorInfoBlue
-* ColorSuccess
-* ColorWarning
-* ColorDanger
+* infoBlueColor
+* successColor
+* warningColor
+* dangerColor
 
 **Whites**
 
-* ColorAntiqueWhite
-* ColorOldLace
-* ColorIvory
-* ColorSeashell
-* ColorGhostWhite
-* ColorSnow
-* ColorLinen
+* antiqueWhiteColor
+* oldLaceColor
+* ivoryColor
+* seashellColor
+* ghostWhiteColor
+* snowColor
+* linenColor
 
 **Grays**
 
-* Color25PercentBlack
-* Color50PercentBlack
-* Color75PercentBlack
-* ColorWarmGray
-* ColorCoolGray
-* ColorCharcoal
+* black25PercentColor
+* black50PercentColor
+* black75PercentColor
+* warmGrayColor
+* coolGrayColor
+* charcoalColor
 
 **Blues**
 
-* ColorTeal
-* ColorSteelBlue
-* ColorRobinEgg
-* ColorPastelBlue
-* ColorTurquoise
-* ColorSkyBlue
-* ColorIndigo
-* ColorDenim
-* ColorBlueberry
-* ColorCornflower
-* ColorBabyBlue
-* ColorMidnightBlue
-* ColorFadedBlue
-* ColorIceberg
-* ColorWave
+* tealColor
+* steelBlueColor
+* robinEggColor
+* pastelBlueColor
+* turquoiseColor
+* skyBlueColor
+* indigoColor
+* denimColor
+* blueberryColor
+* cornflowerColor
+* babyBlueColor
+* midnightBlueColor
+* fadedBlueColor
+* icebergColor
+* waveColor
 
 **Greens**
 
-* ColorEmerald
-* ColorGrass
-* ColorPastelGreen
-* ColorSeafoam
-* ColorPaleGreen
-* ColorCactusGreen
-* ColorChartreuse
-* ColorHollyGreen
-* ColorOlive
-* ColorOliveDrab
-* ColorMoneyGreen
-* ColorHoneydew
-* ColorLime
-* ColorCardTable
+* emeraldColor
+* grassColor
+* pastelGreenColor
+* seafoamColor
+* paleGreenColor
+* cactusGreenColor
+* chartreuseColor
+* hollyGreenColor
+* oliveColor
+* oliveDrabColor
+* moneyGreenColor
+* honeydewColor
+* limeColor
+* cardTableColor
 
 **Reds**
 
-* ColorSalmon
-* ColorBrickRed
-* ColorEasterPink
-* ColorGrapefruit
-* ColorPink
-* ColorIndianRed
-* ColorStrawberry
-* ColorCoral
-* ColorMaroon
-* ColorWatermelon
-* ColorTomato
-* ColorPinkLipstick
-* ColorPaleRose
-* ColorCrimson
+* salmonColor
+* brickRedColor
+* easterPinkColor
+* grapefruitColor
+* pinkColor
+* indianRedColor
+* strawberryColor
+* coralColor
+* maroonColor
+* watermelonColor
+* tomatoColor
+* pinkLipstickColor
+* paleRoseColor
+* crimsonColor
 
 **Purples**
 
-* ColorEggplant
-* ColorPastelPurple
-* ColorPalePurple
-* ColorCoolPurple
-* ColorViolet
-* ColorPlum
-* ColorLavender
-* ColorRaspberry
-* ColorFuschia
-* ColorGrape
-* ColorPeriwinkle
-* ColorOrchid
+* eggplantColor
+* pastelPurpleColor
+* palePurpleColor
+* coolPurpleColor
+* violetColor
+* plumColor
+* lavenderColor
+* raspberryColor
+* fuschiaColor
+* grapeColor
+* periwinkleColor
+* orchidColor
 
 **Yellows**
 
-* ColorGoldenrod
-* ColorYellowGreen
-* ColorBanana
-* ColorMustard
-* ColorButtermilk
-* ColorGold
-* ColorCream
-* ColorLightCream
-* ColorWheat
-* ColorBeige
+* goldenrodColor
+* yellowGreenColor
+* bananaColor
+* mustardColor
+* buttermilkColor
+* goldColor
+* creamColor
+* lightCreamColor
+* wheatColor
+* beigeColor
 
 **Oranges**
 
-* ColorPeach
-* ColorBurntOrange
-* ColorPastelOrange
-* ColorCantaloupe
-* ColorCarrot
-* ColorMandarin
+* peachColor
+* burntOrangeColor
+* pastelOrangeColor
+* cantaloupeColor
+* carrotColor
+* mandarinColor
 
 **Browns**
 
-* ColorChiliPowder
-* ColorBurntSienna
-* ColorChocolate
-* ColorCoffee
-* ColorCinnamon
-* ColorAlmond
-* ColorEggshell
-* ColorCoffee
-* ColorSand
-* ColorMud
-* ColorSienna
-* ColorDust
+* chiliPowderColor
+* burntSiennaColor
+* chocolateColor
+* coffeeColor
+* cinnamonColor
+* almondColor
+* eggshellColor
+* coffeeColor
+* sandColor
+* mudColor
+* siennaColor
+* dustColor
 
 ## Colours Methods ##
 
