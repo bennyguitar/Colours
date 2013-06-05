@@ -23,6 +23,13 @@
     return [UIColor colorWithRed:((rgbValue & 0xFF0000) >> 16)/255.0 green:((rgbValue & 0xFF00) >> 8)/255.0 blue:(rgbValue & 0xFF)/255.0 alpha:1.0];
 }
 
+#pragma mark - UIColor from Array
+
++ (UIColor *)colorWithRGBAArray:(NSArray *)rgbaArray {
+    // Takes an array of RGBA int's, and makes a UIColor (shorthand colorWithRed:Green:Blue:Alpha:
+    return [UIColor colorWithRed:(int)rgbaArray[0]/255.0 green:(int)rgbaArray[1]/255.0 blue:(int)rgbaArray[2]/255.0 alpha:(int)rgbaArray[3]/255.0];
+}
+
 #pragma mark - Hex from UIColor
 
 - (NSString *)hexString
@@ -58,6 +65,23 @@
     return @[[NSNumber numberWithFloat:r],[NSNumber numberWithFloat:g],[NSNumber numberWithFloat:b],[NSNumber numberWithFloat:a]];
 }
 
+-(NSDictionary *)rgbaDict {
+    // Takes UIColor and returns RGBA values in a dictionary as NSNumbers
+    float r=0,g=0,b=0,a=0;
+    if ([self respondsToSelector:@selector(getRed:green:blue:alpha:)]) {
+        [self getRed:&r green:&g blue:&b alpha:&a];
+    }
+    else {
+        const CGFloat *components = CGColorGetComponents(self.CGColor);
+        r = components[0];
+        g = components[1];
+        b = components[2];
+        a = components[3];
+    }
+    
+    return @{@"r":[NSNumber numberWithFloat:r], @"g":[NSNumber numberWithFloat:g], @"b":[NSNumber numberWithFloat:b], @"a":[NSNumber numberWithFloat:a]};
+}
+
 #pragma mark - HSBA from UIColor
 
 - (NSArray *)hsbaArray
@@ -70,6 +94,17 @@
     }
     
     return @[[NSNumber numberWithFloat:h],[NSNumber numberWithFloat:s],[NSNumber numberWithFloat:b],[NSNumber numberWithFloat:a]];
+}
+
+-(NSDictionary *)hsbaDict {
+    // Takes a UIColor and returns Hue,Saturation,Brightness,Alpha values in NSNumber form
+    float h=0,s=0,b=0,a=0;
+    
+    if ([self respondsToSelector:@selector(getHue:saturation:brightness:alpha:)]) {
+        [self getHue:&h saturation:&s brightness:&b alpha:&a];
+    }
+    
+    return @{@"h":[NSNumber numberWithFloat:h],@"s":[NSNumber numberWithFloat:s],@"b":[NSNumber numberWithFloat:b],@"a":[NSNumber numberWithFloat:a]};
 }
 
 #pragma mark - Generate Color Scheme
