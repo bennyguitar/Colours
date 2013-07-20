@@ -24,6 +24,7 @@
 		C06758E116F691E000CE7AA1 /* icon114.png in Resources */ = {isa = PBXBuildFile; fileRef = C06758DF16F691E000CE7AA1 /* icon114.png */; };
 		C06758E316F691F500CE7AA1 /* icon57.png in Resources */ = {isa = PBXBuildFile; fileRef = C06758E216F691F500CE7AA1 /* icon57.png */; };
 		C06758E516F691F900CE7AA1 /* icon114.png in Resources */ = {isa = PBXBuildFile; fileRef = C06758E416F691F900CE7AA1 /* icon114.png */; };
+		D326F23C179B19BA0082A676 /* ColorsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = D326F23B179B19BA0082A676 /* ColorsViewController.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -50,6 +51,8 @@
 		C06758DF16F691E000CE7AA1 /* icon114.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = icon114.png; sourceTree = "<group>"; };
 		C06758E216F691F500CE7AA1 /* icon57.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = icon57.png; sourceTree = "<group>"; };
 		C06758E416F691F900CE7AA1 /* icon114.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = icon114.png; sourceTree = "<group>"; };
+		D326F23A179B19BA0082A676 /* ColorsViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ColorsViewController.h; sourceTree = "<group>"; };
+		D326F23B179B19BA0082A676 /* ColorsViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ColorsViewController.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -108,6 +111,8 @@
 				C06758CE16F6824200CE7AA1 /* ViewController.m */,
 				C06758D016F6824200CE7AA1 /* ViewController.xib */,
 				C06758BC16F6824200CE7AA1 /* Supporting Files */,
+				D326F23A179B19BA0082A676 /* ColorsViewController.h */,
+				D326F23B179B19BA0082A676 /* ColorsViewController.m */,
 			);
 			path = ColoursDemo;
 			sourceTree = "<group>";
@@ -202,6 +207,7 @@
 				C06758C616F6824200CE7AA1 /* AppDelegate.m in Sources */,
 				C06758CF16F6824200CE7AA1 /* ViewController.m in Sources */,
 				0935EC3E170D6BD200DCA335 /* UIColor+Colours.m in Sources */,
+				D326F23C179B19BA0082A676 /* ColorsViewController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
