@@ -9,6 +9,7 @@
 #import "AppDelegate.h"
 
 #import "ViewController.h"
+#import "ColorsViewController.h"
 
 @implementation AppDelegate
 
@@ -17,7 +18,15 @@
     self.window = [[UIWindow alloc] initWithFrame:[[UIScreen mainScreen] bounds]];
     // Override point for customization after application launch.
     self.viewController = [[ViewController alloc] initWithNibName:@"ViewController" bundle:nil];
-    self.window.rootViewController = self.viewController;
+    self.viewController.tabBarItem.title = @"Demo";
+
+    ColorsViewController *colorsController = [[ColorsViewController alloc] initWithStyle:UITableViewStylePlain];
+    colorsController.tabBarItem.title = @"Colors";
+
+    UITabBarController *tab = [[UITabBarController alloc] init];
+    tab.viewControllers = @[self.viewController, colorsController];
+
+    self.window.rootViewController = tab;
     [self.window makeKeyAndVisible];
     return YES;
 }
