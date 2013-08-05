@@ -32,9 +32,6 @@ typedef enum
 // Generate Color Scheme
 - (NSArray *)colorSchemeOfType:(ColorScheme)type;
 
-// Contrasting Color
-- (UIColor*)blackOrWhiteContrastingColor;
-
 // System Colors
 + (UIColor *)infoBlueColor;
 + (UIColor *)successColor;
