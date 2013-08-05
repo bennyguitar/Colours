@@ -189,6 +189,24 @@
     }
 }
 
+#pragma mark - Contrasting Color
+
+- (UIColor*)blackOrWhiteContrastingColor {
+    const CGFloat *components = CGColorGetComponents(self.CGColor);
+    CGFloat red = components[0];
+    CGFloat green = components[1];
+    CGFloat blue = components[2];
+    
+    double a = 1 - ( (0.299 * red) + (0.587 * green) + (0.114 * blue));
+    if ( a < 0.5) {
+        //return black
+        return [UIColor colorWithRed:0.0 green:0.0 blue:0.0 alpha:1.0];
+    } else {
+        //return white
+        return [UIColor colorWithRed:1.0 green:1.0 blue:1.0 alpha:1.0];
+    }
+}
+
 #pragma mark - System Colors
 
 + (UIColor *)infoBlueColor
