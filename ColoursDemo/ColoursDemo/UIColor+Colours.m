@@ -28,6 +28,18 @@
 + (UIColor *)colorWithRGBAArray:(NSArray *)rgbaArray {
     // Takes an array of RGBA int's, and makes a UIColor (shorthand colorWithRed:Green:Blue:Alpha:
     return [UIColor colorWithRed:(int)rgbaArray[0]/255.0 green:(int)rgbaArray[1]/255.0 blue:(int)rgbaArray[2]/255.0 alpha:(int)rgbaArray[3]/255.0];
++ (UIColor *)colorWithCMKY:(NSArray *)cmykValues{
+    int c = [cmykValues[0] floatValue];
+    int m = [cmykValues[1] floatValue];
+    int y = [cmykValues[2] floatValue];
+    int k = [cmykValues[3] floatValue];
+    
+    NSArray *rgbaArray = @[[NSNumber numberWithFloat:255 * (1-c) * (1-k)],
+                           [NSNumber numberWithFloat:255 * (1-m) * (1-k)],
+                           [NSNumber numberWithFloat:255 * (1-y) * (1-k)],
+                           [NSNumber numberWithFloat:1]];
+    
+    return [self colorWithRGBAArray:rgbaArray];
 }
 
 #pragma mark - Hex from UIColor
