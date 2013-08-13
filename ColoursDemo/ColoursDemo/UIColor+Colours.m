@@ -27,7 +27,14 @@
 
 + (UIColor *)colorWithRGBAArray:(NSArray *)rgbaArray {
     // Takes an array of RGBA int's, and makes a UIColor (shorthand colorWithRed:Green:Blue:Alpha:
-    return [UIColor colorWithRed:(int)rgbaArray[0]/255.0 green:(int)rgbaArray[1]/255.0 blue:(int)rgbaArray[2]/255.0 alpha:(int)rgbaArray[3]/255.0];
+    int r = [rgbaArray [0] floatValue]/255.0;
+    int g = [rgbaArray [1] floatValue]/255.0;
+    int b = [rgbaArray [2] floatValue]/255.0;
+    int a = [rgbaArray [3] floatValue];
+    
+    return [UIColor colorWithRed:r green:g blue:b alpha:a];
+}
+
 + (UIColor *)colorWithCMKY:(NSArray *)cmykValues{
     int c = [cmykValues[0] floatValue];
     int m = [cmykValues[1] floatValue];
