@@ -27,6 +27,22 @@
     [colorScroll addSubview:scrollContentView];
     [colorScroll setContentSize:CGSizeMake(scrollContentView.frame.size.width, scrollContentView.frame.size.height)];
     [colorScroll setContentOffset:CGPointZero];
+    
+    [self testCMYKConversion];
+}
+
+-(void)testCMYKConversion{
+    
+    UIColor *blue = [UIColor colorWithCMKY:@[
+                     [NSNumber numberWithFloat:1],
+                     [NSNumber numberWithFloat:1],
+                     [NSNumber numberWithFloat:0],
+                     [NSNumber numberWithFloat:0]
+                     ]];
+    NSLog(@"Blue rgb value should be 0:0:255; Result:%@",blue.rgbaValues);
+    NSLog(@"Blue rgb percent should be 0:0:1; Result:%@",blue.rgbaArray);
+    NSLog(@"Blue hex should be #0000FF; Result:%@",blue.hexString);
+
 }
 
 #pragma mark - UI for Demo
