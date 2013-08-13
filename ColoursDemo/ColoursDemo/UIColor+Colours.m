@@ -27,7 +27,26 @@
 
 + (UIColor *)colorWithRGBAArray:(NSArray *)rgbaArray {
     // Takes an array of RGBA int's, and makes a UIColor (shorthand colorWithRed:Green:Blue:Alpha:
-    return [UIColor colorWithRed:(int)rgbaArray[0]/255.0 green:(int)rgbaArray[1]/255.0 blue:(int)rgbaArray[2]/255.0 alpha:(int)rgbaArray[3]/255.0];
+    int r = [rgbaArray [0] floatValue]/255.0;
+    int g = [rgbaArray [1] floatValue]/255.0;
+    int b = [rgbaArray [2] floatValue]/255.0;
+    int a = [rgbaArray [3] floatValue];
+    
+    return [UIColor colorWithRed:r green:g blue:b alpha:a];
+}
+
++ (UIColor *)colorWithCMKY:(NSArray *)cmykValues{
+    int c = [cmykValues[0] floatValue];
+    int m = [cmykValues[1] floatValue];
+    int y = [cmykValues[2] floatValue];
+    int k = [cmykValues[3] floatValue];
+    
+    NSArray *rgbaArray = @[[NSNumber numberWithFloat:255 * (1-c) * (1-k)],
+                           [NSNumber numberWithFloat:255 * (1-m) * (1-k)],
+                           [NSNumber numberWithFloat:255 * (1-y) * (1-k)],
+                           [NSNumber numberWithFloat:1]];
+    
+    return [self colorWithRGBAArray:rgbaArray];
 }
 
 #pragma mark - Hex from UIColor
@@ -80,6 +99,20 @@
     }
     
     return @{@"r":[NSNumber numberWithFloat:r], @"g":[NSNumber numberWithFloat:g], @"b":[NSNumber numberWithFloat:b], @"a":[NSNumber numberWithFloat:a]};
+}
+
+- (NSArray *)rgbaValues{
+    NSArray *color = [self rgbaArray];
+    float r,g,b,a;
+    r = [color[0] floatValue] * 255;
+    g = [color[1] floatValue] * 255;
+    b = [color[2] floatValue] * 255;
+    a = [color[3] floatValue];
+    
+    return @[[NSNumber numberWithFloat:r],
+             [NSNumber numberWithFloat:g],
+             [NSNumber numberWithFloat:b],
+             [NSNumber numberWithFloat:a]];    
 }
 
 #pragma mark - HSBA from UIColor
