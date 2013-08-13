@@ -101,6 +101,20 @@
     return @{@"r":[NSNumber numberWithFloat:r], @"g":[NSNumber numberWithFloat:g], @"b":[NSNumber numberWithFloat:b], @"a":[NSNumber numberWithFloat:a]};
 }
 
+- (NSArray *)rgbaValues{
+    NSArray *color = [self rgbaArray];
+    float r,g,b,a;
+    r = [color[0] floatValue] * 255;
+    g = [color[1] floatValue] * 255;
+    b = [color[2] floatValue] * 255;
+    a = [color[3] floatValue];
+    
+    return @[[NSNumber numberWithFloat:r],
+             [NSNumber numberWithFloat:g],
+             [NSNumber numberWithFloat:b],
+             [NSNumber numberWithFloat:a]];    
+}
+
 #pragma mark - HSBA from UIColor
 
 - (NSArray *)hsbaArray

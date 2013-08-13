@@ -25,7 +25,8 @@ typedef enum
 + (UIColor *)colorWithRGBAArray:(NSArray *)rgbaArray;
 + (UIColor *)colorWithCMKY:(NSArray *)cmykValues;
 - (NSString *)hexString;
-- (NSArray *)rgbaArray;
+- (NSArray *)rgbaArray;//returns the rgba as percents
+- (NSArray *)rgbaValues;//returns rgba as actual rgb values
 - (NSArray *)hsbaArray;
 - (NSDictionary *)rgbaDict;
 - (NSDictionary *)hsbaDict;
