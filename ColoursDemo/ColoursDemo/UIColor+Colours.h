@@ -22,8 +22,9 @@ typedef enum
 
 // Color Methods
 + (UIColor *)colorFromHexString:(NSString *)hexString;
++ (UIColor *) colorWithHexNumber:(UInt32)hex andAlpha:(CGFloat)alpha;
 + (UIColor *)colorWithRGBAArray:(NSArray *)rgbaArray;
-+ (UIColor *)colorWithCMKY:(NSArray *)cmykValues;
++ (UIColor *)colorWithCMYK:(NSArray *)cmykValues;
 - (NSString *)hexString;
 - (NSArray *)rgbaArray;//returns the rgba as percents
 - (NSArray *)rgbaValues;//returns rgba as actual rgb values
