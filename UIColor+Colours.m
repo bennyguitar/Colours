@@ -325,7 +325,7 @@
 	return [UIColor colorWithRed:112/255.0f green:219/255.0f blue:219/255.0f alpha:1.0];
 }
 
-+ (UIColor *)skyeBlueColor
++ (UIColor *)skyBlueColor
 {
 	return [UIColor colorWithRed:0/255.0f green:178/255.0f blue:238/255.0f alpha:1.0];
 }

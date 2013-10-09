@@ -64,7 +64,7 @@ typedef enum
 + (UIColor *)robinEggColor;
 + (UIColor *)pastelBlueColor;
 + (UIColor *)turquoiseColor;
-+ (UIColor *)skyeBlueColor;
++ (UIColor *)skyBlueColor;
 + (UIColor *)indigoColor;
 + (UIColor *)denimColor;
 + (UIColor *)blueberryColor;
