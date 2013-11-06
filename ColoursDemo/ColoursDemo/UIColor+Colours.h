@@ -22,12 +22,10 @@ typedef enum
 
 // Color Methods
 + (UIColor *)colorFromHexString:(NSString *)hexString;
-+ (UIColor *) colorWithHexNumber:(UInt32)hex andAlpha:(CGFloat)alpha;
 + (UIColor *)colorWithRGBAArray:(NSArray *)rgbaArray;
-+ (UIColor *)colorWithCMYK:(NSArray *)cmykValues;
++ (UIColor *)colorWithRGBADict:(NSDictionary *)rgbaDict;
 - (NSString *)hexString;
-- (NSArray *)rgbaArray;//returns the rgba as percents
-- (NSArray *)rgbaValues;//returns rgba as actual rgb values
+- (NSArray *)rgbaArray;
 - (NSArray *)hsbaArray;
 - (NSDictionary *)rgbaDict;
 - (NSDictionary *)hsbaDict;
@@ -35,6 +33,9 @@ typedef enum
 // Generate Color Scheme
 - (NSArray *)colorSchemeOfType:(ColorScheme)type;
 
+// Contrasting Color
+- (UIColor *)blackOrWhiteContrastingColor;
+    
 // System Colors
 + (UIColor *)infoBlueColor;
 + (UIColor *)successColor;
@@ -64,7 +65,7 @@ typedef enum
 + (UIColor *)robinEggColor;
 + (UIColor *)pastelBlueColor;
 + (UIColor *)turquoiseColor;
-+ (UIColor *)skyeBlueColor;
++ (UIColor *)skyBlueColor;
 + (UIColor *)indigoColor;
 + (UIColor *)denimColor;
 + (UIColor *)blueberryColor;

@@ -6,13 +6,13 @@
 //  Copyright (c) 2013 Ben Gordon. All rights reserved.
 //
 
-#import "ViewController.h"
+#import "ColoursDemoViewController.h"
 
-@interface ViewController ()
+@interface ColoursDemoViewController ()
 
 @end
 
-@implementation ViewController
+@implementation ColoursDemoViewController
 
 - (void)viewDidLoad
 {
@@ -22,30 +22,11 @@
     [self setColorsForMonochromaticColorScheme:[UIColor seafoamColor]];
     [self setColorsForTriadColorScheme:[UIColor seafoamColor]];
     [self setColorsForComplementaryColorScheme:[UIColor seafoamColor]];
-    
-    // Set Up Scroll
-    [colorScroll addSubview:scrollContentView];
-    [colorScroll setContentSize:CGSizeMake(scrollContentView.frame.size.width, scrollContentView.frame.size.height)];
-    [colorScroll setContentOffset:CGPointZero];
-    
-    [self testCMYKConversion];
-}
-
--(void)testCMYKConversion{
-    
-    UIColor *blue = [UIColor colorWithCMYK:@[
-                     [NSNumber numberWithFloat:1],
-                     [NSNumber numberWithFloat:1],
-                     [NSNumber numberWithFloat:0],
-                     [NSNumber numberWithFloat:0]
-                     ]];
-    NSLog(@"Blue rgb value should be 0:0:255; Result:%@",blue.rgbaValues);
-    NSLog(@"Blue rgb percent should be 0:0:1; Result:%@",blue.rgbaArray);
-    NSLog(@"Blue hex should be #0000FF; Result:%@",blue.hexString);
 }
 
 #pragma mark - UI for Demo
--(void)buildButtons {
+-(void)buildButtons
+{
     // Make shadows and set corner radius for buttons
     NSArray *btnArray = @[infoBlue,successBtn,warningBtn,dangerBtn,tealBtn,grapefruitBtn,bananaBtn,robinEggBtn,peachBtn,seafoamBtn,salmonBtn,warmGrayBtn];
     for (UIView *btn in btnArray) {
@@ -68,7 +49,8 @@
     warmGrayBtn.backgroundColor = [UIColor warmGrayColor];
 }
 
--(void)setColorsForAnalagousColorScheme:(UIColor *)color {
+-(void)setColorsForAnalagousColorScheme:(UIColor *)color
+{
 	NSArray *colorScheme = [color colorSchemeOfType:ColorSchemeAnalagous];
     anColor1.backgroundColor = colorScheme[0];
     anColor2.backgroundColor = colorScheme[1];
@@ -77,7 +59,8 @@
     anColor5.backgroundColor = colorScheme[3];
 }
 
--(void)setColorsForMonochromaticColorScheme:(UIColor *)color {
+-(void)setColorsForMonochromaticColorScheme:(UIColor *)color
+{
     NSArray *colorScheme = [color colorSchemeOfType:ColorSchemeMonochromatic];
     monColor1.backgroundColor = colorScheme[0];
     monColor2.backgroundColor = colorScheme[1];
@@ -86,7 +69,8 @@
     monColor5.backgroundColor = colorScheme[3];
 }
 
--(void)setColorsForTriadColorScheme:(UIColor *)color {
+-(void)setColorsForTriadColorScheme:(UIColor *)color
+{
     NSArray *colorScheme = [color colorSchemeOfType:ColorSchemeTriad];
     triColor1.backgroundColor = colorScheme[0];
     triColor2.backgroundColor = colorScheme[1];
@@ -95,7 +79,8 @@
     triColor5.backgroundColor = colorScheme[3];
 }
 
--(void)setColorsForComplementaryColorScheme:(UIColor *)color {
+-(void)setColorsForComplementaryColorScheme:(UIColor *)color
+{
     NSArray *colorScheme = [color colorSchemeOfType:ColorSchemeComplementary];
     comColor1.backgroundColor = colorScheme[0];
     comColor1.backgroundColor = colorScheme[1];
@@ -105,7 +90,8 @@
 }
 
 
--(void)makeShadowForView:(UIView *)view withCornerRadius:(float)radius {
+-(void)makeShadowForView:(UIView *)view withCornerRadius:(float)radius
+{
     view.layer.shadowColor = [UIColor blackColor].CGColor;
     view.layer.shadowOpacity = 0.4f;
     view.layer.shadowOffset = CGSizeMake(0.0f, 2.0f);

@@ -8,6 +8,9 @@
 
 #import <UIKit/UIKit.h>
 
-@interface ColorsViewController : UITableViewController
+
+
+@interface ColoursListTableViewController : UITableViewController
+
 
 @end
