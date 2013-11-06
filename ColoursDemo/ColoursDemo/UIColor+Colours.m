@@ -12,47 +12,29 @@
 
 #pragma mark - UIColor from Hex
 
-+ (UIColor *)colorFromHexString:(NSString *)hexString {
++ (UIColor *)colorFromHexString:(NSString *)hexString
+{
     unsigned rgbValue = 0;
     hexString = [hexString stringByReplacingOccurrencesOfString:@"#" withString:@""];
     NSScanner *scanner = [NSScanner scannerWithString:hexString];
 	
     [scanner scanHexInt:&rgbValue];
 	
-    return [UIColor colorWithHexNumber:rgbValue andAlpha:1.0];
+    return [UIColor colorWithRed:((rgbValue & 0xFF0000) >> 16)/255.0 green:((rgbValue & 0xFF00) >> 8)/255.0 blue:(rgbValue & 0xFF)/255.0 alpha:1.0];
 }
 
-+ (UIColor *) colorWithHexNumber:(UInt32)hex andAlpha:(CGFloat)alpha {
-    return [UIColor colorWithRed:((hex >> 16) & 0xFF) / 255.0
-                           green:((hex >> 8) & 0xFF) / 255.0
-                            blue:(hex & 0xFF) / 255.0
-                           alpha:alpha];
+#pragma mark - UIColor from RGBA
+
++ (UIColor *)colorWithRGBAArray:(NSArray *)rgbaArray
+{
+    // Takes an array of RGBA int's as NSNumbers, and makes a UIColor (shorthand colorWithRed:Green:Blue:Alpha:
+    return [UIColor colorWithRed:[rgbaArray[0] intValue]/255.0 green:[rgbaArray[1] intValue]/255.0 blue:[rgbaArray[2] intValue]/255.0 alpha:[rgbaArray[3] intValue]/255.0];
 }
 
-#pragma mark - UIColor from Array
-
-+ (UIColor *)colorWithRGBAArray:(NSArray *)rgbaArray {
-    // Takes an array of RGBA int's, and makes a UIColor (shorthand colorWithRed:Green:Blue:Alpha:
-    int r = [rgbaArray [0] floatValue]/255.0;
-    int g = [rgbaArray [1] floatValue]/255.0;
-    int b = [rgbaArray [2] floatValue]/255.0;
-    int a = [rgbaArray [3] floatValue];
-    
-    return [UIColor colorWithRed:r green:g blue:b alpha:a];
-}
-
-+ (UIColor *)colorWithCMYK:(NSArray *)cmykValues{
-    int c = [cmykValues[0] floatValue];
-    int m = [cmykValues[1] floatValue];
-    int y = [cmykValues[2] floatValue];
-    int k = [cmykValues[3] floatValue];
-    
-    NSArray *rgbaArray = @[[NSNumber numberWithFloat:255 * (1-c) * (1-k)],
-                           [NSNumber numberWithFloat:255 * (1-m) * (1-k)],
-                           [NSNumber numberWithFloat:255 * (1-y) * (1-k)],
-                           [NSNumber numberWithFloat:1]];
-    
-    return [self colorWithRGBAArray:rgbaArray];
++ (UIColor *)colorWithRGBADict:(NSDictionary *)rgbaDict
+{
+    // Takes an dictionary of RGBA int's as NSNumbers, and makes a UIColor (shorthand colorWithRed:Green:Blue:Alpha:
+    return [UIColor colorWithRed:[rgbaDict[@"r"] intValue]/255.0 green:[rgbaDict[@"g"] intValue]/255.0 blue:[rgbaDict[@"b"] intValue]/255.0 alpha:[rgbaDict[@"a"] intValue]/255.0];
 }
 
 #pragma mark - Hex from UIColor
@@ -90,7 +72,8 @@
     return @[[NSNumber numberWithFloat:r],[NSNumber numberWithFloat:g],[NSNumber numberWithFloat:b],[NSNumber numberWithFloat:a]];
 }
 
--(NSDictionary *)rgbaDict {
+- (NSDictionary *)rgbaDict
+{
     // Takes UIColor and returns RGBA values in a dictionary as NSNumbers
     float r=0,g=0,b=0,a=0;
     if ([self respondsToSelector:@selector(getRed:green:blue:alpha:)]) {
@@ -107,20 +90,6 @@
     return @{@"r":[NSNumber numberWithFloat:r], @"g":[NSNumber numberWithFloat:g], @"b":[NSNumber numberWithFloat:b], @"a":[NSNumber numberWithFloat:a]};
 }
 
-- (NSArray *)rgbaValues{
-    NSArray *color = [self rgbaArray];
-    float r,g,b,a;
-    r = [color[0] floatValue] * 255;
-    g = [color[1] floatValue] * 255;
-    b = [color[2] floatValue] * 255;
-    a = [color[3] floatValue];
-    
-    return @[[NSNumber numberWithFloat:r],
-             [NSNumber numberWithFloat:g],
-             [NSNumber numberWithFloat:b],
-             [NSNumber numberWithFloat:a]];    
-}
-
 #pragma mark - HSBA from UIColor
 
 - (NSArray *)hsbaArray
@@ -135,7 +104,8 @@
     return @[[NSNumber numberWithFloat:h],[NSNumber numberWithFloat:s],[NSNumber numberWithFloat:b],[NSNumber numberWithFloat:a]];
 }
 
--(NSDictionary *)hsbaDict {
+-(NSDictionary *)hsbaDict
+{
     // Takes a UIColor and returns Hue,Saturation,Brightness,Alpha values in NSNumber form
     float h=0,s=0,b=0,a=0;
     
@@ -225,6 +195,25 @@
     }
     else {
         return staticDeg;
+    }
+}
+
+#pragma mark - Contrasting Color
+
+- (UIColor *)blackOrWhiteContrastingColor
+{
+    const CGFloat *components = CGColorGetComponents(self.CGColor);
+    CGFloat red = components[0];
+    CGFloat green = components[1];
+    CGFloat blue = components[2];
+    
+    double a = 1 - ((0.299 * red) + (0.587 * green) + (0.114 * blue));
+    if ( a < 0.5) {
+        //return black
+        return [UIColor colorWithRed:0.0 green:0.0 blue:0.0 alpha:1.0];
+    } else {
+        //return white
+        return [UIColor colorWithRed:1.0 green:1.0 blue:1.0 alpha:1.0];
     }
 }
 
@@ -346,7 +335,7 @@
 	return [UIColor colorWithRed:112/255.0f green:219/255.0f blue:219/255.0f alpha:1.0];
 }
 
-+ (UIColor *)skyeBlueColor
++ (UIColor *)skyBlueColor
 {
 	return [UIColor colorWithRed:0/255.0f green:178/255.0f blue:238/255.0f alpha:1.0];
 }

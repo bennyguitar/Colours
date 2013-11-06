@@ -3,6 +3,7 @@
 //
 
 #import <Availability.h>
+#import "UIColor+Colours.h"
 
 #ifndef __IPHONE_4_0
 #warning "This project uses features only available in iOS SDK 4.0 and later."
@@ -12,3 +13,4 @@
     #import <UIKit/UIKit.h>
     #import <Foundation/Foundation.h>
 #endif
+

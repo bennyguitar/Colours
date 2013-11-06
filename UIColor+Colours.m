@@ -23,11 +23,18 @@
     return [UIColor colorWithRed:((rgbValue & 0xFF0000) >> 16)/255.0 green:((rgbValue & 0xFF00) >> 8)/255.0 blue:(rgbValue & 0xFF)/255.0 alpha:1.0];
 }
 
-#pragma mark - UIColor from Array
+#pragma mark - UIColor from RGBA
 
-+ (UIColor *)colorWithRGBAArray:(NSArray *)rgbaArray {
-    // Takes an array of RGBA int's, and makes a UIColor (shorthand colorWithRed:Green:Blue:Alpha:
-    return [UIColor colorWithRed:(int)rgbaArray[0]/255.0 green:(int)rgbaArray[1]/255.0 blue:(int)rgbaArray[2]/255.0 alpha:(int)rgbaArray[3]/255.0];
++ (UIColor *)colorWithRGBAArray:(NSArray *)rgbaArray
+{
+    // Takes an array of RGBA int's as NSNumbers, and makes a UIColor (shorthand colorWithRed:Green:Blue:Alpha:
+    return [UIColor colorWithRed:[rgbaArray[0] intValue]/255.0 green:[rgbaArray[1] intValue]/255.0 blue:[rgbaArray[2] intValue]/255.0 alpha:[rgbaArray[3] intValue]/255.0];
+}
+
++ (UIColor *)colorWithRGBADict:(NSDictionary *)rgbaDict
+{
+    // Takes an dictionary of RGBA int's as NSNumbers, and makes a UIColor (shorthand colorWithRed:Green:Blue:Alpha:
+    return [UIColor colorWithRed:[rgbaDict[@"r"] intValue]/255.0 green:[rgbaDict[@"g"] intValue]/255.0 blue:[rgbaDict[@"b"] intValue]/255.0 alpha:[rgbaDict[@"a"] intValue]/255.0];
 }
 
 #pragma mark - Hex from UIColor
@@ -65,7 +72,8 @@
     return @[[NSNumber numberWithFloat:r],[NSNumber numberWithFloat:g],[NSNumber numberWithFloat:b],[NSNumber numberWithFloat:a]];
 }
 
--(NSDictionary *)rgbaDict {
+- (NSDictionary *)rgbaDict
+{
     // Takes UIColor and returns RGBA values in a dictionary as NSNumbers
     float r=0,g=0,b=0,a=0;
     if ([self respondsToSelector:@selector(getRed:green:blue:alpha:)]) {
@@ -96,7 +104,8 @@
     return @[[NSNumber numberWithFloat:h],[NSNumber numberWithFloat:s],[NSNumber numberWithFloat:b],[NSNumber numberWithFloat:a]];
 }
 
--(NSDictionary *)hsbaDict {
+-(NSDictionary *)hsbaDict
+{
     // Takes a UIColor and returns Hue,Saturation,Brightness,Alpha values in NSNumber form
     float h=0,s=0,b=0,a=0;
     
@@ -191,13 +200,14 @@
 
 #pragma mark - Contrasting Color
 
-- (UIColor *)blackOrWhiteContrastingColor {
+- (UIColor *)blackOrWhiteContrastingColor
+{
     const CGFloat *components = CGColorGetComponents(self.CGColor);
     CGFloat red = components[0];
     CGFloat green = components[1];
     CGFloat blue = components[2];
     
-    double a = 1 - ( (0.299 * red) + (0.587 * green) + (0.114 * blue));
+    double a = 1 - ((0.299 * red) + (0.587 * green) + (0.114 * blue));
     if ( a < 0.5) {
         //return black
         return [UIColor colorWithRed:0.0 green:0.0 blue:0.0 alpha:1.0];

@@ -6,15 +6,16 @@
 //  Copyright (c) 2013 Ben Gordon. All rights reserved.
 //
 
-#import "ColorsViewController.h"
+#import "ColoursListTableViewController.h"
+#import "UIColor+Colours.h"
 
-@interface ColorsViewController ()
+@interface ColoursListTableViewController ()
 
 @property (nonatomic, strong) NSArray *colors;
 
 @end
 
-@implementation ColorsViewController
+@implementation ColoursListTableViewController
 
 - (id)initWithStyle:(UITableViewStyle)style
 {
@@ -145,33 +146,50 @@
 
 #pragma mark - UITableViewDatasource
 
-- (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
+- (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
+{
     return 1;
 }
 
-- (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
+- (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
+{
     return self.colors.count;
 }
 
-- (void)configureCell:(UITableViewCell *)cell atIndexPath:(NSIndexPath *)indexPath {
-    NSString *name = [self.colors objectAtIndex:indexPath.row];
-    cell.textLabel.text = name;
+- (void)configureCell:(UITableViewCell *)cell atIndexPath:(NSIndexPath *)indexPath
+{
+    NSString *colorName = [self.colors objectAtIndex:indexPath.row];
+    
+    cell.textLabel.text = colorName;
     cell.textLabel.backgroundColor = [UIColor clearColor];
     cell.textLabel.textAlignment = NSTextAlignmentCenter;
-    SEL selector = NSSelectorFromString([NSString stringWithFormat:@"%@Color", name]);
-    UIView *background = [[UIView alloc] init];
+    
+    // The class constructor for the relevant UIColor is <color name>Color
+    SEL selector = NSSelectorFromString([NSString stringWithFormat:@"%@Color", colorName]);
+    
     if ([[UIColor class] respondsToSelector:selector]) {
+        
+// Suppress perform selector leak compiler warning
 #pragma clang diagnostic push
 #pragma clang diagnostic ignored "-Warc-performSelector-leaks"
-        background.backgroundColor = (UIColor *)[[UIColor class] performSelector:selector];
+        UIColor *cellColor = (UIColor *)[[UIColor class] performSelector:selector];
 #pragma diagnostic pop
+        
+        cell.backgroundColor = cellColor;
+        
+        // On iOS 6, setting cell.backgroundColor does not have any effect
+        // We need to set the contentView's backgroundColor
+        cell.contentView.backgroundColor = cellColor;
+        
+        // Set text label color to white or black - whatever contrasts with cellColor most
+        [cell.textLabel setTextColor:[cellColor blackOrWhiteContrastingColor]];
     }
-    cell.backgroundView = background;
 }
 
-- (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
+- (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
+{
     static NSString *CellIdentifier = @"Cell";
-
+    
     UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier];
     if (cell == nil) {
         cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:CellIdentifier];
@@ -184,7 +202,8 @@
 
 #pragma mark - UITableViewDelegate
 
-- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
+- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
+{
     [tableView deselectRowAtIndexPath:indexPath animated:YES];
 }
 
