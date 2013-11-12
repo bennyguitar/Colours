@@ -148,7 +148,7 @@ typedef enum
 + (UIColor *)chocolateColor;
 + (UIColor *)coffeeColor;
 + (UIColor *)cinnamonColor;
-+ (UIColor *)almonColor;
++ (UIColor *)almondColor;
 + (UIColor *)eggshellColor;
 + (UIColor *)sandColor;
 + (UIColor *)mudColor;

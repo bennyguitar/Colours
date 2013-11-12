@@ -702,7 +702,7 @@
 	return [UIColor colorWithRed:123/255.0f green:63/255.0f blue:9/255.0f alpha:1.0];
 }
 
-+ (UIColor *)almonColor
++ (UIColor *)almondColor
 {
 	return [UIColor colorWithRed:196/255.0f green:142/255.0f blue:72/255.0f alpha:1.0];
 }
