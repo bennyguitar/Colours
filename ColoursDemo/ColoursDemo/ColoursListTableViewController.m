@@ -136,12 +136,28 @@
                     @"mud",
                     @"sienna",
                     @"dust"];
+    
+    //[self logColorTable];
 }
 
 - (void)didReceiveMemoryWarning
 {
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
+}
+
+- (void)logColorTable {
+    NSMutableString *tableString = [@"<table>" mutableCopy];
+    
+    for (int ii = 0; ii < self.colors.count; ii++) {
+        if (ii % 3 == 0) {
+            [tableString appendFormat:@"%@%@", (ii != 0 ? @"</tr>" : @""), @"<tr>"];
+        }
+        [tableString appendFormat:@"<td><img src=\"https://raw.github.com/bennyguitar/Colours-for-iOS/master/Screenshots/Colors/%d.png\" width=\"50\" height=\"50\" alt=\"%@Color\" /></td><td><b>%@Color</b></td>", ii, self.colors[ii],self.colors[ii]];
+    }
+    
+    [tableString appendString:@"</table>"];
+    NSLog(@"%@", tableString);
 }
 
 #pragma mark - UITableViewDatasource
@@ -183,19 +199,6 @@
         
         // Set text label color to white or black - whatever contrasts with cellColor most
         [cell.textLabel setTextColor:[cellColor blackOrWhiteContrastingColor]];
-        
-        
-        // Save Cell
-        UIView *saveView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, 100, 100)];
-        saveView.backgroundColor = cellColor;
-        UIGraphicsBeginImageContext(saveView.bounds.size);
-        [saveView.layer renderInContext:UIGraphicsGetCurrentContext()];
-        UIImage *viewImage = UIGraphicsGetImageFromCurrentImageContext();
-        UIGraphicsEndImageContext();
-        
-        NSString* pathToCreate = [NSString stringWithFormat:@"/Users/bgordon/Desktop/Colors/%d.png", indexPath.row];
-        NSData *imageData = [NSData dataWithData:UIImagePNGRepresentation(viewImage)];
-        [imageData writeToFile:pathToCreate atomically:YES];
     }
 }
 
