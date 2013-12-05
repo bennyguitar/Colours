@@ -183,6 +183,19 @@
         
         // Set text label color to white or black - whatever contrasts with cellColor most
         [cell.textLabel setTextColor:[cellColor blackOrWhiteContrastingColor]];
+        
+        
+        // Save Cell
+        UIView *saveView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, 100, 100)];
+        saveView.backgroundColor = cellColor;
+        UIGraphicsBeginImageContext(saveView.bounds.size);
+        [saveView.layer renderInContext:UIGraphicsGetCurrentContext()];
+        UIImage *viewImage = UIGraphicsGetImageFromCurrentImageContext();
+        UIGraphicsEndImageContext();
+        
+        NSString* pathToCreate = [NSString stringWithFormat:@"/Users/bgordon/Desktop/Colors/%d.png", indexPath.row];
+        NSData *imageData = [NSData dataWithData:UIImagePNGRepresentation(viewImage)];
+        [imageData writeToFile:pathToCreate atomically:YES];
     }
 }
 

@@ -33,7 +33,7 @@
 
 + (UIColor *)colorWithRGBADict:(NSDictionary *)rgbaDict
 {
-    // Takes an dictionary of RGBA int's as NSNumbers, and makes a UIColor (shorthand colorWithRed:Green:Blue:Alpha:
+    // Takes a dictionary of RGBA int's as NSNumbers, and makes a UIColor (shorthand colorWithRed:Green:Blue:Alpha:
     return [UIColor colorWithRed:[rgbaDict[@"r"] intValue]/255.0 green:[rgbaDict[@"g"] intValue]/255.0 blue:[rgbaDict[@"b"] intValue]/255.0 alpha:[rgbaDict[@"a"] intValue]/255.0];
 }
 
@@ -226,7 +226,7 @@
 
 + (UIColor *)successColor
 {
-	return [UIColor colorWithRed:25/255.0f green:188/255.0f blue:63/255.0f alpha:1.0];
+	return [UIColor colorWithRed:83/255.0f green:215/255.0f blue:106/255.0f alpha:1.0];
 }
 
 + (UIColor *)warningColor
