@@ -117,7 +117,7 @@
              @(a)];
 }
 
--(NSDictionary *)hsbaDictionary
+- (NSDictionary *)hsbaDictionary
 {
     // Takes a UIColor and returns Hue,Saturation,Brightness,Alpha values in NSNumber form
     float h=0,s=0,b=0,a=0;

@@ -30,7 +30,7 @@ typedef enum
 - (NSArray *)rgbaArray;
 - (NSArray *)hsbaArray;
 - (NSDictionary *)rgbaDictionary;
-- (NSDictionary *)hsbaDictionay;
+- (NSDictionary *)hsbaDictionary;
 
 // Generate Color Scheme
 - (NSArray *)colorSchemeOfType:(ColorScheme)type;
