@@ -52,7 +52,6 @@
 + (UIColor *)colorFromRGBADictionary:(NSDictionary *)rgbaDict
 {
     if (rgbaDict[@"r"] && rgbaDict[@"g"] && rgbaDict[@"b"] && rgbaDict[@"a"]) {
-        // Takes an dictionary of RGBA float's as NSNumbers, and makes a UIColor (shorthand colorWithRed:Green:Blue:Alpha:
         return [UIColor colorWithRed:[rgbaDict[@"r"] floatValue] green:[rgbaDict[@"g"] floatValue] blue:[rgbaDict[@"b"] floatValue] alpha:[rgbaDict[@"a"] floatValue]];
     }
     
@@ -137,14 +136,13 @@
         return [UIColor clearColor];
     }
     
-    return [UIColor colorWithHue:[hsbaArray[0] floatValue] saturation:[hsbaArray[1] floatValue] brightness:[hsbaArray[2] floatValue] alpha:[hsbaArray[3] floatValue]];
+    return [UIColor colorWithHue:[hsbaArray[0] doubleValue] saturation:[hsbaArray[1] doubleValue] brightness:[hsbaArray[2] doubleValue] alpha:[hsbaArray[3] doubleValue]];
 }
 
 + (UIColor *)colorFromHSBADictionary:(NSDictionary *)hsbaDict
 {
     if (hsbaDict[@"h"] && hsbaDict[@"s"] && hsbaDict[@"b"] && hsbaDict[@"a"]) {
-        // Takes an dictionary of RGBA float's as NSNumbers, and makes a UIColor (shorthand colorWithRed:Green:Blue:Alpha:
-        return [UIColor colorWithRed:[hsbaDict[@"h"] floatValue] green:[hsbaDict[@"s"] floatValue] blue:[hsbaDict[@"b"] floatValue] alpha:[hsbaDict[@"a"] floatValue]];
+        return [UIColor colorWithHue:[hsbaDict[@"h"] doubleValue] saturation:[hsbaDict[@"s"] doubleValue] brightness:[hsbaDict[@"b"] doubleValue] alpha:[hsbaDict[@"a"] doubleValue]];
     }
     
     return [UIColor clearColor];
@@ -235,12 +233,8 @@
 #pragma mark - Contrasting Color
 - (UIColor *)blackOrWhiteContrastingColor
 {
-    const CGFloat *components = CGColorGetComponents(self.CGColor);
-    CGFloat red = components[0];
-    CGFloat green = components[1];
-    CGFloat blue = components[2];
-    
-    double a = 1 - ((0.299 * red) + (0.587 * green) + (0.114 * blue));
+    NSArray *rgbaArray = [self rgbaArray];
+    double a = 1 - ((0.299 * [rgbaArray[0] doubleValue]) + (0.587 * [rgbaArray[1] doubleValue]) + (0.114 * [rgbaArray[2] doubleValue]));
     return a < 0.5 ? [UIColor blackColor] : [UIColor whiteColor];
 }
 

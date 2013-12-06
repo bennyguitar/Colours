@@ -615,6 +615,7 @@
         <!--Schemes View Controller-->
         <scene sceneID="xV5-06-g9I">
             <objects>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="ua4-Vl-Sgw" userLabel="First Responder" sceneMemberID="firstResponder"/>
                 <viewController automaticallyAdjustsScrollViewInsets="NO" id="em7-Pb-NnM" customClass="SchemesViewController" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="4qr-rg-iFS"/>
@@ -1111,7 +1112,6 @@
                         <outlet property="triColor5" destination="MYO-7T-xCn" id="bOJ-Wz-yKP"/>
                     </connections>
                 </viewController>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="ua4-Vl-Sgw" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="1034" y="1227"/>
         </scene>

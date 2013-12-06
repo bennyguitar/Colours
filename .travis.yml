@@ -1,0 +1,7 @@
+language: objective-c
+
+before_script: 
+- echo -e "Colours for iOS"
+
+script:
+- xctool ARCHS=i386 ONLY_ACTIVE_ARCH=NO -project ColoursDemo/ColoursDemo.xcodeproj -scheme ColoursDemo -sdk iphonesimulator clean build test -freshSimulator -freshInstall
