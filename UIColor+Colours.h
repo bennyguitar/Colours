@@ -22,13 +22,15 @@ typedef enum
 
 // Color Methods
 + (UIColor *)colorFromHexString:(NSString *)hexString;
-+ (UIColor *)colorWithRGBAArray:(NSArray *)rgbaArray;
-+ (UIColor *)colorWithRGBADict:(NSDictionary *)rgbaDict;
++ (UIColor *)colorFromRGBAArray:(NSArray *)rgbaArray;
++ (UIColor *)colorFromRGBADictionary:(NSDictionary *)rgbaDict;
++ (UIColor *)colorFromHSBAArray:(NSArray *)hsbaArray;
++ (UIColor *)colorFromHSBADictionary:(NSDictionary *)hsbaDict;
 - (NSString *)hexString;
 - (NSArray *)rgbaArray;
 - (NSArray *)hsbaArray;
-- (NSDictionary *)rgbaDict;
-- (NSDictionary *)hsbaDict;
+- (NSDictionary *)rgbaDictionary;
+- (NSDictionary *)hsbaDictionay;
 
 // Generate Color Scheme
 - (NSArray *)colorSchemeOfType:(ColorScheme)type;

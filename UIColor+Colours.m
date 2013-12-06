@@ -10,8 +10,8 @@
 
 @implementation UIColor (Colours)
 
-#pragma mark - UIColor from Hex
 
+#pragma mark - UIColor from Hex
 + (UIColor *)colorFromHexString:(NSString *)hexString
 {
     unsigned rgbValue = 0;
@@ -23,22 +23,8 @@
     return [UIColor colorWithRed:((rgbValue & 0xFF0000) >> 16)/255.0 green:((rgbValue & 0xFF00) >> 8)/255.0 blue:(rgbValue & 0xFF)/255.0 alpha:1.0];
 }
 
-#pragma mark - UIColor from RGBA
-
-+ (UIColor *)colorWithRGBAArray:(NSArray *)rgbaArray
-{
-    // Takes an array of RGBA float's as NSNumbers, and makes a UIColor (shorthand colorWithRed:Green:Blue:Alpha:
-    return [UIColor colorWithRed:[rgbaArray[0] floatValue] green:[rgbaArray[1] floatValue] blue:[rgbaArray[2] floatValue] alpha:[rgbaArray[3] floatValue]];
-}
-
-+ (UIColor *)colorWithRGBADict:(NSDictionary *)rgbaDict
-{
-    // Takes an dictionary of RGBA float's as NSNumbers, and makes a UIColor (shorthand colorWithRed:Green:Blue:Alpha:
-    return [UIColor colorWithRed:[rgbaDict[@"r"] floatValue] green:[rgbaDict[@"g"] floatValue] blue:[rgbaDict[@"b"] floatValue] alpha:[rgbaDict[@"a"] floatValue]];
-}
 
 #pragma mark - Hex from UIColor
-
 - (NSString *)hexString
 {
     NSArray *colorArray	= [self rgbaArray];
@@ -52,8 +38,29 @@
     return [NSString stringWithFormat:@"#%@%@%@", red, green, blue];
 }
 
-#pragma mark - RGBA from UIColor
 
+#pragma mark - UIColor from RGBA
++ (UIColor *)colorFromRGBAArray:(NSArray *)rgbaArray
+{
+    if (rgbaArray.count < 4) {
+        return [UIColor clearColor];
+    }
+    // Takes an array of RGBA float's as NSNumbers, and makes a UIColor (shorthand colorWithRed:Green:Blue:Alpha:
+    return [UIColor colorWithRed:[rgbaArray[0] floatValue] green:[rgbaArray[1] floatValue] blue:[rgbaArray[2] floatValue] alpha:[rgbaArray[3] floatValue]];
+}
+
++ (UIColor *)colorFromRGBADictionary:(NSDictionary *)rgbaDict
+{
+    if (rgbaDict[@"r"] && rgbaDict[@"g"] && rgbaDict[@"b"] && rgbaDict[@"a"]) {
+        // Takes an dictionary of RGBA float's as NSNumbers, and makes a UIColor (shorthand colorWithRed:Green:Blue:Alpha:
+        return [UIColor colorWithRed:[rgbaDict[@"r"] floatValue] green:[rgbaDict[@"g"] floatValue] blue:[rgbaDict[@"b"] floatValue] alpha:[rgbaDict[@"a"] floatValue]];
+    }
+    
+    return [UIColor clearColor];
+}
+
+
+#pragma mark - RGBA from UIColor
 - (NSArray *)rgbaArray
 {
     // Takes a UIColor and returns R,G,B,A values in NSNumber form
@@ -69,10 +76,13 @@
         b = components[2];
         a = components[3];
     }
-    return @[[NSNumber numberWithFloat:r],[NSNumber numberWithFloat:g],[NSNumber numberWithFloat:b],[NSNumber numberWithFloat:a]];
+    return @[@(r),
+             @(g),
+             @(b), 
+             @(a)];
 }
 
-- (NSDictionary *)rgbaDict
+- (NSDictionary *)rgbaDictionary
 {
     // Takes UIColor and returns RGBA values in a dictionary as NSNumbers
     float r=0,g=0,b=0,a=0;
@@ -87,11 +97,11 @@
         a = components[3];
     }
     
-    return @{@"r":[NSNumber numberWithFloat:r], @"g":[NSNumber numberWithFloat:g], @"b":[NSNumber numberWithFloat:b], @"a":[NSNumber numberWithFloat:a]};
+    return @{@"r":@(r), @"g":@(g), @"b":@(b), @"a":@(a)};
 }
 
-#pragma mark - HSBA from UIColor
 
+#pragma mark - HSBA from UIColor
 - (NSArray *)hsbaArray
 {
     // Takes a UIColor and returns Hue,Saturation,Brightness,Alpha values in NSNumber form
@@ -101,10 +111,13 @@
         [self getHue:&h saturation:&s brightness:&b alpha:&a];
     }
     
-    return @[[NSNumber numberWithFloat:h],[NSNumber numberWithFloat:s],[NSNumber numberWithFloat:b],[NSNumber numberWithFloat:a]];
+    return @[@(h),
+             @(s),
+             @(b), 
+             @(a)];
 }
 
--(NSDictionary *)hsbaDict
+-(NSDictionary *)hsbaDictionary
 {
     // Takes a UIColor and returns Hue,Saturation,Brightness,Alpha values in NSNumber form
     float h=0,s=0,b=0,a=0;
@@ -113,11 +126,32 @@
         [self getHue:&h saturation:&s brightness:&b alpha:&a];
     }
     
-    return @{@"h":[NSNumber numberWithFloat:h],@"s":[NSNumber numberWithFloat:s],@"b":[NSNumber numberWithFloat:b],@"a":[NSNumber numberWithFloat:a]};
+    return @{@"h":@(h), @"s":@(s), @"b":@(b), @"a":@(a)};
 }
 
-#pragma mark - Generate Color Scheme
 
+#pragma mark - UIColor from HSBA
++ (UIColor *)colorFromHSBAArray:(NSArray *)hsbaArray
+{
+    if (hsbaArray.count < 4) {
+        return [UIColor clearColor];
+    }
+    
+    return [UIColor colorWithHue:[hsbaArray[0] floatValue] saturation:[hsbaArray[1] floatValue] brightness:[hsbaArray[2] floatValue] alpha:[hsbaArray[3] floatValue]];
+}
+
++ (UIColor *)colorFromHSBADictionary:(NSDictionary *)hsbaDict
+{
+    if (hsbaDict[@"h"] && hsbaDict[@"s"] && hsbaDict[@"b"] && hsbaDict[@"a"]) {
+        // Takes an dictionary of RGBA float's as NSNumbers, and makes a UIColor (shorthand colorWithRed:Green:Blue:Alpha:
+        return [UIColor colorWithRed:[hsbaDict[@"h"] floatValue] green:[hsbaDict[@"s"] floatValue] blue:[hsbaDict[@"b"] floatValue] alpha:[hsbaDict[@"a"] floatValue]];
+    }
+    
+    return [UIColor clearColor];
+}
+
+
+#pragma mark - Generate Color Scheme
 - (NSArray *)colorSchemeOfType:(ColorScheme)type
 {
     NSArray *hsbArray = [self hsbaArray];
@@ -142,7 +176,6 @@
 
 
 #pragma mark - Color Scheme Generation - Helper methods
-
 + (NSArray *)analagousColorsFromHue:(float)h saturation:(float)s brightness:(float)b alpha:(float)a
 {
     UIColor *colorAbove1 = [UIColor colorWithHue:[UIColor addDegrees:15 toDegree:h]/360 saturation:(s-5)/100 brightness:(b-5)/100 alpha:a];
@@ -198,8 +231,8 @@
     }
 }
 
-#pragma mark - Contrasting Color
 
+#pragma mark - Contrasting Color
 - (UIColor *)blackOrWhiteContrastingColor
 {
     const CGFloat *components = CGColorGetComponents(self.CGColor);
@@ -208,17 +241,11 @@
     CGFloat blue = components[2];
     
     double a = 1 - ((0.299 * red) + (0.587 * green) + (0.114 * blue));
-    if ( a < 0.5) {
-        //return black
-        return [UIColor colorWithRed:0.0 green:0.0 blue:0.0 alpha:1.0];
-    } else {
-        //return white
-        return [UIColor colorWithRed:1.0 green:1.0 blue:1.0 alpha:1.0];
-    }
+    return a < 0.5 ? [UIColor blackColor] : [UIColor whiteColor];
 }
 
-#pragma mark - System Colors
 
+#pragma mark - System Colors
 + (UIColor *)infoBlueColor
 {
 	return [UIColor colorWithRed:47/255.0f green:112/255.0f blue:225/255.0f alpha:1.0];
@@ -239,8 +266,8 @@
 	return [UIColor colorWithRed:229/255.0f green:0/255.0f blue:15/255.0f alpha:1.0];
 }
 
-#pragma mark - Whites
 
+#pragma mark - Whites
 + (UIColor *)antiqueWhiteColor
 {
 	return [UIColor colorWithRed:250/255.0f green:235/255.0f blue:215/255.0f alpha:1.0];
@@ -276,8 +303,8 @@
 	return [UIColor colorWithRed:250/255.0f green:240/255.0f blue:230/255.0f alpha:1.0];
 }
 
-#pragma mark - Grays
 
+#pragma mark - Grays
 + (UIColor *)black25PercentColor
 {
 	return [UIColor colorWithWhite:0.25 alpha:1.0];
@@ -308,8 +335,8 @@
 	return [UIColor colorWithRed:34/255.0f green:34/255.0f blue:34/255.0f alpha:1.0];
 }
 
-#pragma mark - Blues
 
+#pragma mark - Blues
 + (UIColor *)tealColor
 {
 	return [UIColor colorWithRed:28/255.0f green:160/255.0f blue:170/255.0f alpha:1.0];
@@ -385,8 +412,8 @@
 	return [UIColor colorWithRed:102/255.0f green:169/255.0f blue:251/255.0f alpha:1.0];
 }
 
-#pragma mark - Greens
 
+#pragma mark - Greens
 + (UIColor *)emeraldColor
 {
 	return [UIColor colorWithRed:1/255.0f green:152/255.0f blue:117/255.0f alpha:1.0];
@@ -457,8 +484,8 @@
 	return [UIColor colorWithRed:87/255.0f green:121/255.0f blue:107/255.0f alpha:1.0];
 }
 
-#pragma mark - Reds
 
+#pragma mark - Reds
 + (UIColor *)salmonColor
 {
 	return [UIColor colorWithRed:233/255.0f green:87/255.0f blue:95/255.0f alpha:1.0];
@@ -529,8 +556,8 @@
 	return [UIColor colorWithRed:187/255.0f green:18/255.0f blue:36/255.0f alpha:1.0];
 }
 
-#pragma mark - Purples
 
+#pragma mark - Purples
 + (UIColor *)eggplantColor
 {
 	return [UIColor colorWithRed:105/255.0f green:5/255.0f blue:98/255.0f alpha:1.0];
@@ -591,8 +618,8 @@
 	return [UIColor colorWithRed:218/255.0f green:112/255.0f blue:214/255.0f alpha:1.0];
 }
 
-#pragma mark - Yellows
 
+#pragma mark - Yellows
 + (UIColor *)goldenrodColor
 {
 	return [UIColor colorWithRed:215/255.0f green:170/255.0f blue:51/255.0f alpha:1.0];
@@ -643,8 +670,8 @@
 	return [UIColor colorWithRed:245/255.0f green:245/255.0f blue:220/255.0f alpha:1.0];
 }
 
-#pragma mark - Oranges
 
+#pragma mark - Oranges
 + (UIColor *)peachColor
 {
 	return [UIColor colorWithRed:242/255.0f green:187/255.0f blue:97/255.0f alpha:1.0];
@@ -675,8 +702,8 @@
 	return [UIColor colorWithRed:247/255.0f green:145/255.0f blue:55/255.0f alpha:1.0];
 }
 
-#pragma mark - Browns
 
+#pragma mark - Browns
 + (UIColor *)chiliPowderColor
 {
 	return [UIColor colorWithRed:199/255.0f green:63/255.0f blue:23/255.0f alpha:1.0];
