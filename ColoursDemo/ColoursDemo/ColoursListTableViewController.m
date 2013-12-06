@@ -156,7 +156,7 @@
         [tableString appendFormat:@"<td><img src=\"https://raw.github.com/bennyguitar/Colours-for-iOS/master/Screenshots/Colors/%d.png\" width=\"50\" height=\"50\" alt=\"%@Color\" /></td><td><b>%@Color</b></td>", ii, self.colors[ii],self.colors[ii]];
     }
     
-    [tableString appendString:@"</table>"];
+    [tableString appendString:@"</tr></table>"];
     NSLog(@"%@", tableString);
 }
 
