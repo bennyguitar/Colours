@@ -136,28 +136,12 @@
                     @"mud",
                     @"sienna",
                     @"dust"];
-    
-    //[self logColorTable];
 }
 
 - (void)didReceiveMemoryWarning
 {
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
-}
-
-- (void)logColorTable {
-    NSMutableString *tableString = [@"<table>" mutableCopy];
-    
-    for (int ii = 0; ii < self.colors.count; ii++) {
-        if (ii % 3 == 0) {
-            [tableString appendFormat:@"%@%@", (ii != 0 ? @"</tr>" : @""), @"<tr>"];
-        }
-        [tableString appendFormat:@"<td><img src=\"https://raw.github.com/bennyguitar/Colours-for-iOS/master/Screenshots/Colors/%d.png\" width=\"50\" height=\"50\" alt=\"%@Color\" /></td><td><b>%@Color</b></td>", ii, self.colors[ii],self.colors[ii]];
-    }
-    
-    [tableString appendString:@"</tr></table>"];
-    NSLog(@"%@", tableString);
 }
 
 #pragma mark - UITableViewDatasource
