@@ -27,14 +27,14 @@
 
 + (UIColor *)colorWithRGBAArray:(NSArray *)rgbaArray
 {
-    // Takes an array of RGBA int's as NSNumbers, and makes a UIColor (shorthand colorWithRed:Green:Blue:Alpha:
-    return [UIColor colorWithRed:[rgbaArray[0] intValue]/255.0 green:[rgbaArray[1] intValue]/255.0 blue:[rgbaArray[2] intValue]/255.0 alpha:[rgbaArray[3] intValue]/255.0];
+    // Takes an array of RGBA float's as NSNumbers, and makes a UIColor (shorthand colorWithRed:Green:Blue:Alpha:
+    return [UIColor colorWithRed:[rgbaArray[0] floatValue] green:[rgbaArray[1] floatValue] blue:[rgbaArray[2] floatValue] alpha:[rgbaArray[3] floatValue]];
 }
 
 + (UIColor *)colorWithRGBADict:(NSDictionary *)rgbaDict
 {
-    // Takes a dictionary of RGBA int's as NSNumbers, and makes a UIColor (shorthand colorWithRed:Green:Blue:Alpha:
-    return [UIColor colorWithRed:[rgbaDict[@"r"] intValue]/255.0 green:[rgbaDict[@"g"] intValue]/255.0 blue:[rgbaDict[@"b"] intValue]/255.0 alpha:[rgbaDict[@"a"] intValue]/255.0];
+    // Takes an dictionary of RGBA float's as NSNumbers, and makes a UIColor (shorthand colorWithRed:Green:Blue:Alpha:
+    return [UIColor colorWithRed:[rgbaDict[@"r"] floatValue] green:[rgbaDict[@"g"] floatValue] blue:[rgbaDict[@"b"] floatValue] alpha:[rgbaDict[@"a"] floatValue]];
 }
 
 #pragma mark - Hex from UIColor
