@@ -1,7 +1,7 @@
 language: objective-c
 
 before_script: 
-- echo -e "Colours for iOS"
+- gem install xcpretty
 
 script:
-- xctool ARCHS=i386 ONLY_ACTIVE_ARCH=NO -project ColoursDemo/ColoursDemo.xcodeproj -scheme ColoursDemo -sdk iphonesimulator clean build test -freshSimulator -freshInstall
+- xcodebuild -project ColoursDemo/ColoursDemo.xcodeproj -scheme ColoursDemo -sdk iphonesimulator test | xcpretty -c
