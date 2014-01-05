@@ -63,7 +63,7 @@
 - (NSArray *)rgbaArray
 {
     // Takes a UIColor and returns R,G,B,A values in NSNumber form
-    float r=0,g=0,b=0,a=0;
+    CGFloat r=0,g=0,b=0,a=0;
     
     if ([self respondsToSelector:@selector(getRed:green:blue:alpha:)]) {
         [self getRed:&r green:&g blue:&b alpha:&a];
@@ -84,7 +84,7 @@
 - (NSDictionary *)rgbaDictionary
 {
     // Takes UIColor and returns RGBA values in a dictionary as NSNumbers
-    float r=0,g=0,b=0,a=0;
+    CGFloat r=0,g=0,b=0,a=0;
     if ([self respondsToSelector:@selector(getRed:green:blue:alpha:)]) {
         [self getRed:&r green:&g blue:&b alpha:&a];
     }
@@ -104,7 +104,7 @@
 - (NSArray *)hsbaArray
 {
     // Takes a UIColor and returns Hue,Saturation,Brightness,Alpha values in NSNumber form
-    float h=0,s=0,b=0,a=0;
+    CGFloat h=0,s=0,b=0,a=0;
     
     if ([self respondsToSelector:@selector(getHue:saturation:brightness:alpha:)]) {
         [self getHue:&h saturation:&s brightness:&b alpha:&a];
@@ -119,7 +119,7 @@
 - (NSDictionary *)hsbaDictionary
 {
     // Takes a UIColor and returns Hue,Saturation,Brightness,Alpha values in NSNumber form
-    float h=0,s=0,b=0,a=0;
+    CGFloat h=0,s=0,b=0,a=0;
     
     if ([self respondsToSelector:@selector(getHue:saturation:brightness:alpha:)]) {
         [self getHue:&h saturation:&s brightness:&b alpha:&a];
