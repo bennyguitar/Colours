@@ -1,4 +1,4 @@
-![ScreenShot](https://raw.github.com/bennyguitar/Colours-for-iOS/master/Screenshots/banner.png)
+![ScreenShot](Screenshots/banner.png)
 
 ## Installation
 
