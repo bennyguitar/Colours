@@ -8,7 +8,7 @@ Drag the included **UIColor+Colours.h** and **UIColor+Colours.m** files into you
 
 **Cocoapods**
 
-<code>pod 'Colours', '~> 3.2'</code>
+<code>pod 'Colours', '~> 3.3'</code>
 
 
 ## Color Palette
