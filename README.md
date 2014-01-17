@@ -1,5 +1,7 @@
 ![ScreenShot](Screenshots/banner.png)
 
+[![Build Status](https://travis-ci.org/bennyguitar/Colours-for-iOS.png?branch=master)](https://travis-ci.org/bennyguitar/Colours-for-iOS)
+
 ## Installation
 
 Drag the included **UIColor+Colours.h** and **UIColor+Colours.m** files into your project. They are located in the top-level directory. You can see a demo of how to use these with the included Xcode project as well.
