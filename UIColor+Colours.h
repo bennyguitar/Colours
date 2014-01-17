@@ -108,6 +108,14 @@ typedef enum
 - (UIColor *)blackOrWhiteContrastingColor;
 
 
+#pragma mark - Complementary Color
+/**
+ Creates a complementary color - a color directly opposite it on the color wheel.
+ @return    UIColor
+ */
+- (UIColor *)complementaryColor;
+
+
 #pragma mark - Colors
 // System Colors
 + (UIColor *)infoBlueColor;

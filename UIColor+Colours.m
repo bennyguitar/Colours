@@ -239,6 +239,17 @@
 }
 
 
+#pragma mark - Complementary Color
+- (UIColor *)complementaryColor
+{
+    NSMutableDictionary *hsba = [[self hsbaDictionary] mutableCopy];
+    float newH = [UIColor addDegrees:180.0f toDegree:([hsba[@"h"] floatValue]*360)];
+    [hsba setObject:@(newH) forKey:@"h"];
+    return [UIColor colorFromHSBADictionary:hsba];
+    
+}
+
+
 #pragma mark - System Colors
 + (UIColor *)infoBlueColor
 {
