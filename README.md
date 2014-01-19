@@ -72,6 +72,14 @@ A lot of times you may want to put text on top of a view that is a certain color
 UIColor *contrastingColor = [[UIColor seafoamColor] blackOrWhiteContrastingColor];
 ```
 
+**Generating a complementary color**
+
+This method will create a UIColor instance that is the exact opposite color from another UIColor on the color wheel. The same saturation and brightness are preserved, just the hue is changed.
+
+```objc
+UIColor *complementary = [[UIColor seafoamColor] complementaryColor];
+```
+
 ## Generating Color Schemes ##
 
 You can create a 5-color scheme based off of a UIColor using the following method. It takes in a UIColor and one of the ColorSchemeTypes defined in Colours. It returns an NSArray of 4 new UIColor objects to create a pretty nice color scheme that complements the root color you passed in.
