@@ -16,12 +16,12 @@
 		44C791C9182586210059592D /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C06758B516F6824200CE7AA1 /* UIKit.framework */; };
 		44C791CF182586210059592D /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 44C791CD182586210059592D /* InfoPlist.strings */; };
 		44C791D1182586210059592D /* ColoursDemo_Tests.m in Sources */ = {isa = PBXBuildFile; fileRef = 44C791D0182586210059592D /* ColoursDemo_Tests.m */; };
+		B6120DC9188DF0B60037E5EC /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = B6120DC8188DF0B60037E5EC /* AppDelegate.m */; };
 		C06758B616F6824200CE7AA1 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C06758B516F6824200CE7AA1 /* UIKit.framework */; };
 		C06758B816F6824200CE7AA1 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C06758B716F6824200CE7AA1 /* Foundation.framework */; };
 		C06758BA16F6824200CE7AA1 /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C06758B916F6824200CE7AA1 /* CoreGraphics.framework */; };
 		C06758C016F6824200CE7AA1 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = C06758BE16F6824200CE7AA1 /* InfoPlist.strings */; };
 		C06758C216F6824200CE7AA1 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = C06758C116F6824200CE7AA1 /* main.m */; };
-		C06758C616F6824200CE7AA1 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = C06758C516F6824200CE7AA1 /* AppDelegate.m */; };
 		C06758C816F6824200CE7AA1 /* Default.png in Resources */ = {isa = PBXBuildFile; fileRef = C06758C716F6824200CE7AA1 /* Default.png */; };
 		C06758CA16F6824200CE7AA1 /* Default@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = C06758C916F6824200CE7AA1 /* Default@2x.png */; };
 		C06758CC16F6824200CE7AA1 /* Default-568h@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = C06758CB16F6824200CE7AA1 /* Default-568h@2x.png */; };
@@ -57,6 +57,8 @@
 		44C791CE182586210059592D /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		44C791D0182586210059592D /* ColoursDemo_Tests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ColoursDemo_Tests.m; sourceTree = "<group>"; };
 		44C791D2182586210059592D /* ColoursDemo Tests-Prefix.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "ColoursDemo Tests-Prefix.pch"; sourceTree = "<group>"; };
+		B6120DC7188DF0B60037E5EC /* AppDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
+		B6120DC8188DF0B60037E5EC /* AppDelegate.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AppDelegate.m; sourceTree = "<group>"; };
 		C06758B216F6824200CE7AA1 /* ColoursDemo.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = ColoursDemo.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		C06758B516F6824200CE7AA1 /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
 		C06758B716F6824200CE7AA1 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
@@ -65,8 +67,6 @@
 		C06758BF16F6824200CE7AA1 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		C06758C116F6824200CE7AA1 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
 		C06758C316F6824200CE7AA1 /* ColoursDemo-Prefix.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "ColoursDemo-Prefix.pch"; sourceTree = "<group>"; };
-		C06758C416F6824200CE7AA1 /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
-		C06758C516F6824200CE7AA1 /* AppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AppDelegate.m; sourceTree = "<group>"; };
 		C06758C716F6824200CE7AA1 /* Default.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Default.png; sourceTree = "<group>"; };
 		C06758C916F6824200CE7AA1 /* Default@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Default@2x.png"; sourceTree = "<group>"; };
 		C06758CB16F6824200CE7AA1 /* Default-568h@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Default-568h@2x.png"; sourceTree = "<group>"; };
@@ -123,13 +123,13 @@
 			name = "List View Controllers";
 			sourceTree = "<group>";
 		};
-		44C791B91823CB070059592D /* UIColor Category (Class Extention) */ = {
+		44C791B91823CB070059592D /* UIColor Category (Class Extension) */ = {
 			isa = PBXGroup;
 			children = (
 				1E4C42E81851434200F323C1 /* UIColor+Colours.h */,
 				1E4C42E91851434200F323C1 /* UIColor+Colours.m */,
 			);
-			name = "UIColor Category (Class Extention)";
+			name = "UIColor Category (Class Extension)";
 			sourceTree = "<group>";
 		};
 		44C791BD1823CFE20059592D /* Schemes View Controllers */ = {
@@ -160,6 +160,16 @@
 				44C791D2182586210059592D /* ColoursDemo Tests-Prefix.pch */,
 			);
 			name = "Supporting Files";
+			sourceTree = "<group>";
+		};
+		B6120DC4188DF0120037E5EC /* Controllers */ = {
+			isa = PBXGroup;
+			children = (
+				44B996051823C53C0068C943 /* Demo View Controllers */,
+				44C791B81823CA9C0059592D /* List View Controllers */,
+				44C791BD1823CFE20059592D /* Schemes View Controllers */,
+			);
+			name = Controllers;
 			sourceTree = "<group>";
 		};
 		C06758A916F6824200CE7AA1 = {
@@ -195,13 +205,11 @@
 		C06758BB16F6824200CE7AA1 /* ColoursDemo */ = {
 			isa = PBXGroup;
 			children = (
-				C06758C416F6824200CE7AA1 /* AppDelegate.h */,
-				C06758C516F6824200CE7AA1 /* AppDelegate.m */,
+				44C791B91823CB070059592D /* UIColor Category (Class Extension) */,
+				B6120DC7188DF0B60037E5EC /* AppDelegate.h */,
+				B6120DC8188DF0B60037E5EC /* AppDelegate.m */,
 				44B99603182159C40068C943 /* Storyboard.storyboard */,
-				44C791B91823CB070059592D /* UIColor Category (Class Extention) */,
-				44B996051823C53C0068C943 /* Demo View Controllers */,
-				44C791B81823CA9C0059592D /* List View Controllers */,
-				44C791BD1823CFE20059592D /* Schemes View Controllers */,
+				B6120DC4188DF0120037E5EC /* Controllers */,
 				C06758BC16F6824200CE7AA1 /* Supporting Files */,
 			);
 			path = ColoursDemo;
@@ -274,7 +282,7 @@
 						TestTargetID = C06758B116F6824200CE7AA1;
 					};
 					C06758B116F6824200CE7AA1 = {
-						DevelopmentTeam = 79J92XV598;
+						DevelopmentTeam = RMTZ2ZJ8M5;
 					};
 				};
 			};
@@ -336,9 +344,9 @@
 			files = (
 				C06758C216F6824200CE7AA1 /* main.m in Sources */,
 				44B996081823C5BD0068C943 /* ColoursDemoContainerViewController.m in Sources */,
-				C06758C616F6824200CE7AA1 /* AppDelegate.m in Sources */,
 				1E4C42EA1851434200F323C1 /* UIColor+Colours.m in Sources */,
 				C06758CF16F6824200CE7AA1 /* ColoursDemoViewController.m in Sources */,
+				B6120DC9188DF0B60037E5EC /* AppDelegate.m in Sources */,
 				44C791C01823D0480059592D /* SchemesViewController.m in Sources */,
 				D326F23C179B19BA0082A676 /* ColoursListTableViewController.m in Sources */,
 				44C791BC1823CFDA0059592D /* SchemesContainerViewController.m in Sources */,
@@ -494,6 +502,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				CODE_SIGN_IDENTITY = "iPhone Developer";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(DEVELOPER_FRAMEWORKS_DIR)",
@@ -503,6 +512,7 @@
 				INFOPLIST_FILE = "ColoursDemo/ColoursDemo-Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE = "";
 				WRAPPER_EXTENSION = app;
 			};
 			name = Debug;
@@ -511,6 +521,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				CODE_SIGN_IDENTITY = "iPhone Developer";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(DEVELOPER_FRAMEWORKS_DIR)",
@@ -520,6 +531,7 @@
 				INFOPLIST_FILE = "ColoursDemo/ColoursDemo-Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE = "";
 				WRAPPER_EXTENSION = app;
 			};
 			name = Release;
