@@ -12,6 +12,10 @@ Drag the included **UIColor+Colours.h** and **UIColor+Colours.m** files into you
 
 <code>pod 'Colours', '~> 3.3'</code>
 
+**NSColor**
+
+There are NSColor versions of the exact same set of methods that appear here if OSX development is your particular cup of tea. <code>NSColor+Colours.{h,m}</code> are located under the top-level NSColor folder.
+
 
 ## Color Palette
 
