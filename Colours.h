@@ -30,10 +30,6 @@
 #import <AppKit/AppKit.h>
 #define ColorClass NSColor
 
-#else
-#import <AppKit/AppKit.h>
-#define ColorClass NSColor
-
 #endif
 
 
