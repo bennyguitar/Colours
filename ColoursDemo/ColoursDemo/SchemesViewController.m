@@ -7,7 +7,7 @@
 //
 
 #import "SchemesViewController.h"
-#import "UIColor+Colours.h"
+#import "Colours.h"
 
 @interface SchemesViewController ()
 

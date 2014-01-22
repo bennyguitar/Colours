@@ -7,7 +7,7 @@
 //
 
 #import "ColoursListTableViewController.h"
-#import "UIColor+Colours.h"
+#import "Colours.h"
 
 @interface ColoursListTableViewController ()
 

@@ -8,7 +8,7 @@
 
 #import <UIKit/UIKit.h>
 #import <QuartzCore/QuartzCore.h>
-#import "UIColor+Colours.h"
+#import "Colours.h"
 
 @interface ColoursDemoViewController : UIViewController {
     

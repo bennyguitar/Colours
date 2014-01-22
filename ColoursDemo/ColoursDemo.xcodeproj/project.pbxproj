@@ -7,7 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		1E4C42EA1851434200F323C1 /* UIColor+Colours.m in Sources */ = {isa = PBXBuildFile; fileRef = 1E4C42E91851434200F323C1 /* UIColor+Colours.m */; };
+		1E4C42EA1851434200F323C1 /* Colours.m in Sources */ = {isa = PBXBuildFile; fileRef = 1E4C42E91851434200F323C1 /* Colours.m */; };
 		44B99604182159C40068C943 /* Storyboard.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 44B99603182159C40068C943 /* Storyboard.storyboard */; };
 		44B996081823C5BD0068C943 /* ColoursDemoContainerViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 44B996071823C5BD0068C943 /* ColoursDemoContainerViewController.m */; };
 		44C791BC1823CFDA0059592D /* SchemesContainerViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 44C791BB1823CFDA0059592D /* SchemesContainerViewController.m */; };
@@ -43,8 +43,8 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
-		1E4C42E81851434200F323C1 /* UIColor+Colours.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "UIColor+Colours.h"; path = "../../UIColor+Colours.h"; sourceTree = "<group>"; };
-		1E4C42E91851434200F323C1 /* UIColor+Colours.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = "UIColor+Colours.m"; path = "../../UIColor+Colours.m"; sourceTree = "<group>"; };
+		1E4C42E81851434200F323C1 /* Colours.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = Colours.h; path = ../../Colours.h; sourceTree = "<group>"; };
+		1E4C42E91851434200F323C1 /* Colours.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = Colours.m; path = ../../Colours.m; sourceTree = "<group>"; };
 		44B99603182159C40068C943 /* Storyboard.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = Storyboard.storyboard; sourceTree = "<group>"; };
 		44B996061823C5BD0068C943 /* ColoursDemoContainerViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ColoursDemoContainerViewController.h; sourceTree = "<group>"; };
 		44B996071823C5BD0068C943 /* ColoursDemoContainerViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ColoursDemoContainerViewController.m; sourceTree = "<group>"; };
@@ -126,8 +126,8 @@
 		44C791B91823CB070059592D /* UIColor Category (Class Extension) */ = {
 			isa = PBXGroup;
 			children = (
-				1E4C42E81851434200F323C1 /* UIColor+Colours.h */,
-				1E4C42E91851434200F323C1 /* UIColor+Colours.m */,
+				1E4C42E81851434200F323C1 /* Colours.h */,
+				1E4C42E91851434200F323C1 /* Colours.m */,
 			);
 			name = "UIColor Category (Class Extension)";
 			sourceTree = "<group>";
@@ -344,7 +344,7 @@
 			files = (
 				C06758C216F6824200CE7AA1 /* main.m in Sources */,
 				44B996081823C5BD0068C943 /* ColoursDemoContainerViewController.m in Sources */,
-				1E4C42EA1851434200F323C1 /* UIColor+Colours.m in Sources */,
+				1E4C42EA1851434200F323C1 /* Colours.m in Sources */,
 				C06758CF16F6824200CE7AA1 /* ColoursDemoViewController.m in Sources */,
 				B6120DC9188DF0B60037E5EC /* AppDelegate.m in Sources */,
 				44C791C01823D0480059592D /* SchemesViewController.m in Sources */,
