@@ -1,6 +1,6 @@
 ![ScreenShot](Screenshots/banner.png)
 
-[![Build Status](https://travis-ci.org/bennyguitar/Colours-for-iOS.png?branch=master)](https://travis-ci.org/bennyguitar/Colours-for-iOS)
+[![Build Status](https://travis-ci.org/bennyguitar/Colours.png?branch=4.0)](https://travis-ci.org/bennyguitar/Colours)
 
 ## Installation
 
