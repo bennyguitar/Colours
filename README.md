@@ -4,17 +4,17 @@
 
 ## Installation
 
-Drag the included **UIColor+Colours.h** and **UIColor+Colours.m** files into your project. They are located in the top-level directory. You can see a demo of how to use these with the included Xcode project as well.
+Drag the included **Colours.h** and **Colours.m** files into your project. They are located in the top-level directory. You can see a demo of how to use these with the included Xcode project as well.
 
-<code>#import "UIColor+Colours.h"</code> into the classes you want to use this category in and you're all set.
+<code>#import "Colours.h"</code> into the classes you want to use this category in and you're all set.
 
 **Cocoapods**
 
-<code>pod 'Colours', '~> 3.3'</code>
+<code>pod 'Colours'</code>
 
 **NSColor**
 
-There are NSColor versions of the exact same set of methods that appear here if OSX development is your particular cup of tea. <code>NSColor+Colours.{h,m}</code> are located under the top-level NSColor folder.
+Colours supports <code>NSColor</code> out of the box! Just make sure you have the <code>AppKit</code> framework installed (it comes that way for a new application) and you will be set. This README uses UIColor for its examples, just substitute NSColor and the methods are all the same.
 
 
 ## Color Palette
