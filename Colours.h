@@ -27,8 +27,8 @@
 #define ColorClass UIColor
 
 #elif TARGET_OS_MAC
-#import <UIKit/UIKit.h>
-#define ColorClass UIColor
+#import <AppKit/AppKit.h>
+#define ColorClass NSColor
 
 #else
 #import <AppKit/AppKit.h>
