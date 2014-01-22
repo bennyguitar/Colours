@@ -26,7 +26,7 @@
 #import <UIKit/UIKit.h>
 #define ColorClass UIColor
 
-#elif TARGET_IPHONE_SIMULATOR
+#elif TARGET_OS_MAC
 #import <UIKit/UIKit.h>
 #define ColorClass UIColor
 
