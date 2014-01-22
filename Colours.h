@@ -26,6 +26,10 @@
 #import <UIKit/UIKit.h>
 #define ColorClass UIColor
 
+#elif TARGET_IPHONE_SIMULATOR
+#import <UIKit/UIKit.h>
+#define ColorClass UIColor
+
 #else
 #import <AppKit/AppKit.h>
 #define ColorClass NSColor

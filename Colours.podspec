@@ -12,5 +12,6 @@ Pod::Spec.new do |s|
   s.homepage    = 'http://subvertapps.com'
   s.license     = 'LICENSE'
   s.source_files = '*.{h,m}'
-  s.platform = :ios, :osx
+  s.platform = :ios 
+  s.platform = :osx
 end
