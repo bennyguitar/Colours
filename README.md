@@ -1,6 +1,9 @@
 ![ScreenShot](Screenshots/banner.png)
 
 [![Build Status](https://travis-ci.org/bennyguitar/Colours.png?branch=4.0)](https://travis-ci.org/bennyguitar/Colours)
+![Pod Version](https://cocoapod-badges.herokuapp.com/v/Colours/badge.png)
+![Pod Platform](https://cocoapod-badges.herokuapp.com/p/Colours/badge.png)
+![Pod License](https://go-shields.herokuapp.com/license-MIT-blue.png)
 
 ## Installation
 
