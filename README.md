@@ -117,6 +117,10 @@ Here are the different examples starting with a color scheme based off of <code>
 
 ![Complementary](https://raw.github.com/bennyguitar/Colours-for-iOS/master/Screenshots/complementary.png)
 
+## Android
+
+My friend, [Matt York](https://github.com/MatthewYork) ported a version of this repository over to Android, so you can use these exact same colors and color methods in your Android apps as well. You can find it here: [Colours for Android](https://github.com/MatthewYork/Colours).
+
 Reap What I Sow!
 ================
 
