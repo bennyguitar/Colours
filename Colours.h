@@ -24,11 +24,11 @@
 
 #if TARGET_OS_IPHONE
 #import <UIKit/UIKit.h>
-#define ColorClass UIColor
+@interface UIColor (Colours)
 
 #elif TARGET_OS_MAC
 #import <AppKit/AppKit.h>
-#define ColorClass NSColor
+@interface NSColor (Colours)
 
 #endif
 
@@ -42,8 +42,6 @@ typedef NS_ENUM(NSInteger, ColorScheme) {
 };
 
 
-@interface ColorClass (Colours)
-
 
 #pragma mark - Color from Hex/RGBA/HSBA
 /**
@@ -51,14 +49,14 @@ typedef NS_ENUM(NSInteger, ColorScheme) {
  @param hexString   Hex string that looks like @"#FF0000" or @"FF0000"
  @return    Color
  */
-+ (ColorClass *)colorFromHexString:(NSString *)hexString;
++ (instancetype)colorFromHexString:(NSString *)hexString;
 
 /**
  Creates a Color from an array of 4 NSNumbers (r,g,b,a)
  @param rgbaArray   4 NSNumbers for rgba between 0 - 1
  @return    Color
  */
-+ (ColorClass *)colorFromRGBAArray:(NSArray *)rgbaArray;
++ (instancetype)colorFromRGBAArray:(NSArray *)rgbaArray;
 
 /**
  Creates a Color from a dictionary of 4 NSNumbers
@@ -66,14 +64,14 @@ typedef NS_ENUM(NSInteger, ColorScheme) {
  @param rgbaDictionary   4 NSNumbers for rgba between 0 - 1
  @return    Color
  */
-+ (ColorClass *)colorFromRGBADictionary:(NSDictionary *)rgbaDict;
++ (instancetype)colorFromRGBADictionary:(NSDictionary *)rgbaDict;
 
 /**
  Creates a Color from an array of 4 NSNumbers (h,s,b,a)
  @param hsbaArray   4 NSNumbers for rgba between 0 - 1
  @return    Color
  */
-+ (ColorClass *)colorFromHSBAArray:(NSArray *)hsbaArray;
++ (instancetype)colorFromHSBAArray:(NSArray *)hsbaArray;
 
 /**
  Creates a Color from a dictionary of 4 NSNumbers
@@ -81,7 +79,7 @@ typedef NS_ENUM(NSInteger, ColorScheme) {
  @param hsbaDictionary   4 NSNumbers for rgba between 0 - 1
  @return    Color
  */
-+ (ColorClass *)colorFromHSBADictionary:(NSDictionary *)hsbaDict;
++ (instancetype)colorFromHSBADictionary:(NSDictionary *)hsbaDict;
 
 
 #pragma mark - Hex/RGBA/HSBA from Color
@@ -130,7 +128,7 @@ typedef NS_ENUM(NSInteger, ColorScheme) {
  Creates either [Color whiteColor] or [Color blackColor] depending on if the color this method is run on is dark or light.
  @return    Color
  */
-- (ColorClass *)blackOrWhiteContrastingColor;
+- (instancetype)blackOrWhiteContrastingColor;
 
 
 #pragma mark - Complementary Color
@@ -138,127 +136,127 @@ typedef NS_ENUM(NSInteger, ColorScheme) {
  Creates a complementary color - a color directly opposite it on the color wheel.
  @return    Color
  */
-- (ColorClass *)complementaryColor;
+- (instancetype)complementaryColor;
 
 
 #pragma mark - Colors
 // System Colors
-+ (ColorClass *)infoBlueColor;
-+ (ColorClass *)successColor;
-+ (ColorClass *)warningColor;
-+ (ColorClass *)dangerColor;
++ (instancetype)infoBlueColor;
++ (instancetype)successColor;
++ (instancetype)warningColor;
++ (instancetype)dangerColor;
 
 // Whites
-+ (ColorClass *)antiqueWhiteColor;
-+ (ColorClass *)oldLaceColor;
-+ (ColorClass *)ivoryColor;
-+ (ColorClass *)seashellColor;
-+ (ColorClass *)ghostWhiteColor;
-+ (ColorClass *)snowColor;
-+ (ColorClass *)linenColor;
++ (instancetype)antiqueWhiteColor;
++ (instancetype)oldLaceColor;
++ (instancetype)ivoryColor;
++ (instancetype)seashellColor;
++ (instancetype)ghostWhiteColor;
++ (instancetype)snowColor;
++ (instancetype)linenColor;
 
 // Grays
-+ (ColorClass *)black25PercentColor;
-+ (ColorClass *)black50PercentColor;
-+ (ColorClass *)black75PercentColor;
-+ (ColorClass *)warmGrayColor;
-+ (ColorClass *)coolGrayColor;
-+ (ColorClass *)charcoalColor;
++ (instancetype)black25PercentColor;
++ (instancetype)black50PercentColor;
++ (instancetype)black75PercentColor;
++ (instancetype)warmGrayColor;
++ (instancetype)coolGrayColor;
++ (instancetype)charcoalColor;
 
 // Blues
-+ (ColorClass *)tealColor;
-+ (ColorClass *)steelBlueColor;
-+ (ColorClass *)robinEggColor;
-+ (ColorClass *)pastelBlueColor;
-+ (ColorClass *)turquoiseColor;
-+ (ColorClass *)skyBlueColor;
-+ (ColorClass *)indigoColor;
-+ (ColorClass *)denimColor;
-+ (ColorClass *)blueberryColor;
-+ (ColorClass *)cornflowerColor;
-+ (ColorClass *)babyBlueColor;
-+ (ColorClass *)midnightBlueColor;
-+ (ColorClass *)fadedBlueColor;
-+ (ColorClass *)icebergColor;
-+ (ColorClass *)waveColor;
++ (instancetype)tealColor;
++ (instancetype)steelBlueColor;
++ (instancetype)robinEggColor;
++ (instancetype)pastelBlueColor;
++ (instancetype)turquoiseColor;
++ (instancetype)skyBlueColor;
++ (instancetype)indigoColor;
++ (instancetype)denimColor;
++ (instancetype)blueberryColor;
++ (instancetype)cornflowerColor;
++ (instancetype)babyBlueColor;
++ (instancetype)midnightBlueColor;
++ (instancetype)fadedBlueColor;
++ (instancetype)icebergColor;
++ (instancetype)waveColor;
 
 // Greens
-+ (ColorClass *)emeraldColor;
-+ (ColorClass *)grassColor;
-+ (ColorClass *)pastelGreenColor;
-+ (ColorClass *)seafoamColor;
-+ (ColorClass *)paleGreenColor;
-+ (ColorClass *)cactusGreenColor;
-+ (ColorClass *)chartreuseColor;
-+ (ColorClass *)hollyGreenColor;
-+ (ColorClass *)oliveColor;
-+ (ColorClass *)oliveDrabColor;
-+ (ColorClass *)moneyGreenColor;
-+ (ColorClass *)honeydewColor;
-+ (ColorClass *)limeColor;
-+ (ColorClass *)cardTableColor;
++ (instancetype)emeraldColor;
++ (instancetype)grassColor;
++ (instancetype)pastelGreenColor;
++ (instancetype)seafoamColor;
++ (instancetype)paleGreenColor;
++ (instancetype)cactusGreenColor;
++ (instancetype)chartreuseColor;
++ (instancetype)hollyGreenColor;
++ (instancetype)oliveColor;
++ (instancetype)oliveDrabColor;
++ (instancetype)moneyGreenColor;
++ (instancetype)honeydewColor;
++ (instancetype)limeColor;
++ (instancetype)cardTableColor;
 
 // Reds
-+ (ColorClass *)salmonColor;
-+ (ColorClass *)brickRedColor;
-+ (ColorClass *)easterPinkColor;
-+ (ColorClass *)grapefruitColor;
-+ (ColorClass *)pinkColor;
-+ (ColorClass *)indianRedColor;
-+ (ColorClass *)strawberryColor;
-+ (ColorClass *)coralColor;
-+ (ColorClass *)maroonColor;
-+ (ColorClass *)watermelonColor;
-+ (ColorClass *)tomatoColor;
-+ (ColorClass *)pinkLipstickColor;
-+ (ColorClass *)paleRoseColor;
-+ (ColorClass *)crimsonColor;
++ (instancetype)salmonColor;
++ (instancetype)brickRedColor;
++ (instancetype)easterPinkColor;
++ (instancetype)grapefruitColor;
++ (instancetype)pinkColor;
++ (instancetype)indianRedColor;
++ (instancetype)strawberryColor;
++ (instancetype)coralColor;
++ (instancetype)maroonColor;
++ (instancetype)watermelonColor;
++ (instancetype)tomatoColor;
++ (instancetype)pinkLipstickColor;
++ (instancetype)paleRoseColor;
++ (instancetype)crimsonColor;
 
 // Purples
-+ (ColorClass *)eggplantColor;
-+ (ColorClass *)pastelPurpleColor;
-+ (ColorClass *)palePurpleColor;
-+ (ColorClass *)coolPurpleColor;
-+ (ColorClass *)violetColor;
-+ (ColorClass *)plumColor;
-+ (ColorClass *)lavenderColor;
-+ (ColorClass *)raspberryColor;
-+ (ColorClass *)fuschiaColor;
-+ (ColorClass *)grapeColor;
-+ (ColorClass *)periwinkleColor;
-+ (ColorClass *)orchidColor;
++ (instancetype)eggplantColor;
++ (instancetype)pastelPurpleColor;
++ (instancetype)palePurpleColor;
++ (instancetype)coolPurpleColor;
++ (instancetype)violetColor;
++ (instancetype)plumColor;
++ (instancetype)lavenderColor;
++ (instancetype)raspberryColor;
++ (instancetype)fuschiaColor;
++ (instancetype)grapeColor;
++ (instancetype)periwinkleColor;
++ (instancetype)orchidColor;
 
 // Yellows
-+ (ColorClass *)goldenrodColor;
-+ (ColorClass *)yellowGreenColor;
-+ (ColorClass *)bananaColor;
-+ (ColorClass *)mustardColor;
-+ (ColorClass *)buttermilkColor;
-+ (ColorClass *)goldColor;
-+ (ColorClass *)creamColor;
-+ (ColorClass *)lightCreamColor;
-+ (ColorClass *)wheatColor;
-+ (ColorClass *)beigeColor;
++ (instancetype)goldenrodColor;
++ (instancetype)yellowGreenColor;
++ (instancetype)bananaColor;
++ (instancetype)mustardColor;
++ (instancetype)buttermilkColor;
++ (instancetype)goldColor;
++ (instancetype)creamColor;
++ (instancetype)lightCreamColor;
++ (instancetype)wheatColor;
++ (instancetype)beigeColor;
 
 // Oranges
-+ (ColorClass *)peachColor;
-+ (ColorClass *)burntOrangeColor;
-+ (ColorClass *)pastelOrangeColor;
-+ (ColorClass *)cantaloupeColor;
-+ (ColorClass *)carrotColor;
-+ (ColorClass *)mandarinColor;
++ (instancetype)peachColor;
++ (instancetype)burntOrangeColor;
++ (instancetype)pastelOrangeColor;
++ (instancetype)cantaloupeColor;
++ (instancetype)carrotColor;
++ (instancetype)mandarinColor;
 
 // Browns
-+ (ColorClass *)chiliPowderColor;
-+ (ColorClass *)burntSiennaColor;
-+ (ColorClass *)chocolateColor;
-+ (ColorClass *)coffeeColor;
-+ (ColorClass *)cinnamonColor;
-+ (ColorClass *)almondColor;
-+ (ColorClass *)eggshellColor;
-+ (ColorClass *)sandColor;
-+ (ColorClass *)mudColor;
-+ (ColorClass *)siennaColor;
-+ (ColorClass *)dustColor;
++ (instancetype)chiliPowderColor;
++ (instancetype)burntSiennaColor;
++ (instancetype)chocolateColor;
++ (instancetype)coffeeColor;
++ (instancetype)cinnamonColor;
++ (instancetype)almondColor;
++ (instancetype)eggshellColor;
++ (instancetype)sandColor;
++ (instancetype)mudColor;
++ (instancetype)siennaColor;
++ (instancetype)dustColor;
 
 @end
