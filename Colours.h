@@ -42,7 +42,6 @@ typedef NS_ENUM(NSInteger, ColorScheme) {
 };
 
 
-
 #pragma mark - Color from Hex/RGBA/HSBA
 /**
  Creates a Color from a Hex representation string
