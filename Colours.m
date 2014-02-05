@@ -32,13 +32,6 @@
 
 #endif
 
-#pragma mark - RGB Helper method
-+ (instancetype)colorWithR:(CGFloat)red G:(CGFloat)green B:(CGFloat)blue A:(CGFloat)alpha
-{
-    CGFloat dev = 255.0f;
-    return [[self class] colorWithRed:red/dev green:green/dev blue:blue/dev alpha:alpha];
-}
-
 
 #pragma mark Color from Hex
 + (instancetype)colorFromHexString:(NSString *)hexString
@@ -68,7 +61,7 @@
 }
 
 
-#pragma mark Color from RGBA
+#pragma mark - Color from RGBA
 + (instancetype)colorFromRGBAArray:(NSArray *)rgbaArray
 {
     if (rgbaArray.count < 4) {
@@ -239,21 +232,6 @@
              [[self class] colorWithHue:h/360 saturation:(5*s/7)/100 brightness:b/100 alpha:a],
              [[self class] colorWithHue:[[self class] addDegrees:180 toDegree:h]/360 saturation:s/100 brightness:b/100 alpha:a],
              [[self class] colorWithHue:[[self class] addDegrees:180 toDegree:h]/360 saturation:(5*s/7)/100 brightness:b/100 alpha:a]];
-}
-
-+ (float)addDegrees:(float)addDeg toDegree:(float)staticDeg
-{
-    staticDeg += addDeg;
-    if (staticDeg > 360) {
-        float offset = staticDeg - 360;
-        return offset;
-    }
-    else if (staticDeg < 0) {
-        return -1 * staticDeg;
-    }
-    else {
-        return staticDeg;
-    }
 }
 
 
@@ -789,6 +767,33 @@
 + (instancetype)dustColor
 {
 	return [[self class] colorWithR:236 G:214 B:197 A:1.0];
+}
+
+
+#pragma mark - Private
+
+
+#pragma mark - RGBA Helper method
++ (instancetype)colorWithR:(CGFloat)red G:(CGFloat)green B:(CGFloat)blue A:(CGFloat)alpha
+{
+    return [[self class] colorWithRed:red/255.0f green:green/255.0f blue:blue/255.0f alpha:alpha];
+}
+
+
+#pragma mark - Degrees Helper method for Color Schemes
++ (float)addDegrees:(float)addDeg toDegree:(float)staticDeg
+{
+    staticDeg += addDeg;
+    if (staticDeg > 360) {
+        float offset = staticDeg - 360;
+        return offset;
+    }
+    else if (staticDeg < 0) {
+        return -1 * staticDeg;
+    }
+    else {
+        return staticDeg;
+    }
 }
 
 @end
