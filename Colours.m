@@ -32,16 +32,24 @@
 
 #endif
 
+#pragma mark - RGB Helper method
++ (instancetype)colorWithR:(CGFloat)red G:(CGFloat)green B:(CGFloat)blue A:(CGFloat)alpha
+{
+    CGFloat dev = 255.0f;
+    return [[self class] colorWithRed:red/dev green:green/dev blue:blue/dev alpha:alpha];
+}
+
+
 #pragma mark Color from Hex
 + (instancetype)colorFromHexString:(NSString *)hexString
 {
     unsigned rgbValue = 0;
     hexString = [hexString stringByReplacingOccurrencesOfString:@"#" withString:@""];
     NSScanner *scanner = [NSScanner scannerWithString:hexString];
-	
+
     [scanner scanHexInt:&rgbValue];
-	
-    return [[self class] colorWithRed:((rgbValue & 0xFF0000) >> 16)/255.0 green:((rgbValue & 0xFF00) >> 8)/255.0 blue:(rgbValue & 0xFF)/255.0 alpha:1.0];
+
+    return [[self class] colorWithR:((rgbValue & 0xFF0000) >> 16) G:((rgbValue & 0xFF00) >> 8) B:(rgbValue & 0xFF) A:1.0];
 }
 
 
@@ -55,7 +63,7 @@
     NSString *red = [NSString stringWithFormat:@"%02x", r];
     NSString *green = [NSString stringWithFormat:@"%02x", g];
     NSString *blue = [NSString stringWithFormat:@"%02x", b];
-	
+
     return [NSString stringWithFormat:@"#%@%@%@", red, green, blue];
 }
 
@@ -75,7 +83,7 @@
     if (rgbaDict[@"r"] && rgbaDict[@"g"] && rgbaDict[@"b"] && rgbaDict[@"a"]) {
         return [[self class] colorWithRed:[rgbaDict[@"r"] floatValue] green:[rgbaDict[@"g"] floatValue] blue:[rgbaDict[@"b"] floatValue] alpha:[rgbaDict[@"a"] floatValue]];
     }
-    
+
     return [[self class] clearColor];
 }
 
@@ -85,7 +93,7 @@
 {
     // Takes a [self class] and returns R,G,B,A values in NSNumber form
     CGFloat r=0,g=0,b=0,a=0;
-    
+
     if ([self respondsToSelector:@selector(getRed:green:blue:alpha:)]) {
         [self getRed:&r green:&g blue:&b alpha:&a];
     }
@@ -98,7 +106,7 @@
     }
     return @[@(r),
              @(g),
-             @(b), 
+             @(b),
              @(a)];
 }
 
@@ -116,7 +124,7 @@
         b = components[2];
         a = components[3];
     }
-    
+
     return @{@"r":@(r),
              @"g":@(g),
              @"b":@(b),
@@ -129,14 +137,14 @@
 {
     // Takes a [self class] and returns Hue,Saturation,Brightness,Alpha values in NSNumber form
     CGFloat h=0,s=0,b=0,a=0;
-    
+
     if ([self respondsToSelector:@selector(getHue:saturation:brightness:alpha:)]) {
         [self getHue:&h saturation:&s brightness:&b alpha:&a];
     }
-    
+
     return @[@(h),
              @(s),
-             @(b), 
+             @(b),
              @(a)];
 }
 
@@ -144,11 +152,11 @@
 {
     // Takes a [self class] and returns Hue,Saturation,Brightness,Alpha values in NSNumber form
     CGFloat h=0,s=0,b=0,a=0;
-    
+
     if ([self respondsToSelector:@selector(getHue:saturation:brightness:alpha:)]) {
         [self getHue:&h saturation:&s brightness:&b alpha:&a];
     }
-    
+
     return @{@"h":@(h),
              @"s":@(s),
              @"b":@(b),
@@ -162,7 +170,7 @@
     if (hsbaArray.count < 4) {
         return [[self class] clearColor];
     }
-    
+
     return [[self class] colorWithHue:[hsbaArray[0] doubleValue] saturation:[hsbaArray[1] doubleValue] brightness:[hsbaArray[2] doubleValue] alpha:[hsbaArray[3] doubleValue]];
 }
 
@@ -171,7 +179,7 @@
     if (hsbaDict[@"h"] && hsbaDict[@"s"] && hsbaDict[@"b"] && hsbaDict[@"a"]) {
         return [[self class] colorWithHue:[hsbaDict[@"h"] doubleValue] saturation:[hsbaDict[@"s"] doubleValue] brightness:[hsbaDict[@"b"] doubleValue] alpha:[hsbaDict[@"a"] doubleValue]];
     }
-    
+
     return [[self class] clearColor];
 }
 
@@ -184,7 +192,7 @@
     float sat = [hsbArray[1] floatValue] * 100;
     float bright = [hsbArray[2] floatValue] * 100;
     float alpha = [hsbArray[3] floatValue];
-    
+
     switch (type) {
         case ColorSchemeAnalagous:
             return [[self class] analagousColorsFromHue:hue saturation:sat brightness:bright alpha:alpha];
@@ -265,66 +273,66 @@
     float newH = [[self class] addDegrees:180.0f toDegree:([hsba[@"h"] floatValue]*360)];
     [hsba setObject:@(newH) forKey:@"h"];
     return [[self class] colorFromHSBADictionary:hsba];
-    
+
 }
 
 
 #pragma mark - System Colors
 + (instancetype)infoBlueColor
 {
-	return [[self class] colorWithRed:47/255.0f green:112/255.0f blue:225/255.0f alpha:1.0];
+	return [[self class] colorWithR:47 G:112 B:225 A:1.0];
 }
 
 + (instancetype)successColor
 {
-	return [[self class] colorWithRed:83/255.0f green:215/255.0f blue:106/255.0f alpha:1.0];
+	return [[self class] colorWithR:83 G:215 B:106 A:1.0];
 }
 
 + (instancetype)warningColor
 {
-	return [[self class] colorWithRed:221/255.0f green:170/255.0f blue:59/255.0f alpha:1.0];
+	return [[self class] colorWithR:221 G:170 B:59 A:1.0];
 }
 
 + (instancetype)dangerColor
 {
-	return [[self class] colorWithRed:229/255.0f green:0/255.0f blue:15/255.0f alpha:1.0];
+	return [[self class] colorWithR:229 G:0 B:15 A:1.0];
 }
 
 
 #pragma mark - Whites
 + (instancetype)antiqueWhiteColor
 {
-	return [[self class] colorWithRed:250/255.0f green:235/255.0f blue:215/255.0f alpha:1.0];
+	return [[self class] colorWithR:250 G:235 B:215 A:1.0];
 }
 
 + (instancetype)oldLaceColor
 {
-	return [[self class] colorWithRed:253/255.0f green:245/255.0f blue:230/255.0f alpha:1.0];
+	return [[self class] colorWithR:253 G:245 B:230 A:1.0];
 }
 
 + (instancetype)ivoryColor
 {
-	return [[self class] colorWithRed:255/255.0f green:255/255.0f blue:240/255.0f alpha:1.0];
+	return [[self class] colorWithR:255 G:255 B:240 A:1.0];
 }
 
 + (instancetype)seashellColor
 {
-	return [[self class] colorWithRed:255/255.0f green:245/255.0f blue:238/255.0f alpha:1.0];
+	return [[self class] colorWithR:255 G:245 B:238 A:1.0];
 }
 
 + (instancetype)ghostWhiteColor
 {
-	return [[self class] colorWithRed:248/255.0f green:248/255.0f blue:255/255.0f alpha:1.0];
+	return [[self class] colorWithR:248 G:248 B:255 A:1.0];
 }
 
 + (instancetype)snowColor
 {
-	return [[self class] colorWithRed:255/255.0f green:250/255.0f blue:250/255.0f alpha:1.0];
+	return [[self class] colorWithR:255 G:250 B:250 A:1.0];
 }
 
 + (instancetype)linenColor
 {
-	return [[self class] colorWithRed:250/255.0f green:240/255.0f blue:230/255.0f alpha:1.0];
+	return [[self class] colorWithR:250 G:240 B:230 A:1.0];
 }
 
 
@@ -346,441 +354,441 @@
 
 + (instancetype)warmGrayColor
 {
-	return [[self class] colorWithRed:133/255.0f green:117/255.0f blue:112/255.0f alpha:1.0];
+	return [[self class] colorWithR:133 G:117 B:112 A:1.0];
 }
 
 + (instancetype)coolGrayColor
 {
-	return [[self class] colorWithRed:118/255.0f green:122/255.0f blue:133/255.0f alpha:1.0];
+	return [[self class] colorWithR:118 G:122 B:133 A:1.0];
 }
 
 + (instancetype)charcoalColor
 {
-	return [[self class] colorWithRed:34/255.0f green:34/255.0f blue:34/255.0f alpha:1.0];
+	return [[self class] colorWithR:34 G:34 B:34 A:1.0];
 }
 
 
 #pragma mark - Blues
 + (instancetype)tealColor
 {
-	return [[self class] colorWithRed:28/255.0f green:160/255.0f blue:170/255.0f alpha:1.0];
+	return [[self class] colorWithR:28 G:160 B:170 A:1.0];
 }
 
 + (instancetype)steelBlueColor
 {
-	return [[self class] colorWithRed:103/255.0f green:153/255.0f blue:170/255.0f alpha:1.0];
+	return [[self class] colorWithR:103 G:153 B:170 A:1.0];
 }
 
 + (instancetype)robinEggColor
 {
-	return [[self class] colorWithRed:141/255.0f green:218/255.0f blue:247/255.0f alpha:1.0];
+	return [[self class] colorWithR:141 G:218 B:247 A:1.0];
 }
 
 + (instancetype)pastelBlueColor
 {
-	return [[self class] colorWithRed:99/255.0f green:161/255.0f blue:247/255.0f alpha:1.0];
+	return [[self class] colorWithR:99 G:161 B:247 A:1.0];
 }
 
 + (instancetype)turquoiseColor
 {
-	return [[self class] colorWithRed:112/255.0f green:219/255.0f blue:219/255.0f alpha:1.0];
+	return [[self class] colorWithR:112 G:219 B:219 A:1.0];
 }
 
 + (instancetype)skyBlueColor
 {
-	return [[self class] colorWithRed:0/255.0f green:178/255.0f blue:238/255.0f alpha:1.0];
+	return [[self class] colorWithR:0 G:178 B:238 A:1.0];
 }
 
 + (instancetype)indigoColor
 {
-	return [[self class] colorWithRed:13/255.0f green:79/255.0f blue:139/255.0f alpha:1.0];
+	return [[self class] colorWithR:13 G:79 B:139 A:1.0];
 }
 
 + (instancetype)denimColor
 {
-	return [[self class] colorWithRed:67/255.0f green:114/255.0f blue:170/255.0f alpha:1.0];
+	return [[self class] colorWithR:67 G:114 B:170 A:1.0];
 }
 
 + (instancetype)blueberryColor
 {
-	return [[self class] colorWithRed:89/255.0f green:113/255.0f blue:173/255.0f alpha:1.0];
+	return [[self class] colorWithR:89 G:113 B:173 A:1.0];
 }
 
 + (instancetype)cornflowerColor
 {
-	return [[self class] colorWithRed:100/255.0f green:149/255.0f blue:237/255.0f alpha:1.0];
+	return [[self class] colorWithR:100 G:149 B:237 A:1.0];
 }
 
 + (instancetype)babyBlueColor
 {
-	return [[self class] colorWithRed:190/255.0f green:220/255.0f blue:230/255.0f alpha:1.0];
+	return [[self class] colorWithR:190 G:220 B:230 A:1.0];
 }
 
 + (instancetype)midnightBlueColor
 {
-	return [[self class] colorWithRed:13/255.0f green:26/255.0f blue:35/255.0f alpha:1.0];
+	return [[self class] colorWithR:13 G:26 B:35 A:1.0];
 }
 
 + (instancetype)fadedBlueColor
 {
-	return [[self class] colorWithRed:23/255.0f green:137/255.0f blue:155/255.0f alpha:1.0];
+	return [[self class] colorWithR:23 G:137 B:155 A:1.0];
 }
 
 + (instancetype)icebergColor
 {
-	return [[self class] colorWithRed:200/255.0f green:213/255.0f blue:219/255.0f alpha:1.0];
+	return [[self class] colorWithR:200 G:213 B:219 A:1.0];
 }
 
 + (instancetype)waveColor
 {
-	return [[self class] colorWithRed:102/255.0f green:169/255.0f blue:251/255.0f alpha:1.0];
+	return [[self class] colorWithR:102 G:169 B:251 A:1.0];
 }
 
 
 #pragma mark - Greens
 + (instancetype)emeraldColor
 {
-	return [[self class] colorWithRed:1/255.0f green:152/255.0f blue:117/255.0f alpha:1.0];
+	return [[self class] colorWithR:1 G:152 B:117 A:1.0];
 }
 
 + (instancetype)grassColor
 {
-	return [[self class] colorWithRed:99/255.0f green:214/255.0f blue:74/255.0f alpha:1.0];
+	return [[self class] colorWithR:99 G:214 B:74 A:1.0];
 }
 
 + (instancetype)pastelGreenColor
 {
-	return [[self class] colorWithRed:126/255.0f green:242/255.0f blue:124/255.0f alpha:1.0];
+	return [[self class] colorWithR:126 G:242 B:124 A:1.0];
 }
 
 + (instancetype)seafoamColor
 {
-	return [[self class] colorWithRed:77/255.0f green:226/255.0f blue:140/255.0f alpha:1.0];
+	return [[self class] colorWithR:77 G:226 B:140 A:1.0];
 }
 
 + (instancetype)paleGreenColor
 {
-	return [[self class] colorWithRed:176/255.0f green:226/255.0f blue:172/255.0f alpha:1.0];
+	return [[self class] colorWithR:176 G:226 B:172 A:1.0];
 }
 
 + (instancetype)cactusGreenColor
 {
-	return [[self class] colorWithRed:99/255.0f green:111/255.0f blue:87/255.0f alpha:1.0];
+	return [[self class] colorWithR:99 G:111 B:87 A:1.0];
 }
 
 + (instancetype)chartreuseColor
 {
-	return [[self class] colorWithRed:69/255.0f green:139/255.0f blue:0/255.0f alpha:1.0];
+	return [[self class] colorWithR:69 G:139 B:0 A:1.0];
 }
 
 + (instancetype)hollyGreenColor
 {
-	return [[self class] colorWithRed:32/255.0f green:87/255.0f blue:14/255.0f alpha:1.0];
+	return [[self class] colorWithR:32 G:87 B:14 A:1.0];
 }
 
 + (instancetype)oliveColor
 {
-	return [[self class] colorWithRed:91/255.0f green:114/255.0f blue:34/255.0f alpha:1.0];
+	return [[self class] colorWithR:91 G:114 B:34 A:1.0];
 }
 
 + (instancetype)oliveDrabColor
 {
-	return [[self class] colorWithRed:107/255.0f green:142/255.0f blue:35/255.0f alpha:1.0];
+	return [[self class] colorWithR:107 G:142 B:35 A:1.0];
 }
 
 + (instancetype)moneyGreenColor
 {
-	return [[self class] colorWithRed:134/255.0f green:198/255.0f blue:124/255.0f alpha:1.0];
+	return [[self class] colorWithR:134 G:198 B:124 A:1.0];
 }
 
 + (instancetype)honeydewColor
 {
-	return [[self class] colorWithRed:216/255.0f green:255/255.0f blue:231/255.0f alpha:1.0];
+	return [[self class] colorWithR:216 G:255 B:231 A:1.0];
 }
 
 + (instancetype)limeColor
 {
-	return [[self class] colorWithRed:56/255.0f green:237/255.0f blue:56/255.0f alpha:1.0];
+	return [[self class] colorWithR:56 G:237 B:56 A:1.0];
 }
 
 + (instancetype)cardTableColor
 {
-	return [[self class] colorWithRed:87/255.0f green:121/255.0f blue:107/255.0f alpha:1.0];
+	return [[self class] colorWithR:87 G:121 B:107 A:1.0];
 }
 
 
 #pragma mark - Reds
 + (instancetype)salmonColor
 {
-	return [[self class] colorWithRed:233/255.0f green:87/255.0f blue:95/255.0f alpha:1.0];
+	return [[self class] colorWithR:233 G:87 B:95 A:1.0];
 }
 
 + (instancetype)brickRedColor
 {
-	return [[self class] colorWithRed:151/255.0f green:27/255.0f blue:16/255.0f alpha:1.0];
+	return [[self class] colorWithR:151 G:27 B:16 A:1.0];
 }
 
 + (instancetype)easterPinkColor
 {
-	return [[self class] colorWithRed:241/255.0f green:167/255.0f blue:162/255.0f alpha:1.0];
+	return [[self class] colorWithR:241 G:167 B:162 A:1.0];
 }
 
 + (instancetype)grapefruitColor
 {
-	return [[self class] colorWithRed:228/255.0f green:31/255.0f blue:54/255.0f alpha:1.0];
+	return [[self class] colorWithR:228 G:31 B:54 A:1.0];
 }
 
 + (instancetype)pinkColor
 {
-	return [[self class] colorWithRed:255/255.0f green:95/255.0f blue:154/255.0f alpha:1.0];
+	return [[self class] colorWithR:255 G:95 B:154 A:1.0];
 }
 
 + (instancetype)indianRedColor
 {
-	return [[self class] colorWithRed:205/255.0f green:92/255.0f blue:92/255.0f alpha:1.0];
+	return [[self class] colorWithR:205 G:92 B:92 A:1.0];
 }
 
 + (instancetype)strawberryColor
 {
-	return [[self class] colorWithRed:190/255.0f green:38/255.0f blue:37/255.0f alpha:1.0];
+	return [[self class] colorWithR:190 G:38 B:37 A:1.0];
 }
 
 + (instancetype)coralColor
 {
-	return [[self class] colorWithRed:240/255.0f green:128/255.0f blue:128/255.0f alpha:1.0];
+	return [[self class] colorWithR:240 G:128 B:128 A:1.0];
 }
 
 + (instancetype)maroonColor
 {
-	return [[self class] colorWithRed:80/255.0f green:4/255.0f blue:28/255.0f alpha:1.0];
+	return [[self class] colorWithR:80 G:4 B:28 A:1.0];
 }
 
 + (instancetype)watermelonColor
 {
-	return [[self class] colorWithRed:242/255.0f green:71/255.0f blue:63/255.0f alpha:1.0];
+	return [[self class] colorWithR:242 G:71 B:63 A:1.0];
 }
 
 + (instancetype)tomatoColor
 {
-	return [[self class] colorWithRed:255/255.0f green:99/255.0f blue:71/255.0f alpha:1.0];
+	return [[self class] colorWithR:255 G:99 B:71 A:1.0];
 }
 
 + (instancetype)pinkLipstickColor
 {
-	return [[self class] colorWithRed:255/255.0f green:105/255.0f blue:180/255.0f alpha:1.0];
+	return [[self class] colorWithR:255 G:105 B:180 A:1.0];
 }
 
 + (instancetype)paleRoseColor
 {
-	return [[self class] colorWithRed:255/255.0f green:228/255.0f blue:225/255.0f alpha:1.0];
+	return [[self class] colorWithR:255 G:228 B:225 A:1.0];
 }
 
 + (instancetype)crimsonColor
 {
-	return [[self class] colorWithRed:187/255.0f green:18/255.0f blue:36/255.0f alpha:1.0];
+	return [[self class] colorWithR:187 G:18 B:36 A:1.0];
 }
 
 
 #pragma mark - Purples
 + (instancetype)eggplantColor
 {
-	return [[self class] colorWithRed:105/255.0f green:5/255.0f blue:98/255.0f alpha:1.0];
+	return [[self class] colorWithR:105 G:5 B:98 A:1.0];
 }
 
 + (instancetype)pastelPurpleColor
 {
-	return [[self class] colorWithRed:207/255.0f green:100/255.0f blue:235/255.0f alpha:1.0];
+	return [[self class] colorWithR:207 G:100 B:235 A:1.0];
 }
 
 + (instancetype)palePurpleColor
 {
-	return [[self class] colorWithRed:229/255.0f green:180/255.0f blue:235/255.0f alpha:1.0];
+	return [[self class] colorWithR:229 G:180 B:235 A:1.0];
 }
 
 + (instancetype)coolPurpleColor
 {
-	return [[self class] colorWithRed:140/255.0f green:93/255.0f blue:228/255.0f alpha:1.0];
+	return [[self class] colorWithR:140 G:93 B:228 A:1.0];
 }
 
 + (instancetype)violetColor
 {
-	return [[self class] colorWithRed:191/255.0f green:95/255.0f blue:255/255.0f alpha:1.0];
+	return [[self class] colorWithR:191 G:95 B:255 A:1.0];
 }
 
 + (instancetype)plumColor
 {
-	return [[self class] colorWithRed:139/255.0f green:102/255.0f blue:139/255.0f alpha:1.0];
+	return [[self class] colorWithR:139 G:102 B:139 A:1.0];
 }
 
 + (instancetype)lavenderColor
 {
-	return [[self class] colorWithRed:204/255.0f green:153/255.0f blue:204/255.0f alpha:1.0];
+	return [[self class] colorWithR:204 G:153 B:204 A:1.0];
 }
 
 + (instancetype)raspberryColor
 {
-	return [[self class] colorWithRed:135/255.0f green:38/255.0f blue:87/255.0f alpha:1.0];
+	return [[self class] colorWithR:135 G:38 B:87 A:1.0];
 }
 
 + (instancetype)fuschiaColor
 {
-	return [[self class] colorWithRed:255/255.0f green:20/255.0f blue:147/255.0f alpha:1.0];
+	return [[self class] colorWithR:255 G:20 B:147 A:1.0];
 }
 
 + (instancetype)grapeColor
 {
-	return [[self class] colorWithRed:54/255.0f green:11/255.0f blue:88/255.0f alpha:1.0];
+	return [[self class] colorWithR:54 G:11 B:88 A:1.0];
 }
 
 + (instancetype)periwinkleColor
 {
-	return [[self class] colorWithRed:135/255.0f green:159/255.0f blue:237/255.0f alpha:1.0];
+	return [[self class] colorWithR:135 G:159 B:237 A:1.0];
 }
 
 + (instancetype)orchidColor
 {
-	return [[self class] colorWithRed:218/255.0f green:112/255.0f blue:214/255.0f alpha:1.0];
+	return [[self class] colorWithR:218 G:112 B:214 A:1.0];
 }
 
 
 #pragma mark - Yellows
 + (instancetype)goldenrodColor
 {
-	return [[self class] colorWithRed:215/255.0f green:170/255.0f blue:51/255.0f alpha:1.0];
+	return [[self class] colorWithR:215 G:170 B:51 A:1.0];
 }
 
 + (instancetype)yellowGreenColor
 {
-	return [[self class] colorWithRed:192/255.0f green:242/255.0f blue:39/255.0f alpha:1.0];
+	return [[self class] colorWithR:192 G:242 B:39 A:1.0];
 }
 
 + (instancetype)bananaColor
 {
-	return [[self class] colorWithRed:229/255.0f green:227/255.0f blue:58/255.0f alpha:1.0];
+	return [[self class] colorWithR:229 G:227 B:58 A:1.0];
 }
 
 + (instancetype)mustardColor
 {
-	return [[self class] colorWithRed:205/255.0f green:171/255.0f blue:45/255.0f alpha:1.0];
+	return [[self class] colorWithR:205 G:171 B:45 A:1.0];
 }
 
 + (instancetype)buttermilkColor
 {
-	return [[self class] colorWithRed:254/255.0f green:241/255.0f blue:181/255.0f alpha:1.0];
+	return [[self class] colorWithR:254 G:241 B:181 A:1.0];
 }
 
 + (instancetype)goldColor
 {
-	return [[self class] colorWithRed:139/255.0f green:117/255.0f blue:18/255.0f alpha:1.0];
+	return [[self class] colorWithR:139 G:117 B:18 A:1.0];
 }
 
 + (instancetype)creamColor
 {
-	return [[self class] colorWithRed:240/255.0f green:226/255.0f blue:187/255.0f alpha:1.0];
+	return [[self class] colorWithR:240 G:226 B:187 A:1.0];
 }
 
 + (instancetype)lightCreamColor
 {
-	return [[self class] colorWithRed:240/255.0f green:238/255.0f blue:215/255.0f alpha:1.0];
+	return [[self class] colorWithR:240 G:238 B:215 A:1.0];
 }
 
 + (instancetype)wheatColor
 {
-	return [[self class] colorWithRed:240/255.0f green:238/255.0f blue:215/255.0f alpha:1.0];
+	return [[self class] colorWithR:240 G:238 B:215 A:1.0];
 }
 
 + (instancetype)beigeColor
 {
-	return [[self class] colorWithRed:245/255.0f green:245/255.0f blue:220/255.0f alpha:1.0];
+	return [[self class] colorWithR:245 G:245 B:220 A:1.0];
 }
 
 
 #pragma mark - Oranges
 + (instancetype)peachColor
 {
-	return [[self class] colorWithRed:242/255.0f green:187/255.0f blue:97/255.0f alpha:1.0];
+	return [[self class] colorWithR:242 G:187 B:97 A:1.0];
 }
 
 + (instancetype)burntOrangeColor
 {
-	return [[self class] colorWithRed:184/255.0f green:102/255.0f blue:37/255.0f alpha:1.0];
+	return [[self class] colorWithR:184 G:102 B:37 A:1.0];
 }
 
 + (instancetype)pastelOrangeColor
 {
-	return [[self class] colorWithRed:248/255.0f green:197/255.0f blue:143/255.0f alpha:1.0];
+	return [[self class] colorWithR:248 G:197 B:143 A:1.0];
 }
 
 + (instancetype)cantaloupeColor
 {
-	return [[self class] colorWithRed:250/255.0f green:154/255.0f blue:79/255.0f alpha:1.0];
+	return [[self class] colorWithR:250 G:154 B:79 A:1.0];
 }
 
 + (instancetype)carrotColor
 {
-	return [[self class] colorWithRed:237/255.0f green:145/255.0f blue:33/255.0f alpha:1.0];
+	return [[self class] colorWithR:237 G:145 B:33 A:1.0];
 }
 
 + (instancetype)mandarinColor
 {
-	return [[self class] colorWithRed:247/255.0f green:145/255.0f blue:55/255.0f alpha:1.0];
+	return [[self class] colorWithR:247 G:145 B:55 A:1.0];
 }
 
 
 #pragma mark - Browns
 + (instancetype)chiliPowderColor
 {
-	return [[self class] colorWithRed:199/255.0f green:63/255.0f blue:23/255.0f alpha:1.0];
+	return [[self class] colorWithR:199 G:63 B:23 A:1.0];
 }
 
 + (instancetype)burntSiennaColor
 {
-	return [[self class] colorWithRed:138/255.0f green:54/255.0f blue:15/255.0f alpha:1.0];
+	return [[self class] colorWithR:138 G:54 B:15 A:1.0];
 }
 
 + (instancetype)chocolateColor
 {
-	return [[self class] colorWithRed:94/255.0f green:38/255.0f blue:5/255.0f alpha:1.0];
+	return [[self class] colorWithR:94 G:38 B:5 A:1.0];
 }
 
 + (instancetype)coffeeColor
 {
-	return [[self class] colorWithRed:141/255.0f green:60/255.0f blue:15/255.0f alpha:1.0];
+	return [[self class] colorWithR:141 G:60 B:15 A:1.0];
 }
 
 + (instancetype)cinnamonColor
 {
-	return [[self class] colorWithRed:123/255.0f green:63/255.0f blue:9/255.0f alpha:1.0];
+	return [[self class] colorWithR:123 G:63 B:9 A:1.0];
 }
 
 + (instancetype)almondColor
 {
-	return [[self class] colorWithRed:196/255.0f green:142/255.0f blue:72/255.0f alpha:1.0];
+	return [[self class] colorWithR:196 G:142 B:72 A:1.0];
 }
 
 + (instancetype)eggshellColor
 {
-	return [[self class] colorWithRed:252/255.0f green:230/255.0f blue:201/255.0f alpha:1.0];
+	return [[self class] colorWithR:252 G:230 B:201 A:1.0];
 }
 
 + (instancetype)sandColor
 {
-	return [[self class] colorWithRed:222/255.0f green:182/255.0f blue:151/255.0f alpha:1.0];
+	return [[self class] colorWithR:222 G:182 B:151 A:1.0];
 }
 
 + (instancetype)mudColor
 {
-	return [[self class] colorWithRed:70/255.0f green:45/255.0f blue:29/255.0f alpha:1.0];
+	return [[self class] colorWithR:70 G:45 B:29 A:1.0];
 }
 
 + (instancetype)siennaColor
 {
-	return [[self class] colorWithRed:160/255.0f green:82/255.0f blue:45/255.0f alpha:1.0];
+	return [[self class] colorWithR:160 G:82 B:45 A:1.0];
 }
 
 + (instancetype)dustColor
 {
-	return [[self class] colorWithRed:236/255.0f green:214/255.0f blue:197/255.0f alpha:1.0];
+	return [[self class] colorWithR:236 G:214 B:197 A:1.0];
 }
 
 @end
