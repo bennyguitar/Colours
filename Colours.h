@@ -25,10 +25,12 @@
 #if TARGET_OS_IPHONE
 #import <UIKit/UIKit.h>
 @interface UIColor (Colours)
+#define COLOR_CLASS UIColor
 
 #elif TARGET_OS_MAC
 #import <AppKit/AppKit.h>
 @interface NSColor (Colours)
+#define COLOR_CLASS NSColor
 
 #endif
 
@@ -136,6 +138,27 @@ typedef NS_ENUM(NSInteger, ColorScheme) {
  @return    Color
  */
 - (instancetype)complementaryColor;
+
+
+#pragma mark - Distance between Colors
+/**
+ *  Returns a distance that one color is away from another color. The range is from 0 to 3, where 0 is matching and 3 is the exact opposite (white and black).
+ *
+ *  @param color UIColor or NSColor to match against
+ *
+ *  @return Distance apart.
+ */
+- (CGFloat)distanceFromColor:(COLOR_CLASS *)color;
+
+/**
+ *  Returns a BOOL for whether or not two colors match based on a threshold.
+ *
+ *  @param color UIColor or NSColor to match against
+ *  @param threshold Maximum distance apart to return YES
+ *
+ *  @return BOOL for matching/not.
+ */
+- (BOOL)matchesColor:(COLOR_CLASS *)color withThreshold:(CGFloat)threshold;
 
 
 #pragma mark - Colors

@@ -25,10 +25,12 @@
 #if TARGET_OS_IPHONE
 #import <UIKit/UIKit.h>
 @implementation UIColor (Colours)
+#define COLOR_CLASS UIColor
 
 #elif TARGET_OS_MAC
 #import <AppKit/AppKit.h>
 @implementation NSColor (Colours)
+#define COLOR_CLASS NSColor
 
 #endif
 
@@ -252,6 +254,32 @@
     [hsba setObject:@(newH) forKey:@"h"];
     return [[self class] colorFromHSBADictionary:hsba];
 
+}
+
+
+#pragma mark - Distance between Colors
+- (CGFloat)distanceFromColor:(COLOR_CLASS *)color
+{
+    // Get RGB points from both colors
+    double R1 = 0, R2 = 0, G1 = 0, G2 = 0, B1 = 0, B2 = 0;
+    NSDictionary *rgba1 = [self rgbaDictionary];
+    NSDictionary *rgba2 = [color rgbaDictionary];
+    R1 = [rgba1[@"r"] doubleValue];
+    R2 = [rgba2[@"r"] doubleValue];
+    G1 = [rgba1[@"g"] doubleValue];
+    G2 = [rgba2[@"g"] doubleValue];
+    B1 = [rgba1[@"b"] doubleValue];
+    B2 = [rgba2[@"b"] doubleValue];
+    
+    // Return Distance
+    // - Sum the squares of the distance between each 3D point
+    // - to return the correct distance.
+    return pow((R2 - R1), 2) + pow((G2 - G1), 2) + pow((B2 - B1), 2);
+}
+
+- (BOOL)matchesColor:(COLOR_CLASS *)color withThreshold:(CGFloat)threshold
+{
+    return [self distanceFromColor:color] < threshold;
 }
 
 
