@@ -49,16 +49,29 @@ UIColor *newColor = [UIColor colorFromRGBAArray:colorArray];
 
 **RGBA Dictionary to and from a UIColor**
 
-Similar to the array method above, this returns an NSDictionary that contains NSNumbers for the keys: <code>@"r",@"g",@"b",@"a"</code>.
+Similar to the array method above, this returns an NSDictionary that contains NSNumbers. Static keys are used to access the different color components of the dictionary. This allows you to use autocorrect to use the returned dictionary faster.
+
+* kColoursRGBA_R
+* kColoursRGBA_G
+* kColoursRGBA_B
+* kColoursRGBA_A
 
 ```objc
 NSDictionary *colorDict = [[UIColor seafoamColor] rgbaDictionary];
 UIColor *newColor = [UIColor colorFromRGBADictionary:colorDict];
+
+// You can also get a single component like so:
+NSNumber *r = colorDict[kColoursRGBA_R];
 ```
 
 **HSBA Array & Dictionary to and from a UIColor**
 
-Like both of the RGBA methods above, you can also get the Hue, Saturation and Brightness values from a UIColor and create an array or dictionary out of them, or vice versa.
+Like both of the RGBA methods above, you can also get the Hue, Saturation and Brightness values from a UIColor and create an array or dictionary out of them, or vice versa. The colorDictionary returned also uses static keys like the RGBA version of this method. Here are the ones to use:
+
+* kColoursHSBA_R
+* kColoursHSBA_G
+* kColoursHSBA_B
+* kColoursHSBA_A
 
 ```objc
 NSArray *colorArray = [[UIColor seafoamColor] hsbaArray];
