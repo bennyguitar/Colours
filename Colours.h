@@ -21,6 +21,21 @@
 // CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 
 #include "TargetConditionals.h"
+#include <Foundation/Foundation.h>
+
+
+#pragma mark - Static String Keys
+static const NSString * kColoursRGB_R = @"RGBA-r";
+static const NSString * kColoursRGB_G = @"RGBA-g";
+static const NSString * kColoursRGB_B = @"RGBA-b";
+static const NSString * kColoursRGB_A = @"RGBA-a";
+static const NSString * kColoursHSB_H = @"HSBA-h";
+static const NSString * kColoursHSB_S = @"HSBA-s";
+static const NSString * kColoursHSB_B = @"HSBA-b";
+static const NSString * kColoursHSB_A = @"HSBA-a";
+
+
+#pragma mark - Create correct iOS/OSX interface
 
 #if TARGET_OS_IPHONE
 #import <UIKit/UIKit.h>
@@ -35,12 +50,19 @@
 #endif
 
 
+#pragma mark - Enums
 // Color Scheme Generation Enum
 typedef NS_ENUM(NSInteger, ColorScheme) {
     ColorSchemeAnalagous,
     ColorSchemeMonochromatic,
     ColorSchemeTriad,
     ColorSchemeComplementary
+};
+
+// ColorFormulation Type
+typedef NS_ENUM(NSInteger, ColorFormulation) {
+    ColorFormulationRGBA,
+    ColorFormulationHSBA
 };
 
 
@@ -115,6 +137,15 @@ typedef NS_ENUM(NSInteger, ColorScheme) {
 - (NSDictionary *)hsbaDictionary;
 
 
+#pragma mark - Color Components
+/**
+ *  Creates an NSDictionary with RGBA and HSBA color components inside.
+ *
+ *  @return NSDictionary
+ */
+- (NSDictionary *)colorComponents;
+
+
 #pragma mark - 4 Color Scheme from Color
 /**
  Creates an NSArray of 4 Colors that complement the Color.
@@ -142,23 +173,22 @@ typedef NS_ENUM(NSInteger, ColorScheme) {
 
 #pragma mark - Distance between Colors
 /**
- *  Returns a distance that one color is away from another color. The range is from 0 to 3, where 0 is matching and 3 is the exact opposite (white and black).
+ *  Returns a distance that one color is away from another color. The range is from 0 to 3, where 0 is matching and 3 is the exact opposite (white and black). Uses RGB to compare.
  *
  *  @param color UIColor or NSColor to match against
  *
  *  @return Distance apart.
  */
-- (CGFloat)distanceFromColor:(COLOR_CLASS *)color;
+- (CGFloat)rgbDistanceFromColor:(COLOR_CLASS *)color;
 
 /**
- *  Returns a BOOL for whether or not two colors match based on a threshold.
+ *  Returns a distance that one color is away from another color. The range is from 0 to 3, where 0 is matching and 3 is the exact opposite (white and black). Uses HSB to compare.
  *
  *  @param color UIColor or NSColor to match against
- *  @param threshold Maximum distance apart to return YES
  *
- *  @return BOOL for matching/not.
+ *  @return Distance apart.
  */
-- (BOOL)matchesColor:(COLOR_CLASS *)color withThreshold:(CGFloat)threshold;
+- (CGFloat)hsbDistanceFromColor:(COLOR_CLASS *)color;
 
 
 #pragma mark - Colors

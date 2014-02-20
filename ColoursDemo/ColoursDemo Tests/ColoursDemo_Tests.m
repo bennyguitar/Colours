@@ -38,9 +38,20 @@
 }
 
 - (void)testRGBADictContructor {
-    NSDictionary *dictForRed = @{@"r": [NSNumber numberWithInt:255], @"g":@(0), @"b": [NSNumber numberWithInt:0],@"a": [NSNumber numberWithInt:255]};
-    NSDictionary *dictForGreen =@{@"r": [NSNumber numberWithInt:0],@"g": [NSNumber numberWithInt:255],@"b": [NSNumber numberWithInt:0],@"a": [NSNumber numberWithInt:255]};
-    NSDictionary *dictForBlue = @{@"r": [NSNumber numberWithInt:0],@"g": [NSNumber numberWithInt:0],@"b": [NSNumber numberWithInt:255],@"a": [NSNumber numberWithInt:255]};
+    NSDictionary *dictForRed = @{kColoursRGB_R:@1,
+                                 kColoursRGB_G:@0,
+                                 kColoursRGB_B:@0,
+                                 kColoursRGB_A:@1};
+    
+    NSDictionary *dictForGreen =@{kColoursRGB_R:@0,
+                                  kColoursRGB_G:@1,
+                                  kColoursRGB_B:@0,
+                                  kColoursRGB_A:@1};
+    
+    NSDictionary *dictForBlue = @{kColoursRGB_R:@0,
+                                  kColoursRGB_G:@0,
+                                  kColoursRGB_B:@1,
+                                  kColoursRGB_A:@1};
     
     XCTAssertEqualObjects([UIColor redColor], [UIColor colorFromRGBADictionary:dictForRed], @"Color from RGBA Dictionary [255,0,0,255] does not give red.");
     XCTAssertEqualObjects([UIColor greenColor], [UIColor colorFromRGBADictionary:dictForGreen], @"Color from RGBA Dictionary [0,255,0,255] does not give green.");

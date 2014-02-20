@@ -1,13 +1,13 @@
 Pod::Spec.new do |s|
   s.name         = 'Colours'
-  s.version      = '4.2'
+  s.version      = '5.0.0'
   s.summary      = '100s of beautiful, predefined Colors and Color methods. Works for iOS/OSX.'
   s.author = {
     'Ben Gordon' => 'brgordon@ua.edu'
   }
   s.source = {
     :git => 'https://github.com/bennyguitar/Colours.git',
-    :tag => '4.2'
+    :tag => '5.0.0'
   }
   s.homepage    = 'https://github.com/bennyguitar'
   s.license     = 'LICENSE'

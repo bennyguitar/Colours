@@ -22,6 +22,8 @@
 
 #import "Colours.h"
 
+#pragma mark - Create correct iOS/OSX implementation
+
 #if TARGET_OS_IPHONE
 #import <UIKit/UIKit.h>
 @implementation UIColor (Colours)
@@ -35,13 +37,12 @@
 #endif
 
 
-#pragma mark Color from Hex
+#pragma mark - Color from Hex
 + (instancetype)colorFromHexString:(NSString *)hexString
 {
     unsigned rgbValue = 0;
     hexString = [hexString stringByReplacingOccurrencesOfString:@"#" withString:@""];
     NSScanner *scanner = [NSScanner scannerWithString:hexString];
-
     [scanner scanHexInt:&rgbValue];
 
     return [[self class] colorWithR:((rgbValue & 0xFF0000) >> 16) G:((rgbValue & 0xFF00) >> 8) B:(rgbValue & 0xFF) A:1.0];
@@ -69,14 +70,20 @@
     if (rgbaArray.count < 4) {
         return [[self class] clearColor];
     }
-    // Takes an array of RGBA float's as NSNumbers, and makes a [self class] (shorthand colorWithRed:Green:Blue:Alpha:
-    return [[self class] colorWithRed:[rgbaArray[0] floatValue] green:[rgbaArray[1] floatValue] blue:[rgbaArray[2] floatValue] alpha:[rgbaArray[3] floatValue]];
+
+    return [[self class] colorWithRed:[rgbaArray[0] floatValue]
+                                green:[rgbaArray[1] floatValue]
+                                 blue:[rgbaArray[2] floatValue]
+                                alpha:[rgbaArray[3] floatValue]];
 }
 
 + (instancetype)colorFromRGBADictionary:(NSDictionary *)rgbaDict
 {
-    if (rgbaDict[@"r"] && rgbaDict[@"g"] && rgbaDict[@"b"] && rgbaDict[@"a"]) {
-        return [[self class] colorWithRed:[rgbaDict[@"r"] floatValue] green:[rgbaDict[@"g"] floatValue] blue:[rgbaDict[@"b"] floatValue] alpha:[rgbaDict[@"a"] floatValue]];
+    if (rgbaDict[kColoursRGB_R] && rgbaDict[kColoursRGB_G] && rgbaDict[kColoursRGB_B] && rgbaDict[kColoursRGB_A]) {
+        return [[self class] colorWithRed:[rgbaDict[kColoursRGB_R] floatValue]
+                                    green:[rgbaDict[kColoursRGB_G] floatValue]
+                                     blue:[rgbaDict[kColoursRGB_B] floatValue]
+                                    alpha:[rgbaDict[kColoursRGB_A] floatValue]];
     }
 
     return [[self class] clearColor];
@@ -86,7 +93,6 @@
 #pragma mark - RGBA from Color
 - (NSArray *)rgbaArray
 {
-    // Takes a [self class] and returns R,G,B,A values in NSNumber form
     CGFloat r=0,g=0,b=0,a=0;
 
     if ([self respondsToSelector:@selector(getRed:green:blue:alpha:)]) {
@@ -99,6 +105,7 @@
         b = components[2];
         a = components[3];
     }
+    
     return @[@(r),
              @(g),
              @(b),
@@ -107,7 +114,6 @@
 
 - (NSDictionary *)rgbaDictionary
 {
-    // Takes [self class] and returns RGBA values in a dictionary as NSNumbers
     CGFloat r=0,g=0,b=0,a=0;
     if ([self respondsToSelector:@selector(getRed:green:blue:alpha:)]) {
         [self getRed:&r green:&g blue:&b alpha:&a];
@@ -120,10 +126,10 @@
         a = components[3];
     }
 
-    return @{@"r":@(r),
-             @"g":@(g),
-             @"b":@(b),
-             @"a":@(a)};
+    return @{kColoursRGB_R:@(r),
+             kColoursRGB_G:@(g),
+             kColoursRGB_B:@(b),
+             kColoursRGB_A:@(a)};
 }
 
 
@@ -145,17 +151,16 @@
 
 - (NSDictionary *)hsbaDictionary
 {
-    // Takes a [self class] and returns Hue,Saturation,Brightness,Alpha values in NSNumber form
     CGFloat h=0,s=0,b=0,a=0;
 
     if ([self respondsToSelector:@selector(getHue:saturation:brightness:alpha:)]) {
         [self getHue:&h saturation:&s brightness:&b alpha:&a];
     }
 
-    return @{@"h":@(h),
-             @"s":@(s),
-             @"b":@(b),
-             @"a":@(a)};
+    return @{kColoursHSB_H:@(h),
+             kColoursHSB_S:@(s),
+             kColoursHSB_B:@(b),
+             kColoursHSB_A:@(a)};
 }
 
 
@@ -166,16 +171,31 @@
         return [[self class] clearColor];
     }
 
-    return [[self class] colorWithHue:[hsbaArray[0] doubleValue] saturation:[hsbaArray[1] doubleValue] brightness:[hsbaArray[2] doubleValue] alpha:[hsbaArray[3] doubleValue]];
+    return [[self class] colorWithHue:[hsbaArray[0] doubleValue]
+                           saturation:[hsbaArray[1] doubleValue]
+                           brightness:[hsbaArray[2] doubleValue]
+                                alpha:[hsbaArray[3] doubleValue]];
 }
 
 + (instancetype)colorFromHSBADictionary:(NSDictionary *)hsbaDict
 {
-    if (hsbaDict[@"h"] && hsbaDict[@"s"] && hsbaDict[@"b"] && hsbaDict[@"a"]) {
-        return [[self class] colorWithHue:[hsbaDict[@"h"] doubleValue] saturation:[hsbaDict[@"s"] doubleValue] brightness:[hsbaDict[@"b"] doubleValue] alpha:[hsbaDict[@"a"] doubleValue]];
+    if (hsbaDict[kColoursHSB_H] && hsbaDict[kColoursHSB_S] && hsbaDict[kColoursHSB_B] && hsbaDict[kColoursHSB_A]) {
+        return [[self class] colorWithHue:[hsbaDict[kColoursHSB_H] doubleValue]
+                               saturation:[hsbaDict[kColoursHSB_S] doubleValue]
+                               brightness:[hsbaDict[kColoursHSB_B] doubleValue]
+                                    alpha:[hsbaDict[kColoursHSB_A] doubleValue]];
     }
 
     return [[self class] clearColor];
+}
+
+
+#pragma mark - Color Components
+- (NSDictionary *)colorComponents
+{
+    NSMutableDictionary *components = [[self rgbaDictionary] mutableCopy];
+    [components addEntriesFromDictionary:[self hsbaDictionary]];
+    return components;
 }
 
 
@@ -258,28 +278,30 @@
 
 
 #pragma mark - Distance between Colors
-- (CGFloat)distanceFromColor:(COLOR_CLASS *)color
+- (CGFloat)rgbDistanceFromColor:(COLOR_CLASS *)color
 {
-    // Get RGB points from both colors
-    double R1 = 0, R2 = 0, G1 = 0, G2 = 0, B1 = 0, B2 = 0;
-    NSDictionary *rgba1 = [self rgbaDictionary];
-    NSDictionary *rgba2 = [color rgbaDictionary];
-    R1 = [rgba1[@"r"] doubleValue];
-    R2 = [rgba2[@"r"] doubleValue];
-    G1 = [rgba1[@"g"] doubleValue];
-    G2 = [rgba2[@"g"] doubleValue];
-    B1 = [rgba1[@"b"] doubleValue];
-    B2 = [rgba2[@"b"] doubleValue];
+    return [self distanceFromColorArray:[color hsbaArray] colorType:ColorFormulationRGBA];
+}
+
+- (CGFloat)hsbDistanceFromColor:(COLOR_CLASS *)color {
+    return [self distanceFromColorArray:[color hsbaArray] colorType:ColorFormulationHSBA];
+}
+
+- (CGFloat)distanceFromColorArray:(NSArray *)colorArray colorType:(ColorFormulation)type {
+    // Get RGB/HSB points from both colors
+    double A1 = 0, A2 = 0, B1 = 0, B2 = 0, C1 = 0, C2 = 0;
+    NSArray *selfColorArray = type == ColorFormulationRGBA ? [self rgbaArray] : [self hsbaArray];
+    A1 = [selfColorArray[0] doubleValue];
+    A2 = [colorArray[0] doubleValue];
+    B1 = [selfColorArray[1] doubleValue];
+    B2 = [colorArray[1] doubleValue];
+    C1 = [selfColorArray[2] doubleValue];
+    C2 = [colorArray[2] doubleValue];
     
     // Return Distance
     // - Sum the squares of the distance between each 3D point
     // - to return the correct distance.
-    return pow((R2 - R1), 2) + pow((G2 - G1), 2) + pow((B2 - B1), 2);
-}
-
-- (BOOL)matchesColor:(COLOR_CLASS *)color withThreshold:(CGFloat)threshold
-{
-    return [self distanceFromColor:color] < threshold;
+    return sqrtf(pow((A2 - A1), 2) + pow((B2 - B1), 2) + pow((C2 - C1), 2));
 }
 
 
