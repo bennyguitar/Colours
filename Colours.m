@@ -79,11 +79,11 @@
 
 + (instancetype)colorFromRGBADictionary:(NSDictionary *)rgbaDict
 {
-    if (rgbaDict[kColoursRGB_R] && rgbaDict[kColoursRGB_G] && rgbaDict[kColoursRGB_B] && rgbaDict[kColoursRGB_A]) {
-        return [[self class] colorWithRed:[rgbaDict[kColoursRGB_R] floatValue]
-                                    green:[rgbaDict[kColoursRGB_G] floatValue]
-                                     blue:[rgbaDict[kColoursRGB_B] floatValue]
-                                    alpha:[rgbaDict[kColoursRGB_A] floatValue]];
+    if (rgbaDict[kColoursRGBA_R] && rgbaDict[kColoursRGBA_G] && rgbaDict[kColoursRGBA_B] && rgbaDict[kColoursRGBA_A]) {
+        return [[self class] colorWithRed:[rgbaDict[kColoursRGBA_R] floatValue]
+                                    green:[rgbaDict[kColoursRGBA_G] floatValue]
+                                     blue:[rgbaDict[kColoursRGBA_B] floatValue]
+                                    alpha:[rgbaDict[kColoursRGBA_A] floatValue]];
     }
 
     return [[self class] clearColor];
@@ -126,10 +126,10 @@
         a = components[3];
     }
 
-    return @{kColoursRGB_R:@(r),
-             kColoursRGB_G:@(g),
-             kColoursRGB_B:@(b),
-             kColoursRGB_A:@(a)};
+    return @{kColoursRGBA_R:@(r),
+             kColoursRGBA_G:@(g),
+             kColoursRGBA_B:@(b),
+             kColoursRGBA_A:@(a)};
 }
 
 
@@ -157,10 +157,10 @@
         [self getHue:&h saturation:&s brightness:&b alpha:&a];
     }
 
-    return @{kColoursHSB_H:@(h),
-             kColoursHSB_S:@(s),
-             kColoursHSB_B:@(b),
-             kColoursHSB_A:@(a)};
+    return @{kColoursHSBA_H:@(h),
+             kColoursHSBA_S:@(s),
+             kColoursHSBA_B:@(b),
+             kColoursHSBA_A:@(a)};
 }
 
 
@@ -179,11 +179,11 @@
 
 + (instancetype)colorFromHSBADictionary:(NSDictionary *)hsbaDict
 {
-    if (hsbaDict[kColoursHSB_H] && hsbaDict[kColoursHSB_S] && hsbaDict[kColoursHSB_B] && hsbaDict[kColoursHSB_A]) {
-        return [[self class] colorWithHue:[hsbaDict[kColoursHSB_H] doubleValue]
-                               saturation:[hsbaDict[kColoursHSB_S] doubleValue]
-                               brightness:[hsbaDict[kColoursHSB_B] doubleValue]
-                                    alpha:[hsbaDict[kColoursHSB_A] doubleValue]];
+    if (hsbaDict[kColoursHSBA_H] && hsbaDict[kColoursHSBA_S] && hsbaDict[kColoursHSBA_B] && hsbaDict[kColoursHSBA_A]) {
+        return [[self class] colorWithHue:[hsbaDict[kColoursHSBA_H] doubleValue]
+                               saturation:[hsbaDict[kColoursHSBA_S] doubleValue]
+                               brightness:[hsbaDict[kColoursHSBA_B] doubleValue]
+                                    alpha:[hsbaDict[kColoursHSBA_A] doubleValue]];
     }
 
     return [[self class] clearColor];

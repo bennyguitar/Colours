@@ -25,14 +25,14 @@
 
 
 #pragma mark - Static String Keys
-static const NSString * kColoursRGB_R = @"RGBA-r";
-static const NSString * kColoursRGB_G = @"RGBA-g";
-static const NSString * kColoursRGB_B = @"RGBA-b";
-static const NSString * kColoursRGB_A = @"RGBA-a";
-static const NSString * kColoursHSB_H = @"HSBA-h";
-static const NSString * kColoursHSB_S = @"HSBA-s";
-static const NSString * kColoursHSB_B = @"HSBA-b";
-static const NSString * kColoursHSB_A = @"HSBA-a";
+static const NSString * kColoursRGBA_R = @"RGBA-r";
+static const NSString * kColoursRGBA_G = @"RGBA-g";
+static const NSString * kColoursRGBA_B = @"RGBA-b";
+static const NSString * kColoursRGBA_A = @"RGBA-a";
+static const NSString * kColoursHSBA_H = @"HSBA-h";
+static const NSString * kColoursHSBA_S = @"HSBA-s";
+static const NSString * kColoursHSBA_B = @"HSBA-b";
+static const NSString * kColoursHSBA_A = @"HSBA-a";
 
 
 #pragma mark - Create correct iOS/OSX interface
