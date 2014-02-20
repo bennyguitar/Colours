@@ -270,38 +270,30 @@
 - (instancetype)complementaryColor
 {
     NSMutableDictionary *hsba = [[self hsbaDictionary] mutableCopy];
-    float newH = [[self class] addDegrees:180.0f toDegree:([hsba[@"h"] floatValue]*360)];
-    [hsba setObject:@(newH) forKey:@"h"];
+    float newH = [[self class] addDegrees:180.0f toDegree:([hsba[kColoursHSBA_H] floatValue]*360)];
+    [hsba setObject:@(newH) forKey:kColoursHSBA_H];
     return [[self class] colorFromHSBADictionary:hsba];
 
 }
 
 
 #pragma mark - Distance between Colors
-- (CGFloat)rgbDistanceFromColor:(COLOR_CLASS *)color
+- (CGFloat)distanceFromColor:(COLOR_CLASS *)color
 {
-    return [self distanceFromColorArray:[color hsbaArray] colorType:ColorFormulationRGBA];
-}
-
-- (CGFloat)hsbDistanceFromColor:(COLOR_CLASS *)color {
-    return [self distanceFromColorArray:[color hsbaArray] colorType:ColorFormulationHSBA];
-}
-
-- (CGFloat)distanceFromColorArray:(NSArray *)colorArray colorType:(ColorFormulation)type {
-    // Get RGB/HSB points from both colors
-    double A1 = 0, A2 = 0, B1 = 0, B2 = 0, C1 = 0, C2 = 0;
-    NSArray *selfColorArray = type == ColorFormulationRGBA ? [self rgbaArray] : [self hsbaArray];
-    A1 = [selfColorArray[0] doubleValue];
-    A2 = [colorArray[0] doubleValue];
-    B1 = [selfColorArray[1] doubleValue];
-    B2 = [colorArray[1] doubleValue];
-    C1 = [selfColorArray[2] doubleValue];
-    C2 = [colorArray[2] doubleValue];
+    // General solution idea from: http://www.compuphase.com/cmetric.htm
+    NSArray *selfColorArray = [self rgbaArray];
+    NSArray *checkColorArray = [color rgbaArray];
     
-    // Return Distance
-    // - Sum the squares of the distance between each 3D point
-    // - to return the correct distance.
-    return sqrtf(pow((A2 - A1), 2) + pow((B2 - B1), 2) + pow((C2 - C1), 2));
+    // Set up variables
+    CGFloat meanR = ([selfColorArray[0] doubleValue]*255.0f + [checkColorArray[0] doubleValue]*255.0f)/2;
+    CGFloat deltaR = [selfColorArray[0] doubleValue]*255.0f - [checkColorArray[0] doubleValue]*255.0f;
+    CGFloat deltaG = [selfColorArray[1] doubleValue]*255.0f - [checkColorArray[1] doubleValue]*255.0f;
+    CGFloat deltaB = [selfColorArray[2] doubleValue]*255.0f - [checkColorArray[2] doubleValue]*255.0f;
+    
+    // Calculate Distance
+    CGFloat distance = sqrtf((2 + (meanR/256))*(deltaR*deltaR) + 4*(deltaG*deltaG) + (2 + (255 - meanR)/256)*(deltaB*deltaB));
+    
+    return distance;
 }
 
 

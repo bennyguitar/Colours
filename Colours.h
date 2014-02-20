@@ -173,22 +173,13 @@ typedef NS_ENUM(NSInteger, ColorFormulation) {
 
 #pragma mark - Distance between Colors
 /**
- *  Returns a distance that one color is away from another color. The range is from 0 to 3, where 0 is matching and 3 is the exact opposite (white and black). Uses RGB to compare.
+ *  Returns a float of the distance between 2 colors.
  *
- *  @param color UIColor or NSColor to match against
+ *  @param color Color to check self with.
  *
- *  @return Distance apart.
+ *  @return CGFloat
  */
-- (CGFloat)rgbDistanceFromColor:(COLOR_CLASS *)color;
-
-/**
- *  Returns a distance that one color is away from another color. The range is from 0 to 3, where 0 is matching and 3 is the exact opposite (white and black). Uses HSB to compare.
- *
- *  @param color UIColor or NSColor to match against
- *
- *  @return Distance apart.
- */
-- (CGFloat)hsbDistanceFromColor:(COLOR_CLASS *)color;
+- (CGFloat)distanceFromColor:(COLOR_CLASS *)color;
 
 
 #pragma mark - Colors
