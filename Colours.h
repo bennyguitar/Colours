@@ -83,7 +83,7 @@ typedef NS_ENUM(NSInteger, ColorFormulation) {
 
 /**
  Creates a Color from a dictionary of 4 NSNumbers
- Keys: @"r",@"g",@"b",@"a"
+ Keys: kColoursRGBA_R, kColoursRGBA_G, kColoursRGBA_B, kColoursRGBA_A
  @param rgbaDictionary   4 NSNumbers for rgba between 0 - 1
  @return    Color
  */
@@ -98,7 +98,7 @@ typedef NS_ENUM(NSInteger, ColorFormulation) {
 
 /**
  Creates a Color from a dictionary of 4 NSNumbers
- Keys: @"h",@"s",@"b",@"a"
+ Keys: kColoursHSBA_H, kColoursHSBA_S, kColoursHSBA_B, kColoursHSBA_A
  @param hsbaDictionary   4 NSNumbers for rgba between 0 - 1
  @return    Color
  */
@@ -125,13 +125,13 @@ typedef NS_ENUM(NSInteger, ColorFormulation) {
 - (NSArray *)hsbaArray;
 
 /**
- Creates a dictionary of 4 NSNumbers representing float values with keys: "r", "g", "b", "a"
+ Creates a dictionary of 4 NSNumbers representing float values with keys: kColoursRGBA_R, kColoursRGBA_G, kColoursRGBA_B, kColoursRGBA_A
  @return    NSDictionary
  */
 - (NSDictionary *)rgbaDictionary;
 
 /**
- Creates a dictionary of 4 NSNumbers representing float values with keys: "h", "s", "b", "a"
+ Creates a dictionary of 4 NSNumbers representing float values with keys: kColoursHSBA_H, kColoursHSBA_S, kColoursHSBA_B, kColoursHSBA_A
  @return    NSDictionary
  */
 - (NSDictionary *)hsbaDictionary;
