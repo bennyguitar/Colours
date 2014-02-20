@@ -291,7 +291,7 @@
     CGFloat deltaB = [selfColorArray[2] doubleValue]*255.0f - [checkColorArray[2] doubleValue]*255.0f;
     
     // Calculate Distance
-    CGFloat distance = sqrtf((2 + (meanR/256))*(deltaR*deltaR) + 4*(deltaG*deltaG) + (2 + (255 - meanR)/256)*(deltaB*deltaB));
+    CGFloat distance = sqrtf((2 + (meanR/256))*(deltaR*deltaR) + 4*(deltaG*deltaG) + (2 + (255 - meanR)/256)*(deltaB*deltaB))/255.0f;
     
     return distance;
 }
