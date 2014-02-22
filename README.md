@@ -12,12 +12,20 @@ Drag the included **Colours.h** and **Colours.m** files into your project. They 
 
 *Note: 5.0.0 breaks previous versions' rgbaDictionary and hsbaDictionary methods!*
 
-<code>pod 'Colours', '~> 5.0.0'</code>
+<code>pod 'Colours', '~> 5.1.0'</code>
 
 **NSColor**
 
 Colours supports <code>NSColor</code> out of the box! Just make sure you have the <code>AppKit</code> framework installed (it comes that way for a new application) and you will be set. This README uses UIColor for its examples, just substitute NSColor and the methods are all the same.
 
+## Table of Contents
+* [Color Palette](#color-palette)
+* [Using Predefined Colors](#using-predefined-colors)
+* [Color Helper Methods](#color-helper-methods)
+* [Distance between 2 Colors](#distance-between-2-colors)
+* [Generating Color Schemes](#generating-color-schemes)
+* [Android](#android)
+* [Reap What I Sow!](#reap-what-i-sow)
 
 ## Color Palette
 
@@ -83,6 +91,48 @@ UIColor *newColor1 = [UIColor colorFromHSBAArray:colorArray];
 UIColor *newColor2 = [UIColor colorFromHSBADictionary:colorDictionary];
 ```
 
+**CIE_Lab Array & Dictionary to and from a UIColor**
+
+Like both of the RGBA methods above, you can also get the CIE\_Lightness, CIE\_a and CIE\_b values from a UIColor and create an array or dictionary out of them, or vice versa. The colorDictionary returned also uses static keys like the RGBA version of this method. Here are the ones to use:
+
+* `kColoursCIE_L`
+* `kColoursCIE_A`
+* `kColoursCIE_B`
+* `kColoursCIE_alpha`
+
+```objc
+NSArray *colorArray = [[UIColor seafoamColor] CIE_LabArray];
+NSDictionary *colorDict = [[UIColor seafoamColor] CIE_LabDictionary];
+
+UIColor *newColor1 = [UIColor colorFromCIE_LabArray:colorArray];
+UIColor *newColor2 = [UIColor colorFromCIE_LabDictionary:colorDictionary];
+```
+
+**Color Components**
+
+This method returns a dictionary containing values for each of the keys (RGBA, HSBA, CIE_LAB) from above. This means you can get a hue value and a Lightness value from the same source. Here's how you use this:
+
+```objc
+NSDictionary *components = [someColor colorComponents];
+CGFloat H = components[kColoursHSBA_H];
+CGFloat L = components[kColoursCIE_L];
+```
+
+You can also retrieve singular values instead of the entire dictionary by calling any of these methods below on a UIColor:
+
+```obj
+CGFloat R = [[UIColor tomatoColor] red];
+CGFloat G = [[UIColor tomatoColor] green];
+CGFloat B = [[UIColor tomatoColor] blue];
+CGFloat H = [[UIColor tomatoColor] hue];
+CGFloat S = [[UIColor tomatoColor] saturation];
+CGFloat B = [[UIColor tomatoColor] brightness];
+CGFloat R = [[UIColor tomatoColor] CIE_Lightness];
+CGFloat G = [[UIColor tomatoColor] CIE_a];
+CGFloat B = [[UIColor tomatoColor] CIE_b];
+CGFloat alpha = [[UIColor tomatoColor] alpha];
+```
+
 **Generating white or black that contrasts with a UIColor**
 
 A lot of times you may want to put text on top of a view that is a certain color, and you want to be sure that it will look good on top of it. With this method you will return either white or black, depending on the how well each of them contrast on top of it. Here's how you use this:
@@ -98,6 +148,25 @@ This method will create a UIColor instance that is the exact opposite color from
 ```objc
 UIColor *complementary = [[UIColor seafoamColor] complementaryColor];
 ```
+
+## Distance between 2 Colors
+
+`5.1.0 +`
+
+Detecting a difference in two colors is not as trivial as it sounds. One's first instinct is to go for a difference in RGB values, leaving you with a sum of the differences of each point. It looks great! Until you actually start comparing colors. Why do these two reds have a different distance than these two blues *in real life* vs computationally? Human visual perception is next in the line of things between a color and your brain. Some colors are just perceived to have larger variants inside of their respective areas than others, so we need a way to model this human variable to colors. Enter CIELAB. This color formulation is supposed to be this model. So now we need to standardize a unit of distance between any two colors that works independent of how humans visually perceive that distance. Enter CIE76,94,2000. These are methods that use user-tested data and other mathematically and statistically significant correlations to output this info. You can read the wiki articles below to get a better understanding historically of how we moved to newer and better color distance formulas, and what their respective pros/cons are.
+
+**Finding Distance**
+
+```objc
+CGFloat distance = [someColor distanceFromColor:someOtherColor type:ColorDistanceCIE94];
+BOOL isNoticablySimilar = distance < threshold;
+```
+
+**References**
+
+* [Color Difference](http://en.wikipedia.org/wiki/Color_difference)
+* [Just Noticeable Difference](http://en.wikipedia.org/wiki/Just_noticeable_difference)
+* [CIELAB Specification](http://en.wikipedia.org/wiki/CIELAB)
 
 ## Generating Color Schemes ##
 
