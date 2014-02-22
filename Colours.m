@@ -243,7 +243,7 @@
 #pragma mark Color from LAB
 + (instancetype)colorFromCIE_LabArray:(NSArray *)colors {
     if (!colors) {
-        return [UIColor clearColor];
+        return [[self class] clearColor];
     }
     
     // Convert LAB to XYZ
@@ -469,7 +469,7 @@
      */
     
     // Check if it's a color
-    if (![color isKindOfClass:[UIColor class]]) {
+    if (![color isKindOfClass:[self class]]) {
         // NSLog(@"Not a %@ object.", NSStringFromClass([self class]));
         return MAXFLOAT;
     }
