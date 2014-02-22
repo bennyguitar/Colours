@@ -127,9 +127,9 @@ CGFloat B = [[UIColor tomatoColor] blue];
 CGFloat H = [[UIColor tomatoColor] hue];
 CGFloat S = [[UIColor tomatoColor] saturation];
 CGFloat B = [[UIColor tomatoColor] brightness];
-CGFloat R = [[UIColor tomatoColor] CIE_Lightness];
-CGFloat G = [[UIColor tomatoColor] CIE_a];
-CGFloat B = [[UIColor tomatoColor] CIE_b];
+CGFloat CIE_L = [[UIColor tomatoColor] CIE_Lightness];
+CGFloat CIE_A = [[UIColor tomatoColor] CIE_a];
+CGFloat CIE_B = [[UIColor tomatoColor] CIE_b];
 CGFloat alpha = [[UIColor tomatoColor] alpha];
 ```
 
