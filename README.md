@@ -22,6 +22,13 @@ Colours supports <code>NSColor</code> out of the box! Just make sure you have th
 * [Color Palette](#color-palette)
 * [Using Predefined Colors](#using-predefined-colors)
 * [Color Helper Methods](#color-helper-methods)
+  * RGBA
+  * HSB
+  * CIELAB
+  * CMYK
+  * Color Components
+  * Black or White contrasting Color
+  * Complementary Color
 * [Distance between 2 Colors](#distance-between-2-colors)
 * [Generating Color Schemes](#generating-color-schemes)
 * [Android](#android)
@@ -108,9 +115,26 @@ UIColor *newColor1 = [UIColor colorFromCIE_LabArray:colorArray];
 UIColor *newColor2 = [UIColor colorFromCIE_LabDictionary:colorDictionary];
 ```
 
+**CMYK Array & Dictionary to and from a UIColor**
+
+Like both of the RGBA methods above, you can also get the CMYKY values from a UIColor and create an array or dictionary out of them, or vice versa. The colorDictionary returned also uses static keys like the RGBA version of this method. Here are the ones to use:
+
+* `kColoursCMYK_C`
+* `kColoursCMYK_M`
+* `kColoursCMYK_Y`
+* `kColoursCMYK_K`
+
+```objc
+NSArray *colorArray = [[UIColor seafoamColor] cmykArray];
+NSDictionary *colorDict = [[UIColor seafoamColor] cmykDictionary];
+
+UIColor *newColor1 = [UIColor colorFromCMYKArray:colorArray];
+UIColor *newColor2 = [UIColor colorFromCMYKDictionary:colorDictionary];
+```
+
 **Color Components**
 
-This method returns a dictionary containing values for each of the keys (RGBA, HSBA, CIE_LAB) from above. This means you can get a hue value and a Lightness value from the same source. Here's how you use this:
+This method returns a dictionary containing values for each of the keys (RGBA, HSBA, CIE_LAB, CMYK) from above. This means you can get a hue value and a Lightness value from the same source. Here's how you use this:
 
 ```objc
 NSDictionary *components = [someColor colorComponents];
@@ -118,7 +142,7 @@ CGFloat H = components[kColoursHSBA_H];
 CGFloat L = components[kColoursCIE_L];
 ```
 
-You can also retrieve singular values instead of the entire dictionary by calling any of these methods below on a UIColor:
+You can also retrieve singular values instead of the entire dictionary by calling any of these methods below on a UIColor. This will be significantly slower at getting all of the values for one color, versus just retrieving one. If you need more than one, call the specific array or dictionary method from above.
 
 ```obj
 CGFloat R = [[UIColor tomatoColor] red];
