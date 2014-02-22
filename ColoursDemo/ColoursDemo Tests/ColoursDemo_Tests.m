@@ -100,6 +100,42 @@
     XCTAssertEqualObjects(testColor, [UIColor redColor], @"Serializing to and from HSBA Dictionary does not yield the same color.");
 }
 
+- (void)testToAndFromCIE_LabArray {
+    NSArray *testArray = [[UIColor tomatoColor] CIE_LabArray];
+    UIColor *testColor = [UIColor colorFromCIE_LabArray:testArray];
+    
+    CGFloat R1 = [[UIColor tomatoColor] red];
+    CGFloat R2 =[testColor red];
+    CGFloat G1 = [[UIColor tomatoColor] green];
+    CGFloat G2 =[testColor green];
+    CGFloat B1 = [[UIColor tomatoColor] blue];
+    CGFloat B2 =[testColor blue];
+    CGFloat A1 = [[UIColor tomatoColor] alpha];
+    CGFloat A2 =[testColor alpha];
+    XCTAssertEqualWithAccuracy(R1, R2, 0.001,  @"Serializing to and from CIE_LAB Array does not yield the same color.");
+    XCTAssertEqualWithAccuracy(G1, G2, 0.001,  @"Serializing to and from CIE_LAB Array does not yield the same color.");
+    XCTAssertEqualWithAccuracy(B1, B2, 0.001,  @"Serializing to and from CIE_LAB Array does not yield the same color.");
+    XCTAssertEqualWithAccuracy(A1, A2, 0.001,  @"Serializing to and from CIE_LAB Array does not yield the same color.");
+}
+
+- (void)testToAndFromCIE_LabDictionary {
+    NSDictionary *testDictionary = [[UIColor tomatoColor] CIE_LabDictionary];
+    UIColor *testColor = [UIColor colorFromCIE_LabDictionary:testDictionary];
+    
+    CGFloat R1 = [[UIColor tomatoColor] red];
+    CGFloat R2 =[testColor red];
+    CGFloat G1 = [[UIColor tomatoColor] green];
+    CGFloat G2 =[testColor green];
+    CGFloat B1 = [[UIColor tomatoColor] blue];
+    CGFloat B2 =[testColor blue];
+    CGFloat A1 = [[UIColor tomatoColor] alpha];
+    CGFloat A2 =[testColor alpha];
+    XCTAssertEqualWithAccuracy(R1, R2, 0.001,  @"Serializing to and from CIE_LAB Dictionary does not yield the same color.");
+    XCTAssertEqualWithAccuracy(G1, G2, 0.001,  @"Serializing to and from CIE_LAB Dictionary does not yield the same color.");
+    XCTAssertEqualWithAccuracy(B1, B2, 0.001,  @"Serializing to and from CIE_LAB Dictionary does not yield the same color.");
+    XCTAssertEqualWithAccuracy(A1, A2, 0.001,  @"Serializing to and from CIE_LAB Dictionary does not yield the same color.");
+}
+
 - (void)testContrastingColors {
     XCTAssertEqualObjects([[UIColor eggplantColor] blackOrWhiteContrastingColor], [UIColor whiteColor], @"Contrasting color over dark does not yield white.");
     XCTAssertEqualObjects([[UIColor antiqueWhiteColor] blackOrWhiteContrastingColor], [UIColor blackColor], @"Contrasting color over light does not yield black.");

@@ -27,12 +27,10 @@
 #if TARGET_OS_IPHONE
 #import <UIKit/UIKit.h>
 @implementation UIColor (Colours)
-#define COLOR_CLASS UIColor
 
 #elif TARGET_OS_MAC
 #import <AppKit/AppKit.h>
 @implementation NSColor (Colours)
-#define COLOR_CLASS NSColor
 
 #endif
 
@@ -44,7 +42,7 @@
     hexString = [hexString stringByReplacingOccurrencesOfString:@"#" withString:@""];
     NSScanner *scanner = [NSScanner scannerWithString:hexString];
     [scanner scanHexInt:&rgbValue];
-
+    
     return [[self class] colorWithR:((rgbValue & 0xFF0000) >> 16) G:((rgbValue & 0xFF00) >> 8) B:(rgbValue & 0xFF) A:1.0];
 }
 
@@ -59,7 +57,7 @@
     NSString *red = [NSString stringWithFormat:@"%02x", r];
     NSString *green = [NSString stringWithFormat:@"%02x", g];
     NSString *blue = [NSString stringWithFormat:@"%02x", b];
-
+    
     return [NSString stringWithFormat:@"#%@%@%@", red, green, blue];
 }
 
@@ -70,7 +68,7 @@
     if (rgbaArray.count < 4) {
         return [[self class] clearColor];
     }
-
+    
     return [[self class] colorWithRed:[rgbaArray[0] floatValue]
                                 green:[rgbaArray[1] floatValue]
                                  blue:[rgbaArray[2] floatValue]
@@ -85,7 +83,7 @@
                                      blue:[rgbaDict[kColoursRGBA_B] floatValue]
                                     alpha:[rgbaDict[kColoursRGBA_A] floatValue]];
     }
-
+    
     return [[self class] clearColor];
 }
 
@@ -94,7 +92,7 @@
 - (NSArray *)rgbaArray
 {
     CGFloat r=0,g=0,b=0,a=0;
-
+    
     if ([self respondsToSelector:@selector(getRed:green:blue:alpha:)]) {
         [self getRed:&r green:&g blue:&b alpha:&a];
     }
@@ -125,7 +123,7 @@
         b = components[2];
         a = components[3];
     }
-
+    
     return @{kColoursRGBA_R:@(r),
              kColoursRGBA_G:@(g),
              kColoursRGBA_B:@(b),
@@ -138,11 +136,11 @@
 {
     // Takes a [self class] and returns Hue,Saturation,Brightness,Alpha values in NSNumber form
     CGFloat h=0,s=0,b=0,a=0;
-
+    
     if ([self respondsToSelector:@selector(getHue:saturation:brightness:alpha:)]) {
         [self getHue:&h saturation:&s brightness:&b alpha:&a];
     }
-
+    
     return @[@(h),
              @(s),
              @(b),
@@ -152,11 +150,11 @@
 - (NSDictionary *)hsbaDictionary
 {
     CGFloat h=0,s=0,b=0,a=0;
-
+    
     if ([self respondsToSelector:@selector(getHue:saturation:brightness:alpha:)]) {
         [self getHue:&h saturation:&s brightness:&b alpha:&a];
     }
-
+    
     return @{kColoursHSBA_H:@(h),
              kColoursHSBA_S:@(s),
              kColoursHSBA_B:@(b),
@@ -164,13 +162,13 @@
 }
 
 
-#pragma mark Color from HSBA
+#pragma mark - Color from HSBA
 + (instancetype)colorFromHSBAArray:(NSArray *)hsbaArray
 {
     if (hsbaArray.count < 4) {
         return [[self class] clearColor];
     }
-
+    
     return [[self class] colorWithHue:[hsbaArray[0] doubleValue]
                            saturation:[hsbaArray[1] doubleValue]
                            brightness:[hsbaArray[2] doubleValue]
@@ -185,8 +183,116 @@
                                brightness:[hsbaDict[kColoursHSBA_B] doubleValue]
                                     alpha:[hsbaDict[kColoursHSBA_A] doubleValue]];
     }
-
+    
     return [[self class] clearColor];
+}
+
+
+#pragma mark - LAB from Color
+- (NSArray *)CIE_LabArray {
+    // Convert Color to XYZ format first
+    NSArray *rgba = [self rgbaArray];
+    CGFloat R = [rgba[0] floatValue];
+    CGFloat G = [rgba[1] floatValue];
+    CGFloat B = [rgba[2] floatValue];
+    
+    // Create deltaR block
+    void (^deltaRGB)(CGFloat *R);
+    deltaRGB = ^(CGFloat *R) {
+        *R = (*R > 0.04045) ? pow((*R + 0.055)/1.055, 2.40) : (*R/12.92);
+    };
+    deltaRGB(&R);
+    deltaRGB(&G);
+    deltaRGB(&B);
+    CGFloat X = R*41.24 + G*35.76 + B*18.05;
+    CGFloat Y = R*21.26 + G*71.52 + B*7.22;
+    CGFloat Z = R*1.93 + G*11.92 + B*95.05;
+    
+    // Convert XYZ to L*a*b*
+    X = X/95.047;
+    Y = Y/100.000;
+    Z = Z/108.883;
+    
+    // Create deltaF block
+    void (^deltaF)(CGFloat *f);
+    deltaF = ^(CGFloat *f){
+        *f = (*f > pow((6.0/29.0), 3.0)) ? pow(*f, 1.0/3.0) : (1/3)*pow((29.0/6.0), 2.0) * *f + 4/29.0;
+    };
+    deltaF(&X);
+    deltaF(&Y);
+    deltaF(&Z);
+    NSNumber *L = @(116*Y - 16);
+    NSNumber *a = @(500 * (X - Y));
+    NSNumber *b = @(200 * (Y - Z));
+    
+    return @[L,
+             a,
+             b,
+             rgba[3]];
+}
+
+- (NSDictionary *)CIE_LabDictionary {
+    NSArray *colors = [self CIE_LabArray];
+    return @{kColoursCIE_L:colors[0],
+             kColoursCIE_A:colors[1],
+             kColoursCIE_B:colors[2],
+             kColoursCIE_alpha:colors[3],};
+}
+
+
+#pragma mark Color from LAB
++ (instancetype)colorFromCIE_LabArray:(NSArray *)colors {
+    if (!colors) {
+        return [UIColor clearColor];
+    }
+    
+    // Convert LAB to XYZ
+    CGFloat L = [colors[0] floatValue];
+    CGFloat A = [colors[1] floatValue];
+    CGFloat B = [colors[2] floatValue];
+    CGFloat Y = (L + 16.0)/116.0;
+    CGFloat X = A/500 + Y;
+    CGFloat Z = Y - B/200;
+    
+    void (^deltaXYZ)(CGFloat *);
+    deltaXYZ = ^(CGFloat *k){
+        *k = (pow(*k, 3.0) > 0.008856) ? pow(*k, 3.0) : (*k - 4/29.0)/7.787;
+    };
+    
+    deltaXYZ(&X);
+    deltaXYZ(&Y);
+    deltaXYZ(&Z);
+    X = X*.95047;
+    Y = Y*1.00000;
+    Z = Z*1.08883;
+    
+    // Convert XYZ to RGB
+    CGFloat R = X*3.2406 + Y*-1.5372 + Z*-0.4986;
+    CGFloat G = X*-0.9689 + Y*1.8758 + Z*0.0415;
+    CGFloat _B = X*0.0557 + Y*-0.2040 + Z*1.0570;
+    
+    void (^deltaRGB)(CGFloat *);
+    deltaRGB = ^(CGFloat *k){
+        *k = (*k > 0.0031308) ? 1.055 * (pow(*k, (1/2.4))) - 0.055 : *k * 12.92;
+    };
+    
+    deltaRGB(&R);
+    deltaRGB(&G);
+    deltaRGB(&_B);
+    
+    // return Color
+    return [[self class] colorFromRGBAArray:@[@(R), @(G), @(_B), colors[3]]];
+}
+
++ (instancetype)colorFromCIE_LabDictionary:(NSDictionary *)colors {
+    if (!colors) {
+        return [[self class] clearColor];
+    }
+    
+    return [self colorFromCIE_LabArray:@[colors[kColoursCIE_L],
+                                         colors[kColoursCIE_A],
+                                         colors[kColoursCIE_B],
+                                         colors[kColoursCIE_alpha]]];
 }
 
 
@@ -195,9 +301,59 @@
 {
     NSMutableDictionary *components = [[self rgbaDictionary] mutableCopy];
     [components addEntriesFromDictionary:[self hsbaDictionary]];
+    [components addEntriesFromDictionary:[self CIE_LabDictionary]];
     return components;
 }
 
+- (CGFloat)red
+{
+    return [[self rgbaArray][0] floatValue];
+}
+
+- (CGFloat)green
+{
+    return [[self rgbaArray][1] floatValue];
+}
+
+- (CGFloat)blue
+{
+    return [[self rgbaArray][2] floatValue];
+}
+
+- (CGFloat)hue
+{
+    return [[self hsbaArray][0] floatValue];
+}
+
+- (CGFloat)saturation
+{
+    return [[self hsbaArray][1] floatValue];
+}
+
+- (CGFloat)brightness
+{
+    return [[self hsbaArray][2] floatValue];
+}
+
+- (CGFloat)alpha
+{
+    return [[self rgbaArray][3] floatValue];
+}
+
+- (CGFloat)CIE_Lightness
+{
+    return [[self CIE_LabArray][0] floatValue];
+}
+
+- (CGFloat)CIE_a
+{
+    return [[self CIE_LabArray][1] floatValue];
+}
+
+- (CGFloat)CIE_b
+{
+    return [[self CIE_LabArray][2] floatValue];
+}
 
 #pragma mark - Generate Color Scheme
 - (NSArray *)colorSchemeOfType:(ColorScheme)type
@@ -207,7 +363,7 @@
     float sat = [hsbArray[1] floatValue] * 100;
     float bright = [hsbArray[2] floatValue] * 100;
     float alpha = [hsbArray[3] floatValue];
-
+    
     switch (type) {
         case ColorSchemeAnalagous:
             return [[self class] analagousColorsFromHue:hue saturation:sat brightness:bright alpha:alpha];
@@ -273,27 +429,119 @@
     float newH = [[self class] addDegrees:180.0f toDegree:([hsba[kColoursHSBA_H] floatValue]*360)];
     [hsba setObject:@(newH) forKey:kColoursHSBA_H];
     return [[self class] colorFromHSBADictionary:hsba];
-
+    
 }
 
 
 #pragma mark - Distance between Colors
-- (CGFloat)distanceFromColor:(COLOR_CLASS *)color
+- (CGFloat)distanceFromColor:(id)color
 {
-    // General solution idea from: http://www.compuphase.com/cmetric.htm
-    NSArray *selfColorArray = [self rgbaArray];
-    NSArray *checkColorArray = [color rgbaArray];
+    // Defaults to CIE94
+    return [self distanceFromColor:color type:ColorDistanceCIE94];
+}
+
+- (CGFloat)distanceFromColor:(id)color type:(ColorDistance)distanceType {
+    /**
+     *
+     *  Detecting a difference in two colors is not as trivial as it sounds.
+     *  One's first instinct is to go for a difference in RGB values, leaving
+     *  you with a sum of the differences of each point. It looks great! Until
+     *  you actually start comparing colors. Why do these two reds have a different
+     *  distance than these two blues *in real life* vs computationally?
+     *  Human visual perception is next in the line of things between a color
+     *  and your brain. Some colors are just perceived to have larger variants inside
+     *  of their respective areas than others, so we need a way to model this
+     *  human variable to colors. Enter CIELAB. This color formulation is supposed to be
+     *  this model. So now we need to standardize a unit of distance between any two
+     *  colors that works independent of how humans visually perceive that distance.
+     *  Enter CIE76,94,2000. These are methods that use user-tested data and other
+     *  mathematically and statistically significant correlations to output this info.
+     *  You can read the wiki articles below to get a better understanding historically
+     *  of how we moved to newer and better color distance formulas, and what
+     *  their respective pros/cons are.
+     *
+     *  References:
+     *  
+     *  http://en.wikipedia.org/wiki/Color_difference
+     *  http://en.wikipedia.org/wiki/Just_noticeable_difference
+     *  http://en.wikipedia.org/wiki/CIELAB
+     *
+     */
     
-    // Set up variables
-    CGFloat meanR = ([selfColorArray[0] doubleValue]*255.0f + [checkColorArray[0] doubleValue]*255.0f)/2;
-    CGFloat deltaR = [selfColorArray[0] doubleValue]*255.0f - [checkColorArray[0] doubleValue]*255.0f;
-    CGFloat deltaG = [selfColorArray[1] doubleValue]*255.0f - [checkColorArray[1] doubleValue]*255.0f;
-    CGFloat deltaB = [selfColorArray[2] doubleValue]*255.0f - [checkColorArray[2] doubleValue]*255.0f;
+    // Check if it's a color
+    if (![color isKindOfClass:[UIColor class]]) {
+        // NSLog(@"Not a %@ object.", NSStringFromClass([self class]));
+        return MAXFLOAT;
+    }
     
-    // Calculate Distance
-    CGFloat distance = sqrtf((2 + (meanR/256))*(deltaR*deltaR) + 4*(deltaG*deltaG) + (2 + (255 - meanR)/256)*(deltaB*deltaB))/255.0f;
+    // Set Up Common Variables
+    NSArray *lab1 = [self CIE_LabArray];
+    NSArray *lab2 = [color CIE_LabArray];
+    CGFloat L1 = [lab1[0] floatValue];
+    CGFloat A1 = [lab1[1] floatValue];
+    CGFloat B1 = [lab1[2] floatValue];
+    CGFloat L2 = [lab2[0] floatValue];
+    CGFloat A2 = [lab2[1] floatValue];
+    CGFloat B2 = [lab2[2] floatValue];
     
-    return distance;
+    // CIE76 first
+    if (distanceType == ColorDistanceCIE76) {
+        CGFloat distance = sqrtf(pow((L1-L2), 2) + pow((A1-A2), 2) + pow((B1-B2), 2));
+        return distance;
+    }
+    
+    // More Common Variables
+    CGFloat kL = 1;
+    CGFloat kC = 1;
+    CGFloat kH = 1;
+    CGFloat k1 = 0.045;
+    CGFloat k2 = 0.015;
+    CGFloat deltaL = L1 - L2;
+    CGFloat C1 = sqrt((A1*A1) + (B1*B1));
+    CGFloat C2 = sqrt((A2*A2) + (B2*B2));
+    CGFloat deltaC = C1 - C2;
+    CGFloat deltaH = sqrt(pow((A1-A2), 2.0) + pow((B1-B2), 2.0) - pow(deltaC, 2.0));
+    CGFloat sL = 1;
+    CGFloat sC = 1 + k1*(sqrt((A1*A1) + (B1*B1)));
+    CGFloat sH = 1 + k2*(sqrt((A1*A1) + (B1*B1)));
+    
+    // CIE94
+    if (distanceType == ColorDistanceCIE94) {
+        return sqrt(pow((deltaL/(kL*sL)), 2.0) + pow((deltaC/(kC*sC)), 2.0) + pow((deltaH/(kH*sH)), 2.0));
+    }
+    
+    // CIE2000
+    // More variables
+    CGFloat deltaLPrime = L2 - L1;
+    CGFloat meanL = (L1 + L2)/2;
+    CGFloat meanC = (C1 + C2)/2;
+    CGFloat aPrime1 = A1 + A1/2*(1 - sqrt(pow(meanC, 7.0)/(pow(meanC, 7.0) + pow(25.0, 7.0))));
+    CGFloat aPrime2 = A2 + A2/2*(1 - sqrt(pow(meanC, 7.0)/(pow(meanC, 7.0) + pow(25.0, 7.0))));
+    CGFloat cPrime1 = sqrt((aPrime1*aPrime1) + (B1*B1));
+    CGFloat cPrime2 = sqrt((aPrime2*aPrime2) + (B2*B2));
+    CGFloat cMeanPrime = (cPrime1 + cPrime2)/2;
+    CGFloat deltaCPrime = cPrime1 - cPrime2;
+    CGFloat hPrime1 = atan2(B1, aPrime1);
+    CGFloat hPrime2 = atan2(B2, aPrime2);
+    hPrime1 = fmodf(hPrime1, [self radiansFromDegree:360]);
+    hPrime2 = fmodf(hPrime2, [self radiansFromDegree:360]);
+    CGFloat deltahPrime = 0;
+    if (fabsf(hPrime1 - hPrime2) <= [self radiansFromDegree:180]) {
+        deltahPrime = hPrime2 - hPrime1;
+    }
+    else {
+        deltahPrime = (hPrime2 <= hPrime1) ? hPrime2 - hPrime1 + [self radiansFromDegree:360] : hPrime2 - hPrime1 - [self radiansFromDegree:360];
+    }
+    CGFloat deltaHPrime = 2 * sqrt(cPrime1*cPrime2) * sin(deltahPrime/2);
+    CGFloat meanHPrime = (fabsf(hPrime1 - hPrime2) <= [self radiansFromDegree:180]) ? (hPrime1 + hPrime2)/2 : (hPrime1 + hPrime2 + [self radiansFromDegree:360])/2;
+    CGFloat T = 1 - 0.17*cos(meanHPrime - [self radiansFromDegree:30]) + 0.24*cos(2*meanHPrime)+0.32*cos(3*meanHPrime + [self radiansFromDegree:6]) - 0.20*cos(4*meanHPrime - [self radiansFromDegree:63]);
+    sL = 1 + (0.015 * pow((meanL - 50), 2))/sqrt(20 + pow((meanL - 50), 2));
+    sC = 1 + 0.045*cMeanPrime;
+    sH = 1 + 0.015*cMeanPrime*T;
+    CGFloat Rt = -2 * sqrt(pow(cMeanPrime, 7)/(pow(cMeanPrime, 7) + pow(25.0, 7))) * sin([self radiansFromDegree:60]* exp(-1 * pow((meanHPrime - [self radiansFromDegree:275])/[self radiansFromDegree:25], 2)));
+    
+    // Finally return CIE2000 distance
+    return sqrt(pow((deltaLPrime/(kL*sL)), 2) + pow((deltaCPrime/(kC*sC)), 2) + pow((deltaHPrime/(kH*sH)), 2) + Rt*(deltaC/(kC*sC))*(deltaHPrime/(kH*sH)));
 }
 
 
@@ -837,5 +1085,10 @@
         return staticDeg;
     }
 }
+
+- (CGFloat)radiansFromDegree:(CGFloat)degree {
+    return degree * M_PI/180;
+}
+
 
 @end

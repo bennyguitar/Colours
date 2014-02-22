@@ -33,6 +33,10 @@ static NSString * kColoursHSBA_H = @"HSBA-h";
 static NSString * kColoursHSBA_S = @"HSBA-s";
 static NSString * kColoursHSBA_B = @"HSBA-b";
 static NSString * kColoursHSBA_A = @"HSBA-a";
+static NSString * kColoursCIE_L = @"LABa-L";
+static NSString * kColoursCIE_A = @"LABa-A";
+static NSString * kColoursCIE_B = @"LABa-B";
+static NSString * kColoursCIE_alpha = @"LABa-a";
 
 
 #pragma mark - Create correct iOS/OSX interface
@@ -40,12 +44,10 @@ static NSString * kColoursHSBA_A = @"HSBA-a";
 #if TARGET_OS_IPHONE
 #import <UIKit/UIKit.h>
 @interface UIColor (Colours)
-#define COLOR_CLASS UIColor
 
 #elif TARGET_OS_MAC
 #import <AppKit/AppKit.h>
 @interface NSColor (Colours)
-#define COLOR_CLASS NSColor
 
 #endif
 
@@ -62,7 +64,15 @@ typedef NS_ENUM(NSInteger, ColorScheme) {
 // ColorFormulation Type
 typedef NS_ENUM(NSInteger, ColorFormulation) {
     ColorFormulationRGBA,
-    ColorFormulationHSBA
+    ColorFormulationHSBA,
+    ColorFormulationLAB
+};
+
+// ColorDistance
+typedef NS_ENUM(NSInteger, ColorDistance) {
+    ColorDistanceCIE76,
+    ColorDistanceCIE94,
+    ColorDistanceCIE2000,
 };
 
 
@@ -104,6 +114,21 @@ typedef NS_ENUM(NSInteger, ColorFormulation) {
  */
 + (instancetype)colorFromHSBADictionary:(NSDictionary *)hsbaDict;
 
+/**
+ Creates a Color from an array of 4 NSNumbers (L,a,b,alpha)
+ @param colors   4 NSNumbers for LABa between 0 - 1
+ @return Color
+ */
++ (instancetype)colorFromCIE_LabArray:(NSArray *)colors;
+
+/**
+ Creates a Color from a dictionary of 4 NSNumbers
+ Keys: kColoursCIE_L, kColoursCIE_A, kColoursCIE_B, kColoursCIE_alpha
+ @param colors   4 NSNumbers for CIE_LAB between 0 - 1
+ @return Color
+ */
++ (instancetype)colorFromCIE_LabDictionary:(NSDictionary *)colors;
+
 
 #pragma mark - Hex/RGBA/HSBA from Color
 /**
@@ -136,6 +161,20 @@ typedef NS_ENUM(NSInteger, ColorFormulation) {
  */
 - (NSDictionary *)hsbaDictionary;
 
+/**
+ *  Creates an array of 4 NSNumbers representing the float values of L*, a, b, alpha in that order.
+ *
+ *  @return NSArray
+ */
+- (NSArray *)CIE_LabArray;
+
+/**
+ *  Creates a dictionary of 4 NSNumbers representing the float values with keys: kColoursCIE_L, kColoursCIE_A, kColoursCIE_B, kColoursCIE_alpha
+ *
+ *  @return NSDictionary
+ */
+- (NSDictionary *)CIE_LabDictionary;
+
 
 #pragma mark - Color Components
 /**
@@ -144,6 +183,76 @@ typedef NS_ENUM(NSInteger, ColorFormulation) {
  *  @return NSDictionary
  */
 - (NSDictionary *)colorComponents;
+
+/**
+ *  Returns the red value from an RGBA formulation of the UIColor.
+ *
+ *  @return CGFloat
+ */
+- (CGFloat)red;
+
+/**
+ *  Returns the green value from an RGBA formulation of the UIColor.
+ *
+ *  @return CGFloat
+ */
+- (CGFloat)green;
+
+/**
+ *  Returns the blue value from an RGBA formulation of the UIColor.
+ *
+ *  @return CGFloat
+ */
+- (CGFloat)blue;
+
+/**
+ *  Returns the hue value from an HSBA formulation of the UIColor.
+ *
+ *  @return CGFloat
+ */
+- (CGFloat)hue;
+
+/**
+ *  Returns the saturation value from an HSBA formulation of the UIColor.
+ *
+ *  @return CGFloat
+ */
+- (CGFloat)saturation;
+
+/**
+ *  Returns the brightness value from an HSBA formulation of the UIColor.
+ *
+ *  @return CGFloat
+ */
+- (CGFloat)brightness;
+
+/**
+ *  Returns the alpha value from an RGBA formulation of the UIColor.
+ *
+ *  @return CGFloat
+ */
+- (CGFloat)alpha;
+
+/**
+ *  Returns the lightness value from a CIELAB formulation of the UIColor.
+ *
+ *  @return CGFloat
+ */
+- (CGFloat)CIE_Lightness;
+
+/**
+ *  Returns the a value from a CIELAB formulation of the UIColor.
+ *
+ *  @return CGFloat
+ */
+- (CGFloat)CIE_a;
+
+/**
+ *  Returns the lightness value from b CIELAB formulation of the UIColor.
+ *
+ *  @return CGFloat
+ */
+- (CGFloat)CIE_b;
 
 
 #pragma mark - 4 Color Scheme from Color
@@ -173,13 +282,25 @@ typedef NS_ENUM(NSInteger, ColorFormulation) {
 
 #pragma mark - Distance between Colors
 /**
- *  Returns a float of the distance between 2 colors.
+ *  Returns a float of the distance between 2 colors. Defaults to the
+ *  CIE94 specification found here: http://en.wikipedia.org/wiki/Color_difference
  *
  *  @param color Color to check self with.
  *
  *  @return CGFloat
  */
-- (CGFloat)distanceFromColor:(COLOR_CLASS *)color;
+- (CGFloat)distanceFromColor:(id)color;
+
+/**
+ *  Returns a float of the distance between 2 colors, using one of
+ *
+ *
+ *  @param color        Color to check against
+ *  @param distanceType Formula to calculate with
+ *
+ *  @return CGFloat
+ */
+- (CGFloat)distanceFromColor:(id)color type:(ColorDistance)distanceType;
 
 
 #pragma mark - Colors
