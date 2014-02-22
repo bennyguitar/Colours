@@ -136,6 +136,20 @@
     XCTAssertEqualWithAccuracy(A1, A2, 0.001,  @"Serializing to and from CIE_LAB Dictionary does not yield the same color.");
 }
 
+- (void)testToAndFromCMYKArray {
+    NSArray *testArray = [[UIColor redColor] cmykArray];
+    UIColor *testColor = [UIColor colorFromCMYKArray:testArray];
+    
+    XCTAssertEqualObjects(testColor, [UIColor redColor], @"Serializing to and from CMYK Array does not yield the same color.");
+}
+
+- (void)testToAndFromCMYKDictionary {
+    NSDictionary *testDictionary = [[UIColor redColor] cmykDictionary];
+    UIColor *testColor = [UIColor colorFromCMYKDictionary:testDictionary];
+    
+    XCTAssertEqualObjects(testColor, [UIColor redColor], @"Serializing to and from CMYK Dictionary does not yield the same color.");
+}
+
 - (void)testContrastingColors {
     XCTAssertEqualObjects([[UIColor eggplantColor] blackOrWhiteContrastingColor], [UIColor whiteColor], @"Contrasting color over dark does not yield white.");
     XCTAssertEqualObjects([[UIColor antiqueWhiteColor] blackOrWhiteContrastingColor], [UIColor blackColor], @"Contrasting color over light does not yield black.");

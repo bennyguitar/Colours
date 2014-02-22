@@ -240,9 +240,9 @@
 }
 
 
-#pragma mark Color from LAB
+#pragma mark - Color from LAB
 + (instancetype)colorFromCIE_LabArray:(NSArray *)colors {
-    if (!colors) {
+    if (!colors || colors.count < 4) {
         return [[self class] clearColor];
     }
     
@@ -289,10 +289,104 @@
         return [[self class] clearColor];
     }
     
-    return [self colorFromCIE_LabArray:@[colors[kColoursCIE_L],
-                                         colors[kColoursCIE_A],
-                                         colors[kColoursCIE_B],
-                                         colors[kColoursCIE_alpha]]];
+    if (colors[kColoursCIE_L] && colors[kColoursCIE_A] && colors[kColoursCIE_B] && colors[kColoursCIE_alpha]) {
+        return [self colorFromCIE_LabArray:@[colors[kColoursCIE_L],
+                                             colors[kColoursCIE_A],
+                                             colors[kColoursCIE_B],
+                                             colors[kColoursCIE_alpha]]];
+    }
+    
+    return [[self class] clearColor];
+}
+
+
+#pragma mark - Color to CMYK
+- (NSArray *)cmykArray
+{
+    // Convert RGB to CMY
+    NSArray *rgb = [self rgbaArray];
+    CGFloat C = 1 - [rgb[0] floatValue];
+    CGFloat M = 1 - [rgb[1] floatValue];
+    CGFloat Y = 1 - [rgb[2] floatValue];
+    
+    // Find K
+    CGFloat K = MIN(1, MIN(C, MIN(Y, M)));
+    if (K == 1) {
+        C = 0;
+        M = 0;
+        Y = 0;
+    }
+    else {
+        void (^newCMYK)(CGFloat *);
+        newCMYK = ^(CGFloat *x){
+            *x = (*x - K)/(1 - K);
+        };
+        newCMYK(&C);
+        newCMYK(&M);
+        newCMYK(&Y);
+    }
+    
+    return @[@(C),
+             @(M),
+             @(Y),
+             @(K)];
+}
+
+- (NSDictionary *)cmykDictionary
+{
+    NSArray *colors = [self cmykArray];
+    return @{kColoursCMYK_C:colors[0],
+             kColoursCMYK_M:colors[1],
+             kColoursCMYK_Y:colors[2],
+             kColoursCMYK_K:colors[3]};
+}
+
+#pragma mark - CMYK to Color
++ (instancetype)colorFromCMYKArray:(NSArray *)cmyk
+{
+    if (!cmyk || cmyk.count < 4) {
+        return [[self class] clearColor];
+    }
+    
+    // Find CMY values
+    CGFloat C = [cmyk[0] floatValue];
+    CGFloat M = [cmyk[1] floatValue];
+    CGFloat Y = [cmyk[2] floatValue];
+    CGFloat K = [cmyk[3] floatValue];
+    void (^cmyTransform)(CGFloat *);
+    cmyTransform = ^(CGFloat *x){
+        *x = *x * (1 - K) + K;
+    };
+    cmyTransform(&C);
+    cmyTransform(&M);
+    cmyTransform(&Y);
+    
+    // Translate CMY to RGB
+    CGFloat R = 1 - C;
+    CGFloat G = 1 - M;
+    CGFloat B = 1 - Y;
+    
+    // return the Color
+    return [[self class] colorFromRGBAArray:@[@(R),
+                                              @(G),
+                                              @(B),
+                                              @(1)]];
+}
+
++ (instancetype)colorFromCMYKDictionary:(NSDictionary *)cmyk
+{
+    if (!cmyk) {
+        return [[self class] clearColor];
+    }
+    
+    if (cmyk[kColoursCMYK_C] && cmyk[kColoursCMYK_M] && cmyk[kColoursCMYK_Y] && cmyk[kColoursCMYK_K]) {
+        return [[self class] colorFromCMYKArray:@[cmyk[kColoursCMYK_C],
+                                                  cmyk[kColoursCMYK_M],
+                                                  cmyk[kColoursCMYK_Y],
+                                                  cmyk[kColoursCMYK_K]]];
+    }
+    
+    return [[self class] clearColor];
 }
 
 
@@ -353,6 +447,22 @@
 - (CGFloat)CIE_b
 {
     return [[self CIE_LabArray][2] floatValue];
+}
+
+- (CGFloat)cyan {
+    return [[self cmykArray][0] floatValue];
+}
+
+- (CGFloat)magenta {
+    return [[self cmykArray][1] floatValue];
+}
+
+- (CGFloat)yellow {
+    return [[self cmykArray][2] floatValue];
+}
+
+- (CGFloat)keyBlack {
+    return [[self cmykArray][3] floatValue];
 }
 
 #pragma mark - Generate Color Scheme

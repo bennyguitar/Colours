@@ -37,6 +37,10 @@ static NSString * kColoursCIE_L = @"LABa-L";
 static NSString * kColoursCIE_A = @"LABa-A";
 static NSString * kColoursCIE_B = @"LABa-B";
 static NSString * kColoursCIE_alpha = @"LABa-a";
+static NSString * kColoursCMYK_C = @"CMYK-c";
+static NSString * kColoursCMYK_M = @"CMYK-m";
+static NSString * kColoursCMYK_Y = @"CMYK-y";
+static NSString * kColoursCMYK_K = @"CMYK-k";
 
 
 #pragma mark - Create correct iOS/OSX interface
@@ -65,7 +69,8 @@ typedef NS_ENUM(NSInteger, ColorScheme) {
 typedef NS_ENUM(NSInteger, ColorFormulation) {
     ColorFormulationRGBA,
     ColorFormulationHSBA,
-    ColorFormulationLAB
+    ColorFormulationLAB,
+    ColorFormulationCMYK
 };
 
 // ColorDistance
@@ -76,7 +81,7 @@ typedef NS_ENUM(NSInteger, ColorDistance) {
 };
 
 
-#pragma mark - Color from Hex/RGBA/HSBA
+#pragma mark - Color from Hex/RGBA/HSBA/CIE_LAB/CMYK
 /**
  Creates a Color from a Hex representation string
  @param hexString   Hex string that looks like @"#FF0000" or @"FF0000"
@@ -116,7 +121,7 @@ typedef NS_ENUM(NSInteger, ColorDistance) {
 
 /**
  Creates a Color from an array of 4 NSNumbers (L,a,b,alpha)
- @param colors   4 NSNumbers for LABa between 0 - 1
+ @param colors   4 NSNumbers for CIE_LAB between 0 - 1
  @return Color
  */
 + (instancetype)colorFromCIE_LabArray:(NSArray *)colors;
@@ -129,8 +134,24 @@ typedef NS_ENUM(NSInteger, ColorDistance) {
  */
 + (instancetype)colorFromCIE_LabDictionary:(NSDictionary *)colors;
 
+/**
+ Creates a Color from an array of 4 NSNumbers (C,M,Y,K)
+ @param colors   4 NSNumbers for CMYK between 0 - 1
+ @return Color
+ */
++ (instancetype)colorFromCMYKArray:(NSArray *)cmyk;
 
-#pragma mark - Hex/RGBA/HSBA from Color
+/**
+ Creates a Color from a dictionary of 4 NSNumbers
+ Keys: kColoursCMYK_C, kColoursCMYK_M, kColoursCMYK_Y, kColoursCMYK_K
+ @param colors   4 NSNumbers for CMYK between 0 - 1
+ @return Color
+ */
++ (instancetype)colorFromCMYKDictionary:(NSDictionary *)cmyk;
+
+
+
+#pragma mark - Hex/RGBA/HSBA/CIE_LAB/CMYK from Color
 /**
  Creates a Hex representation from a Color
  @return    NSString
@@ -174,6 +195,20 @@ typedef NS_ENUM(NSInteger, ColorDistance) {
  *  @return NSDictionary
  */
 - (NSDictionary *)CIE_LabDictionary;
+
+/**
+ *  Creates an array of 4 NSNumbers representing the float values of C, M, Y, K in that order.
+ *
+ *  @return NSArray
+ */
+- (NSArray *)cmykArray;
+
+/**
+ *  Creates a dictionary of 4 NSNumbers representing the float values with keys: kColoursCMYK_C, kColoursCMYK_M, kColoursCMYK_Y, kColoursCMYK_K
+ *
+ *  @return NSDictionary
+ */
+- (NSDictionary *)cmykDictionary;
 
 
 #pragma mark - Color Components
@@ -248,11 +283,39 @@ typedef NS_ENUM(NSInteger, ColorDistance) {
 - (CGFloat)CIE_a;
 
 /**
- *  Returns the lightness value from b CIELAB formulation of the UIColor.
+ *  Returns the b value from a CIELAB formulation of the UIColor.
  *
  *  @return CGFloat
  */
 - (CGFloat)CIE_b;
+
+/**
+ *  Returns the cyan value from a CMYK formulation of the UIColor.
+ *
+ *  @return CGFloat
+ */
+- (CGFloat)cyan;
+
+/**
+ *  Returns the magenta value from a CMYK formulation of the UIColor.
+ *
+ *  @return CGFloat
+ */
+- (CGFloat)magenta;
+
+/**
+ *  Returns the yellow value from a CMYK formulation of the UIColor.
+ *
+ *  @return CGFloat
+ */
+- (CGFloat)yellow;
+
+/**
+ *  Returns the black (K) value from a CMYK formulation of the UIColor.
+ *
+ *  @return CGFloat
+ */
+- (CGFloat)keyBlack;
 
 
 #pragma mark - 4 Color Scheme from Color
