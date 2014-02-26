@@ -528,7 +528,7 @@
 {
     NSArray *rgbaArray = [self rgbaArray];
     double a = 1 - ((0.299 * [rgbaArray[0] doubleValue]) + (0.587 * [rgbaArray[1] doubleValue]) + (0.114 * [rgbaArray[2] doubleValue]));
-    return a < 0.5 ? [[self class] blackColor] : [[self class] whiteColor];
+    return a < 0.5 ? [[self class] colorWithRed:0 green:0 blue:0 alpha:1] : [[self class] colorWithRed:1 green:1 blue:1 alpha:1];
 }
 
 
