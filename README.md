@@ -12,7 +12,7 @@ Drag the included **Colours.h** and **Colours.m** files into your project. They 
 
 *Note: 5.0.0 breaks previous versions' rgbaDictionary and hsbaDictionary methods!*
 
-<code>pod 'Colours', '~> 5.1.0'</code>
+<code>pod 'Colours', '~> 5.1.1'</code>
 
 **NSColor**
 
