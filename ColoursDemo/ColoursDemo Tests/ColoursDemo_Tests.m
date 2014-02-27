@@ -158,19 +158,19 @@
 
 #pragma mark - Swizzle Tests
 - (void)testSwizzleRGBA {
-    NSArray *colors = [[UIColor whiteColor] rgbaArray];
-    XCTAssertEqualObjects(colors[0], @1.0, @"Serializing from UIWhiteColorSpace to RGBA does not work with swizzled method.");
-    XCTAssertEqualObjects(colors[1], @1.0, @"Serializing from UIWhiteColorSpace to RGBA does not work works with swizzled method.");
-    XCTAssertEqualObjects(colors[2], @1.0, @"Serializing from UIWhiteColorSpace to RGBA does not works with swizzled method.");
-    XCTAssertEqualObjects(colors[3], @1.0, @"Serializing from UIWhiteColorSpace to RGBA not works with swizzled method.");
+    NSArray *colors = [[UIColor black25PercentColor] rgbaArray];
+    XCTAssertEqualObjects(colors[0], @0.25, @"Serializing from UIWhiteColorSpace to RGBA does not work with swizzled method.");
+    XCTAssertEqualObjects(colors[1], @0.25, @"Serializing from UIWhiteColorSpace to RGBA does not work works with swizzled method.");
+    XCTAssertEqualObjects(colors[2], @0.25, @"Serializing from UIWhiteColorSpace to RGBA does not works with swizzled method.");
+    XCTAssertEqualObjects(colors[3], @1, @"Serializing from UIWhiteColorSpace to RGBA not works with swizzled method.");
 }
 
 - (void)testSwizzleHSBA {
-    NSArray *colors = [[UIColor whiteColor] hsbaArray];
-    XCTAssertEqualObjects(colors[0], @1.0, @"Serializing from UIWhiteColorSpace to HSBA does not work with swizzled method.");
-    XCTAssertEqualObjects(colors[1], @1.0, @"Serializing from UIWhiteColorSpace to HSBA does not work works with swizzled method.");
-    XCTAssertEqualObjects(colors[2], @1.0, @"Serializing from UIWhiteColorSpace to HSBA does not works with swizzled method.");
-    XCTAssertEqualObjects(colors[3], @1.0, @"Serializing from UIWhiteColorSpace to HSBA not works with swizzled method.");
+    NSArray *colors = [[UIColor black25PercentColor] hsbaArray];
+    XCTAssertEqualObjects(colors[0], @0, @"Serializing from UIWhiteColorSpace to HSBA does not work with swizzled method.");
+    XCTAssertEqualObjects(colors[1], @0, @"Serializing from UIWhiteColorSpace to HSBA does not work works with swizzled method.");
+    XCTAssertEqualObjects(colors[2], @0.25, @"Serializing from UIWhiteColorSpace to HSBA does not works with swizzled method.");
+    XCTAssertEqualObjects(colors[3], @1, @"Serializing from UIWhiteColorSpace to HSBA not works with swizzled method.");
 }
 
 

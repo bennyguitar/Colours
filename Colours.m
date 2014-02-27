@@ -1287,10 +1287,10 @@
         CGFloat white = 0;
         CGFloat a = 0;
         if ([self getWhite:&white alpha:&a]) {
-            *hue = white * 1.0;
-            *saturation = white * 1.0;
+            *hue = 0;
+            *saturation = 0;
             *brightness = white * 1.0;
-            *alpha = a;
+            *alpha = a * 1.0;
             
             return YES;
         }
