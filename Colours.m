@@ -22,6 +22,9 @@
 
 #import "Colours.h"
 
+// Swizzle
+#import <objc/runtime.h>
+
 #pragma mark - Create correct iOS/OSX implementation
 
 #if TARGET_OS_IPHONE
@@ -528,7 +531,7 @@
 {
     NSArray *rgbaArray = [self rgbaArray];
     double a = 1 - ((0.299 * [rgbaArray[0] doubleValue]) + (0.587 * [rgbaArray[1] doubleValue]) + (0.114 * [rgbaArray[2] doubleValue]));
-    return a < 0.5 ? [[self class] colorWithRed:0 green:0 blue:0 alpha:1] : [[self class] colorWithRed:1 green:1 blue:1 alpha:1];
+    return a < 0.5 ? [[self class] blackColor] : [[self class] whiteColor];
 }
 
 
@@ -1198,6 +1201,102 @@
 
 - (CGFloat)radiansFromDegree:(CGFloat)degree {
     return degree * M_PI/180;
+}
+
+
+#pragma mark - Swizzle
+
+
+#pragma mark - On Load - Flip methods
++ (void)load {
+    static dispatch_once_t onceToken;
+    dispatch_once(&onceToken, ^{
+        Class class = [self class];
+        SEL rgbaSelector = @selector(getRed:green:blue:alpha:);
+        SEL swizzledRGBASelector = @selector(colours_getRed:green:blue:alpha:);
+        SEL hsbaSelector = @selector(getHue:saturation:brightness:alpha:);
+        SEL swizzledHSBASelector = @selector(colours_getHue:saturation:brightness:alpha:);
+        Method rgbaMethod = class_getInstanceMethod(class, rgbaSelector);
+        Method swizzledRGBAMethod = class_getInstanceMethod(class, swizzledRGBASelector);
+        Method hsbaMethod = class_getInstanceMethod(class, hsbaSelector);
+        Method swizzledHSBAMethod = class_getInstanceMethod(class, swizzledHSBASelector);
+        
+        // Attempt adding the methods
+        BOOL didAddRGBAMethod =
+        class_addMethod(class,
+                        rgbaSelector,
+                        method_getImplementation(swizzledRGBAMethod),
+                        method_getTypeEncoding(swizzledRGBAMethod));
+        
+        BOOL didAddHSBAMethod =
+        class_addMethod(class,
+                        hsbaSelector,
+                        method_getImplementation(swizzledHSBAMethod),
+                        method_getTypeEncoding(swizzledHSBAMethod));
+        
+        // Replace methods
+        if (didAddRGBAMethod) {
+            class_replaceMethod(class,
+                                swizzledRGBASelector,
+                                method_getImplementation(swizzledRGBAMethod),
+                                method_getTypeEncoding(swizzledRGBAMethod));
+        } else {
+            method_exchangeImplementations(rgbaMethod, swizzledRGBAMethod);
+        }
+        
+        if (didAddHSBAMethod) {
+            class_replaceMethod(class,
+                                swizzledHSBASelector,
+                                method_getImplementation(swizzledHSBAMethod),
+                                method_getTypeEncoding(swizzledHSBAMethod));
+        } else {
+            method_exchangeImplementations(hsbaMethod, swizzledHSBAMethod);
+        }
+    });
+}
+
+
+#pragma mark - Swizzled Methods
+- (BOOL)colours_getRed:(CGFloat *)red green:(CGFloat *)green blue:(CGFloat *)blue alpha:(CGFloat *)alpha
+{
+    if (CGColorGetNumberOfComponents(self.CGColor) == 4) {
+        return [self colours_getRed:red green:green blue:blue alpha:alpha];
+    }
+    else if (CGColorGetNumberOfComponents(self.CGColor) == 2) {
+        CGFloat white;
+        CGFloat m_alpha;
+        if ([self getWhite:&white alpha:&m_alpha]) {
+            *red = white * 1.0;
+            *green = white * 1.0;
+            *blue = white * 1.0;
+            *alpha = m_alpha;
+            return YES;
+        }
+    }
+    
+    return NO;
+}
+
+
+- (BOOL)colours_getHue:(CGFloat *)hue saturation:(CGFloat *)saturation brightness:(CGFloat *)brightness alpha:(CGFloat *)alpha
+{
+    if (CGColorGetNumberOfComponents(self.CGColor) == 4) {
+        return [self colours_getHue:hue saturation:saturation brightness:brightness alpha:alpha];
+    }
+    else if (CGColorGetNumberOfComponents(self.CGColor) == 2) {
+        CGFloat white = 0;
+        CGFloat a = 0;
+        if ([self getWhite:&white alpha:&a]) {
+            *hue = white * 1.0;
+            *saturation = white * 1.0;
+            *brightness = white * 1.0;
+            *alpha = a;
+            
+            return YES;
+        }
+    }
+    
+    return NO;
 }
 
 
