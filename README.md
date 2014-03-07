@@ -22,13 +22,14 @@ Colours supports <code>NSColor</code> out of the box! Just make sure you have th
 * [Color Palette](#color-palette)
 * [Using Predefined Colors](#using-predefined-colors)
 * [Color Helper Methods](#color-helper-methods)
-  * RGBA
-  * HSB
-  * CIELAB
-  * CMYK
-  * Color Components
-  * Black or White contrasting Color
-  * Complementary Color
+  * [Hex String](#hex-string)
+  * [RGBA](#rgba)
+  * [HSBA](#hsba)
+  * [CIELAB](#cielab)
+  * [CMYK](#cmyk)
+  * [Color Components](#color-components)
+  * [Black or White Contrasting Color](#black-or-white-contrasting-color)
+  * [Complementary Color](#complementary-color)
 * [Distance between 2 Colors](#distance-between-2-colors)
 * [Generating Color Schemes](#generating-color-schemes)
 * [Android](#android)
@@ -48,12 +49,16 @@ Colours was set up to be exactly like using an Apple predefined system color. Fo
 
 Beyond giving you a list of a ton of colors with no effort, this category also gives you some methods that allow different color manipulations and translations. Here's how you use these:
 
-**Hex String to and from a UIColor**
+#### Hex String
+
+You can convert the commonly seen hexadecimal color string (ahh, thank you CSS) to a UIColor, and vice versa, very easily using the following methods:
 
 ```objc
 UIColor *newColor = [UIColor colorFromHexString:@"#f587e4"];
 NSString *hexString = [newColor hexString];
 ```
+
+#### RGBA
 
 **RGBA Array to and from a UIColor**
 
@@ -81,7 +86,7 @@ UIColor *newColor = [UIColor colorFromRGBADictionary:colorDict];
 NSNumber *r = colorDict[kColoursRGBA_R];
 ```
 
-**HSBA Array & Dictionary to and from a UIColor**
+#### HSBA
 
 Like both of the RGBA methods above, you can also get the Hue, Saturation and Brightness values from a UIColor and create an array or dictionary out of them, or vice versa. The colorDictionary returned also uses static keys like the RGBA version of this method. Here are the ones to use:
 
@@ -98,7 +103,7 @@ UIColor *newColor1 = [UIColor colorFromHSBAArray:colorArray];
 UIColor *newColor2 = [UIColor colorFromHSBADictionary:colorDictionary];
 ```
 
-**CIE_Lab Array & Dictionary to and from a UIColor**
+#### CIELAB
 
 Like both of the RGBA methods above, you can also get the CIE\_Lightness, CIE\_a and CIE\_b values from a UIColor and create an array or dictionary out of them, or vice versa. The colorDictionary returned also uses static keys like the RGBA version of this method. Here are the ones to use:
 
@@ -115,7 +120,7 @@ UIColor *newColor1 = [UIColor colorFromCIE_LabArray:colorArray];
 UIColor *newColor2 = [UIColor colorFromCIE_LabDictionary:colorDictionary];
 ```
 
-**CMYK Array & Dictionary to and from a UIColor**
+#### CMYK
 
 Like both of the RGBA methods above, you can also get the CMYKY values from a UIColor and create an array or dictionary out of them, or vice versa. The colorDictionary returned also uses static keys like the RGBA version of this method. Here are the ones to use:
 
@@ -132,7 +137,7 @@ UIColor *newColor1 = [UIColor colorFromCMYKArray:colorArray];
 UIColor *newColor2 = [UIColor colorFromCMYKDictionary:colorDictionary];
 ```
 
-**Color Components**
+#### Color Components
 
 This method returns a dictionary containing values for each of the keys (RGBA, HSBA, CIE_LAB, CMYK) from above. This means you can get a hue value and a Lightness value from the same source. Here's how you use this:
 
@@ -157,7 +162,7 @@ CGFloat CIE_B = [[UIColor tomatoColor] CIE_b];
 CGFloat alpha = [[UIColor tomatoColor] alpha];
 ```
 
-**Generating white or black that contrasts with a UIColor**
+#### Black or White Contrasting Color
 
 A lot of times you may want to put text on top of a view that is a certain color, and you want to be sure that it will look good on top of it. With this method you will return either white or black, depending on the how well each of them contrast on top of it. Here's how you use this:
 
@@ -165,7 +170,7 @@ A lot of times you may want to put text on top of a view that is a certain color
 UIColor *contrastingColor = [[UIColor seafoamColor] blackOrWhiteContrastingColor];
 ```
 
-**Generating a complementary color**
+#### Complementary Color
 
 This method will create a UIColor instance that is the exact opposite color from another UIColor on the color wheel. The same saturation and brightness are preserved, just the hue is changed.
 
@@ -192,7 +197,7 @@ BOOL isNoticablySimilar = distance < threshold;
 * [Just Noticeable Difference](http://en.wikipedia.org/wiki/Just_noticeable_difference)
 * [CIELAB Specification](http://en.wikipedia.org/wiki/CIELAB)
 
-## Generating Color Schemes ##
+## Generating Color Schemes
 
 You can create a 5-color scheme based off of a UIColor using the following method. It takes in a UIColor and one of the ColorSchemeTypes defined in Colours. It returns an NSArray of 4 new UIColor objects to create a pretty nice color scheme that complements the root color you passed in.
 
