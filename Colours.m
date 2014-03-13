@@ -49,6 +49,16 @@
     return [[self class] colorWithR:((rgbValue & 0xFF0000) >> 16) G:((rgbValue & 0xFF00) >> 8) B:(rgbValue & 0xFF) A:1.0];
 }
 
++ (instancetype)colorFromHexString:(NSString *)hexString withAlpha:(CGFloat)alpha
+{
+    unsigned rgbValue = 0;
+    hexString = [hexString stringByReplacingOccurrencesOfString:@"#" withString:@""];
+    NSScanner *scanner = [NSScanner scannerWithString:hexString];
+    [scanner scanHexInt:&rgbValue];
+    
+    return [[self class] colorWithR:((rgbValue & 0xFF0000) >> 16) G:((rgbValue & 0xFF00) >> 8) B:(rgbValue & 0xFF) A:alpha];
+}
+
 
 #pragma mark - Hex from Color
 - (NSString *)hexString
@@ -57,11 +67,13 @@
     int r = [colorArray[0] floatValue] * 255;
     int g = [colorArray[1] floatValue] * 255;
     int b = [colorArray[2] floatValue] * 255;
+    int a = [colorArray[3] floatValue] * 255;
     NSString *red = [NSString stringWithFormat:@"%02x", r];
     NSString *green = [NSString stringWithFormat:@"%02x", g];
     NSString *blue = [NSString stringWithFormat:@"%02x", b];
+    NSString *alpha = [NSString stringWithFormat:@"%02x", a];
     
-    return [NSString stringWithFormat:@"#%@%@%@", red, green, blue];
+    return [NSString stringWithFormat:@"#%@%@%@%@", red, green, blue, alpha];
 }
 
 
