@@ -72,17 +72,17 @@
 }
 
 - (void)testToAndFromRGBAArray {
-    NSArray *testArray = [[UIColor seafoamColor] rgbaArray];
+    NSArray *testArray = [[UIColor redColor] rgbaArray];
     UIColor *testColor = [UIColor colorFromRGBAArray:testArray];
     
-    XCTAssertEqualObjects(testColor, [UIColor seafoamColor], @"Serializing to and from RGBA Array does not yield the same color.");
+    XCTAssertEqualObjects(testColor, [UIColor redColor], @"Serializing to and from RGBA Array does not yield the same color.");
 }
 
 - (void)testToAndFromRGBADictionary {
-    NSDictionary *testDictionary = [[UIColor seafoamColor] rgbaDictionary];
+    NSDictionary *testDictionary = [[UIColor redColor] rgbaDictionary];
     UIColor *testColor = [UIColor colorFromRGBADictionary:testDictionary];
     
-    XCTAssertEqualObjects(testColor, [UIColor seafoamColor], @"Serializing to and from RGBA Dictionary does not yield the same color.");
+    XCTAssertEqualObjects(testColor, [UIColor redColor], @"Serializing to and from RGBA Dictionary does not yield the same color.");
 }
 
 
@@ -171,6 +171,13 @@
     XCTAssertEqualObjects(colors[1], @0, @"Serializing from UIWhiteColorSpace to HSBA does not work works with swizzled method.");
     XCTAssertEqualObjects(colors[2], @0.25, @"Serializing from UIWhiteColorSpace to HSBA does not works with swizzled method.");
     XCTAssertEqualObjects(colors[3], @1, @"Serializing from UIWhiteColorSpace to HSBA not works with swizzled method.");
+}
+
+
+#pragma mark - Color Distance
+- (void)testColorDistance {
+    CGFloat distance = [[UIColor redColor] distanceFromColor:[UIColor redColor]];
+    XCTAssert(distance == 0, @"Color distnace from the same color does not provide accurate results.");
 }
 
 

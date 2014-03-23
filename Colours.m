@@ -21,12 +21,15 @@
 // CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 
 #import "Colours.h"
-
-// Swizzle
 #import <objc/runtime.h>
 
-#pragma mark - Create correct iOS/OSX implementation
+#pragma mark - Static Block
+static CGFloat (^RAD)(CGFloat) = ^CGFloat (CGFloat degree){
+    return degree * M_PI/180;
+};
 
+
+#pragma mark - Create correct iOS/OSX implementation
 #if TARGET_OS_IPHONE
 #import <UIKit/UIKit.h>
 @implementation UIColor (Colours)
@@ -636,22 +639,22 @@
     CGFloat deltaCPrime = cPrime1 - cPrime2;
     CGFloat hPrime1 = atan2(B1, aPrime1);
     CGFloat hPrime2 = atan2(B2, aPrime2);
-    hPrime1 = fmodf(hPrime1, [self radiansFromDegree:360]);
-    hPrime2 = fmodf(hPrime2, [self radiansFromDegree:360]);
+    hPrime1 = fmodf(hPrime1, RAD(360.0));
+    hPrime2 = fmodf(hPrime2, RAD(360.0));
     CGFloat deltahPrime = 0;
-    if (fabsf(hPrime1 - hPrime2) <= [self radiansFromDegree:180]) {
+    if (fabsf(hPrime1 - hPrime2) <= RAD(180.0)) {
         deltahPrime = hPrime2 - hPrime1;
     }
     else {
-        deltahPrime = (hPrime2 <= hPrime1) ? hPrime2 - hPrime1 + [self radiansFromDegree:360] : hPrime2 - hPrime1 - [self radiansFromDegree:360];
+        deltahPrime = (hPrime2 <= hPrime1) ? hPrime2 - hPrime1 + RAD(360.0) : hPrime2 - hPrime1 - RAD(360.0);
     }
     CGFloat deltaHPrime = 2 * sqrt(cPrime1*cPrime2) * sin(deltahPrime/2);
-    CGFloat meanHPrime = (fabsf(hPrime1 - hPrime2) <= [self radiansFromDegree:180]) ? (hPrime1 + hPrime2)/2 : (hPrime1 + hPrime2 + [self radiansFromDegree:360])/2;
-    CGFloat T = 1 - 0.17*cos(meanHPrime - [self radiansFromDegree:30]) + 0.24*cos(2*meanHPrime)+0.32*cos(3*meanHPrime + [self radiansFromDegree:6]) - 0.20*cos(4*meanHPrime - [self radiansFromDegree:63]);
+    CGFloat meanHPrime = (fabsf(hPrime1 - hPrime2) <= RAD(180.0)) ? (hPrime1 + hPrime2)/2 : (hPrime1 + hPrime2 + RAD(360.0))/2;
+    CGFloat T = 1 - 0.17*cos(meanHPrime - RAD(30.0)) + 0.24*cos(2*meanHPrime)+0.32*cos(3*meanHPrime + RAD(6.0)) - 0.20*cos(4*meanHPrime - RAD(63.0));
     sL = 1 + (0.015 * pow((meanL - 50), 2))/sqrt(20 + pow((meanL - 50), 2));
     sC = 1 + 0.045*cMeanPrime;
     sH = 1 + 0.015*cMeanPrime*T;
-    CGFloat Rt = -2 * sqrt(pow(cMeanPrime, 7)/(pow(cMeanPrime, 7) + pow(25.0, 7))) * sin([self radiansFromDegree:60]* exp(-1 * pow((meanHPrime - [self radiansFromDegree:275])/[self radiansFromDegree:25], 2)));
+    CGFloat Rt = -2 * sqrt(pow(cMeanPrime, 7)/(pow(cMeanPrime, 7) + pow(25.0, 7))) * sin(RAD(60.0)* exp(-1 * pow((meanHPrime - RAD(275.0))/RAD(25.0), 2)));
     
     // Finally return CIE2000 distance
     return sqrt(pow((deltaLPrime/(kL*sL)), 2) + pow((deltaCPrime/(kC*sC)), 2) + pow((deltaHPrime/(kH*sH)), 2) + Rt*(deltaC/(kC*sC))*(deltaHPrime/(kH*sH)));
