@@ -542,10 +542,9 @@ static CGFloat (^RAD)(CGFloat) = ^CGFloat (CGFloat degree){
 - (instancetype)complementaryColor
 {
     NSMutableDictionary *hsba = [[self hsbaDictionary] mutableCopy];
-    float newH = [[self class] addDegrees:180.0f toDegree:([hsba[kColoursHSBA_H] floatValue]*360)];
-    [hsba setObject:@(newH) forKey:kColoursHSBA_H];
+    float newH = [[self class] addDegrees:180.0f toDegree:([hsba[kColoursHSBA_H] floatValue]*360.0f)];
+    [hsba setObject:@(newH/360.0f) forKey:kColoursHSBA_H];
     return [[self class] colorFromHSBADictionary:hsba];
-    
 }
 
 
