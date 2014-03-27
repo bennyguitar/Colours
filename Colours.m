@@ -1267,13 +1267,12 @@ static CGFloat (^RAD)(CGFloat) = ^CGFloat (CGFloat degree){
     else if (CGColorGetNumberOfComponents(self.CGColor) == 2) {
         CGFloat white;
         CGFloat m_alpha;
-        if ([self getWhite:&white alpha:&m_alpha]) {
-            *red = white * 1.0;
-            *green = white * 1.0;
-            *blue = white * 1.0;
-            *alpha = m_alpha;
-            return YES;
-        }
+        [self getWhite:&white alpha:&m_alpha];
+        *red = white * 1.0;
+        *green = white * 1.0;
+        *blue = white * 1.0;
+        *alpha = m_alpha;
+        return YES;
     }
     
     return NO;
@@ -1288,14 +1287,12 @@ static CGFloat (^RAD)(CGFloat) = ^CGFloat (CGFloat degree){
     else if (CGColorGetNumberOfComponents(self.CGColor) == 2) {
         CGFloat white = 0;
         CGFloat a = 0;
-        if ([self getWhite:&white alpha:&a]) {
-            *hue = 0;
-            *saturation = 0;
-            *brightness = white * 1.0;
-            *alpha = a * 1.0;
-            
-            return YES;
-        }
+        [self getWhite:&white alpha:&a];
+        *hue = 0;
+        *saturation = 0;
+        *brightness = white * 1.0;
+        *alpha = a * 1.0;
+        return YES;
     }
     
     return NO;
