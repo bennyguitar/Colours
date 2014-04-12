@@ -80,6 +80,16 @@ typedef NS_ENUM(NSInteger, ColorDistance) {
     ColorDistanceCIE2000,
 };
 
+typedef NS_ENUM(NSInteger, ColorComparison) {
+    ColorComparisonDarkness,
+    ColorComparisonLightness,
+    ColorComparisonDesaturated,
+    ColorComparisonSaturated,
+    ColorComparisonRed,
+    ColorComparisonGreen,
+    ColorComparisonBlue
+};
+
 
 #pragma mark - Color from Hex/RGBA/HSBA/CIE_LAB/CMYK
 /**
@@ -364,6 +374,11 @@ typedef NS_ENUM(NSInteger, ColorDistance) {
  *  @return CGFloat
  */
 - (CGFloat)distanceFromColor:(id)color type:(ColorDistance)distanceType;
+
+
+#pragma mark - Compare Colors
++ (NSArray *)sortColors:(NSArray *)colors withComparison:(ColorComparison)comparison;
++ (NSComparisonResult)compareColor:(id)colorA andColor:(id)colorB withComparison:(ColorComparison)comparison;
 
 
 #pragma mark - Colors

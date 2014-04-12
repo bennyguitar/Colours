@@ -181,6 +181,54 @@
 }
 
 
+#pragma mark - Color Sorting
+- (void)testColorSortLightness {
+    UIColor *c1 = [UIColor colorFromHSBAArray:@[@1,@1,@0.45,@1]];
+    UIColor *c2 = [UIColor colorFromHSBAArray:@[@1,@1,@0.88,@1]];
+    UIColor *c3 = [UIColor colorFromHSBAArray:@[@1,@1,@0.003,@1]];
+    UIColor *c4 = [UIColor colorFromHSBAArray:@[@1,@1,@0.12,@1]];
+    NSArray *sorted = [UIColor sortColors:@[c1, c2, c3, c4] withComparison:ColorComparisonLightness];
+    NSArray *check = @[c2, c1, c4, c3];
+    XCTAssertEqualObjects(check, sorted, @"Sorting Colors is not accurate.");
+}
+
+- (void)testColorSortDarkness {
+    UIColor *c1 = [UIColor colorFromHSBAArray:@[@1,@1,@0.45,@1]];
+    UIColor *c2 = [UIColor colorFromHSBAArray:@[@1,@1,@0.88,@1]];
+    UIColor *c3 = [UIColor colorFromHSBAArray:@[@1,@1,@0.003,@1]];
+    UIColor *c4 = [UIColor colorFromHSBAArray:@[@1,@1,@0.12,@1]];
+    NSArray *sorted = [UIColor sortColors:@[c1, c2, c3, c4] withComparison:ColorComparisonDarkness];
+    NSArray *check = @[c3, c4, c1, c2];
+    for (NSArray *colors in @[sorted, check]) {
+        for (UIColor *c in colors) {
+            NSLog(@"%@", c.hexString);
+        }
+    }
+    XCTAssertEqualObjects(check, sorted, @"Sorting Colors is not accurate.");
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 @end

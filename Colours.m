@@ -660,6 +660,27 @@ static CGFloat (^RAD)(CGFloat) = ^CGFloat (CGFloat degree){
 }
 
 
+#pragma mark - Compare Colors
++ (NSArray *)sortColors:(NSArray *)colors withComparison:(ColorComparison)comparison {
+    return [colors sortedArrayUsingComparator:^NSComparisonResult(id obj1, id obj2) {
+        return [self compareColor:obj1 andColor:obj2 withComparison:comparison];
+    }];
+}
+
++ (NSComparisonResult)compareColor:(id)colorA andColor:(id)colorB withComparison:(ColorComparison)comparison {
+    if (![colorA isKindOfClass:[self class]] || ![colorB isKindOfClass:[self class]]) {
+        return NSOrderedSame;
+    }
+    
+    // Check Colors
+    NSString *key = @"";
+    boolean_t greater = true;
+    NSDictionary *c1 = [colorA colorsForComparison:comparison key:&key greater:&greater];
+    NSDictionary *c2 = [colorB colorsForComparison:comparison key:&key greater:&greater];
+    return [self compareValue:[c1[key] floatValue] andValue:[c2[key] floatValue] greaterThan:greater];
+}
+
+
 #pragma mark - System Colors
 + (instancetype)infoBlueColor
 {
@@ -1201,8 +1222,56 @@ static CGFloat (^RAD)(CGFloat) = ^CGFloat (CGFloat degree){
     }
 }
 
-- (CGFloat)radiansFromDegree:(CGFloat)degree {
-    return degree * M_PI/180;
+
+#pragma mark - Color Comparison
+- (NSDictionary *)colorsForComparison:(ColorComparison)comparison key:(NSString **)key greater:(boolean_t *)greaterThan {
+    switch (comparison) {
+        case ColorComparisonRed:
+            *key = kColoursRGBA_R;
+            *greaterThan = true;
+            return [self rgbaDictionary];
+            
+        case ColorComparisonGreen:
+            *key = kColoursRGBA_G;
+            *greaterThan = true;
+            return [self rgbaDictionary];
+            
+        case ColorComparisonBlue:
+            *key = kColoursRGBA_B;
+            *greaterThan = true;
+            return [self rgbaDictionary];
+            
+        case ColorComparisonDarkness:
+            *key = kColoursHSBA_B;
+            *greaterThan = false;
+            return [self hsbaDictionary];
+            
+        case ColorComparisonLightness:
+            *key = kColoursHSBA_B;
+            *greaterThan = true;
+            return [self hsbaDictionary];
+            
+        case ColorComparisonSaturated:
+            *key = kColoursHSBA_S;
+            *greaterThan = true;
+            return [self hsbaDictionary];
+            
+        case ColorComparisonDesaturated:
+            *key = kColoursHSBA_S;
+            *greaterThan = false;
+            return [self hsbaDictionary];
+            
+        default:
+            *key = kColoursRGBA_R;
+            *greaterThan = true;
+            return [self rgbaDictionary];
+    }
+}
+
++ (NSComparisonResult)compareValue:(CGFloat)v1 andValue:(CGFloat)v2 greaterThan:(boolean_t)greaterThan {
+    CGFloat comparison = v1 - v2;
+    comparison = (greaterThan == true ? 1 : -1)*comparison;
+    return (comparison == 0.0 ? NSOrderedSame : (comparison < 0.0 ? NSOrderedDescending : NSOrderedAscending));
 }
 
 
