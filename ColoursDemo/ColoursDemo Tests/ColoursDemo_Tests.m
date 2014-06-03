@@ -204,31 +204,9 @@
             NSLog(@"%@", c.hexString);
         }
     }
+    
+    NSLog(@"%f - %f", [[UIColor black25PercentColor] distanceFromColor:[UIColor black25PercentColor]], [[UIColor seafoamColor] distanceFromColor:[UIColor watermelonColor]]);
     XCTAssertEqualObjects(check, sorted, @"Sorting Colors is not accurate.");
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 @end
