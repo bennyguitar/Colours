@@ -1340,7 +1340,9 @@ static CGFloat (^RAD)(CGFloat) = ^CGFloat (CGFloat degree){
         *red = white * 1.0;
         *green = white * 1.0;
         *blue = white * 1.0;
-        *alpha = m_alpha;
+		if (alpha) {
+			*alpha = m_alpha;
+		}
         return YES;
     }
     
@@ -1360,7 +1362,9 @@ static CGFloat (^RAD)(CGFloat) = ^CGFloat (CGFloat degree){
         *hue = 0;
         *saturation = 0;
         *brightness = white * 1.0;
-        *alpha = a * 1.0;
+		if (alpha) {
+			*alpha = a * 1.0;
+		}
         return YES;
     }
     
