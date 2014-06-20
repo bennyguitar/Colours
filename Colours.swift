@@ -21,9 +21,18 @@
 // CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 
 import Foundation
+
+#if os(iOS)
 import UIKit
+var c = UIColor
+#else
+import AppKit
+var c = NSColor
+#endif
 
 extension Colours: UIColor {
+
+    
     // Enums
     enum ColorScheme {
         case Analagous, Monochromatic, Triad, Complementary
