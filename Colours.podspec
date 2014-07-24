@@ -1,6 +1,6 @@
 Pod::Spec.new do |s|
   s.name         = 'Colours'
-  s.version      = '5.4.0'
+  s.version      = '5.5.0'
   s.summary      = '100s of beautiful, predefined Colors and Color methods. Works for iOS/OSX.'
   s.author = {
     'Ben Gordon' => 'brgordon@ua.edu'

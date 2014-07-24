@@ -33,10 +33,12 @@ static CGFloat (^RAD)(CGFloat) = ^CGFloat (CGFloat degree){
 #if TARGET_OS_IPHONE
 #import <UIKit/UIKit.h>
 @implementation UIColor (Colours)
+#define ColorClass UIColor
 
 #elif TARGET_OS_MAC
 #import <AppKit/AppKit.h>
 @implementation NSColor (Colours)
+#define ColorClass NSColor
 
 #endif
 
@@ -470,6 +472,23 @@ static CGFloat (^RAD)(CGFloat) = ^CGFloat (CGFloat degree){
 - (CGFloat)keyBlack {
     return [[self cmykArray][3] floatValue];
 }
+
+
+#pragma mark - Darken/Lighten
+- (instancetype)darken:(CGFloat)percentage {
+    return [self modifyBrightnessByPercentage:percentage];
+}
+
+- (instancetype)lighten:(CGFloat)percentage {
+    return [self modifyBrightnessByPercentage:percentage+1.0];
+}
+
+- (instancetype)modifyBrightnessByPercentage:(CGFloat)percentage {
+    NSMutableDictionary *hsba = [[self hsbaDictionary] mutableCopy];
+    [hsba setObject:@([hsba[kColoursHSBA_B] floatValue] * percentage) forKey:kColoursHSBA_B];
+    return [ColorClass colorFromHSBADictionary:hsba];
+}
+
 
 #pragma mark - Generate Color Scheme
 - (NSArray *)colorSchemeOfType:(ColorScheme)type

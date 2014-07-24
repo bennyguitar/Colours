@@ -207,28 +207,4 @@
     XCTAssertEqualObjects(check, sorted, @"Sorting Colors is not accurate.");
 }
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 @end
