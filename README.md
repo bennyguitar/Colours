@@ -164,6 +164,15 @@ CGFloat CIE_B = [[UIColor tomatoColor] CIE_b];
 CGFloat alpha = [[UIColor tomatoColor] alpha];
 ```
 
+#### Darken/Lighten Colors
+
+You can darken or lighten a color by using these methods. The only parameter is a percentage float from 0 -> 1, so a 25% lighter color would use the parameter 0.25.
+
+```objc
+UIColor *lighterColor = [[UIColor seafoamColor] lighten:0.25f];
+UIColor *darkerColor = [[UIColor seafoamColor] darken:0.25f];
+```
+
 #### Black or White Contrasting Color
 
 A lot of times you may want to put text on top of a view that is a certain color, and you want to be sure that it will look good on top of it. With this method you will return either white or black, depending on the how well each of them contrast on top of it. Here's how you use this:
