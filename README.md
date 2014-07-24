@@ -30,6 +30,7 @@ Colours supports <code>NSColor</code> out of the box! Just make sure you have th
   * [CIELAB](#cielab)
   * [CMYK](#cmyk)
   * [Color Components](#color-components)
+  * [Darken/Lighten Components](#darkenlighten-colors)
   * [Black or White Contrasting Color](#black-or-white-contrasting-color)
   * [Complementary Color](#complementary-color)
 * [Distance between 2 Colors](#distance-between-2-colors)
