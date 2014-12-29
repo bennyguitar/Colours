@@ -252,4 +252,50 @@ extension Color {
     func keyBlack() -> CGFloat {
         return cmyk().k
     }
+    
+    
+    // MARK: - Lighten/Darken Color
+    func lightenedColor(percentage: CGFloat) -> Color {
+        return modifiedColor(percentage + 1.0)
+    }
+    
+    func darkenedColor(percentage: CGFloat) -> Color {
+        return modifiedColor(percentage)
+    }
+    
+    private func modifiedColor(percentage: CGFloat) -> Color {
+        let hsbaT = hsba()
+        return Color(hsba: (hsbaT.h, hsbaT.s, hsbaT.b * percentage, hsbaT.a))
+    }
+    
+    
+    // MARK: - Contrasting Color
+    func blackOrWhiteContrastingColor() -> Color {
+        let rgbaT = rgba()
+        let value = 1 - ((0.299 * rgbaT.r) + (0.587 * rgbaT.g) + (0.114 * rgbaT.b));
+        return value > 0.5 ? Color.blackColor() : Color.whiteColor()
+    }
+    
+    
+    // MARK: - Complementary Color
+    func complementaryColor() -> Color {
+        let hsbaT = hsba()
+        let newH = Color.addDegree(180.0, staticDegree: hsbaT.h*360.0)
+        return Color(hsba: (newH, hsbaT.s, hsbaT.b, hsbaT.a))
+    }
+    
+    
+    // MARK: - Private Helpers
+    private class func addDegree(addDegree: CGFloat, staticDegree: CGFloat) -> CGFloat {
+        var s = staticDegree + addDegree;
+        if (s > 360) {
+            return s - 360;
+        }
+        else if (s < 0) {
+            return -1 * s;
+        }
+        else {
+            return s;
+        }
+    }
 }
