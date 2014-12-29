@@ -27,9 +27,6 @@ A Swift version of Colours now exists that contains everything in the Obj-C vers
 * 100 predefined colors
 * Color Components Dictionary (use the tuples instead)
 * Color Scheme
-* Lighten/Darken
-* Black or White Contrasting Color
-* Complementary Color
 * Sorting/Comparing Colors
 * Distance between Colors
 
