@@ -24,9 +24,7 @@ Colours supports <code>NSColor</code> out of the box! Just make sure you have th
 
 A Swift version of Colours now exists that contains everything in the Obj-C version except:
 
-* 100 predefined colors
 * Color Components Dictionary (use the tuples instead)
-* Color Scheme
 * Sorting/Comparing Colors
 * Distance between Colors
 
