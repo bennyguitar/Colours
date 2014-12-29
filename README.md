@@ -20,6 +20,21 @@ Drag the included **Colours.h** and **Colours.m** files into your project. They 
 
 Colours supports <code>NSColor</code> out of the box! Just make sure you have the <code>AppKit</code> framework installed (it comes that way for a new application) and you will be set. This README uses UIColor for its examples, just substitute NSColor and the methods are all the same.
 
+**Swift**
+
+A Swift version of Colours now exists that contains everything in the Obj-C version except:
+
+* 100 predefined colors
+* Color Components Dictionary (use the tuples instead)
+* Color Scheme
+* Lighten/Darken
+* Black or White Contrasting Color
+* Complementary Color
+* Sorting/Comparing Colors
+* Distance between Colors
+
+Also, instead of dictionaries and arrays of color components, tuples are used instead. So instead of `[someColor rgbaArray]`, you would use `someColor.rgba()` which gives you a tuple of four `CGFloats` like `(1.0, 0.0, 0.0, 1.0) /* red */`.
+
 ## Table of Contents
 * [Color Palette](#color-palette)
 * [Using Predefined Colors](#using-predefined-colors)
