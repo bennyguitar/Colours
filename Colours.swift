@@ -40,7 +40,8 @@ extension Color {
     // MARK: - Color from Hex/RGBA/HSBA/CIE_LAB/CMYK
     convenience init(hex: String) {
         var rgbInt: Int32 = 0
-        var scanner = NSScanner(string: hex)
+        let newHex: NSString = NSString(string: hex).stringByReplacingOccurrencesOfString("#", withString: "")
+        var scanner = NSScanner(string: newHex)
         scanner.scanInt(&rgbInt)
         let r: CGFloat = CGFloat(((rgbInt & 0xFF0000) >> 16))/255.0
         let g: CGFloat = CGFloat(((rgbInt & 0xFF00) >> 8))/255.0
@@ -847,7 +848,7 @@ extension Color {
     
     // MARK: - Private Helpers
     private class func colorWith(R: CGFloat, G: CGFloat, B: CGFloat, A: CGFloat) -> Color {
-        return Color(rgba: (R/255.0, G/255.0, B/255.0, A/255.0))
+        return Color(rgba: (R/255.0, G/255.0, B/255.0, A))
     }
     
     private class func addDegree(addDegree: CGFloat, staticDegree: CGFloat) -> CGFloat {
