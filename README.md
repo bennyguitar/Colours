@@ -12,8 +12,6 @@ Drag the included **Colours.h** and **Colours.m** files into your project. They 
 
 **Cocoapods**
 
-*Note: 5.0.0 breaks previous versions' rgbaDictionary and hsbaDictionary methods!*
-
 <code>pod 'Colours'</code>
 
 **NSColor**
@@ -28,7 +26,7 @@ A Swift version of Colours now exists that contains everything in the Obj-C vers
 * Sorting/Comparing Colors
 * Distance between Colors
 
-Also, instead of dictionaries and arrays of color components, tuples are used instead. So instead of `[someColor rgbaArray]`, you would use `someColor.rgba()` which gives you a tuple of four `CGFloats` like `(1.0, 0.0, 0.0, 1.0) /* red */`.
+Also, instead of dictionaries and arrays of color components, tuples are used instead. So instead of `[someRedColor rgbaArray]`, you would use `someRedColor.rgba()` which gives you a tuple of four `CGFloats` like `(1.0, 0.0, 0.0, 1.0)`. To get just the red value, you would write `someRedColor.rgba().r`.
 
 ## Table of Contents
 * [Color Palette](#color-palette)
