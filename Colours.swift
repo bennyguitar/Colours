@@ -261,7 +261,7 @@ extension Color {
     }
     
     func darkenedColor(percentage: CGFloat) -> Color {
-        return modifiedColor(percentage)
+        return modifiedColor(1.0 - percentage)
     }
     
     private func modifiedColor(percentage: CGFloat) -> Color {

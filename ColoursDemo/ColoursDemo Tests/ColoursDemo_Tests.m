@@ -207,4 +207,18 @@
     XCTAssertEqualObjects(check, sorted, @"Sorting Colors is not accurate.");
 }
 
+
+#pragma mark - Test Lightened/Darkened Colors
+- (void)testLightenedColor {
+    CGFloat b1 = [[UIColor plumColor] brightness];
+    CGFloat b2 = [[[UIColor plumColor] lighten:0.05] brightness];
+    XCTAssert(b2 > b1, @"Lightening a color does not work correctly.");
+}
+
+- (void)testDarkenedColor {
+    CGFloat b1 = [[UIColor plumColor] brightness];
+    CGFloat b2 = [[[UIColor plumColor] darken:0.05] brightness];
+    XCTAssert(b1 > b2, @"Darkening a color does not work correctly.");
+}
+
 @end

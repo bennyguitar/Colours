@@ -476,7 +476,7 @@ static CGFloat (^RAD)(CGFloat) = ^CGFloat (CGFloat degree){
 
 #pragma mark - Darken/Lighten
 - (instancetype)darken:(CGFloat)percentage {
-    return [self modifyBrightnessByPercentage:percentage];
+    return [self modifyBrightnessByPercentage:1.0-percentage];
 }
 
 - (instancetype)lighten:(CGFloat)percentage {
