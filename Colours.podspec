@@ -17,8 +17,8 @@ Pod::Spec.new do |s|
   s.requires_arc = true
 
   # Swift Subspec
-  subspec "Swift" do |sp|
+  s.subspec "Swift" do |sp|
     sp.source_files = "*.swift"
   end
-  
+
 end
