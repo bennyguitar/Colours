@@ -14,6 +14,10 @@ Drag the included **Colours.h** and **Colours.m** files into your project. They 
 
 <code>pod 'Colours'</code>
 
+or, for Swift:
+
+<code>pod 'Colours/Swift'</code>
+
 **NSColor**
 
 Colours supports <code>NSColor</code> out of the box! Just make sure you have the <code>AppKit</code> framework installed (it comes that way for a new application) and you will be set. This README uses UIColor for its examples, just substitute NSColor and the methods are all the same.
