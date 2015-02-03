@@ -48,6 +48,7 @@ Also, instead of dictionaries and arrays of color components, tuples are used in
 * [Distance between 2 Colors](#distance-between-2-colors)
 * [Generating Color Schemes](#generating-color-schemes)
 * [Android](#android)
+* [Xamarin](#xamarin)
 * [Reap What I Sow!](#reap-what-i-sow)
 
 ## Color Palette
@@ -257,6 +258,10 @@ Here are the different examples starting with a color scheme based off of <code>
 ## Android
 
 My friend, [Matt York](https://github.com/MatthewYork) ported a version of this repository over to Android, so you can use these exact same colors and color methods in your Android apps as well. You can find it here: [Colours for Android](https://github.com/MatthewYork/Colours).
+
+## Xamarin
+
+[akamud](https://github.com/akamud/) has graciously ported this library as a Xamarin Android component, which can be found at [https://github.com/akamud/Colours](https://github.com/akamud/Colours). An iOS Xamarin component is in the works as well.
 
 Reap What I Sow!
 ================
