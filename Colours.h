@@ -22,6 +22,7 @@
 
 #include "TargetConditionals.h"
 #include <Foundation/Foundation.h>
+#import "AGEColor.h"
 
 
 #pragma mark - Static String Keys
@@ -403,122 +404,122 @@ typedef NS_ENUM(NSInteger, ColorComparison) {
 
 #pragma mark - Colors
 // System Colors
-+ (instancetype)infoBlueColor;
-+ (instancetype)successColor;
-+ (instancetype)warningColor;
-+ (instancetype)dangerColor;
+AGEColorDefine(infoBlueColor);
+AGEColorDefine(successColor);
+AGEColorDefine(warningColor);
+AGEColorDefine(dangerColor);
 
 // Whites
-+ (instancetype)antiqueWhiteColor;
-+ (instancetype)oldLaceColor;
-+ (instancetype)ivoryColor;
-+ (instancetype)seashellColor;
-+ (instancetype)ghostWhiteColor;
-+ (instancetype)snowColor;
-+ (instancetype)linenColor;
+AGEColorDefine(antiqueWhiteColor);
+AGEColorDefine(oldLaceColor);
+AGEColorDefine(ivoryColor);
+AGEColorDefine(seashellColor);
+AGEColorDefine(ghostWhiteColor);
+AGEColorDefine(snowColor);
+AGEColorDefine(linenColor);
 
 // Grays
-+ (instancetype)black25PercentColor;
-+ (instancetype)black50PercentColor;
-+ (instancetype)black75PercentColor;
-+ (instancetype)warmGrayColor;
-+ (instancetype)coolGrayColor;
-+ (instancetype)charcoalColor;
+AGEColorDefine(black25PercentColor);
+AGEColorDefine(black50PercentColor);
+AGEColorDefine(black75PercentColor);
+AGEColorDefine(warmGrayColor);
+AGEColorDefine(coolGrayColor);
+AGEColorDefine(charcoalColor);
 
 // Blues
-+ (instancetype)tealColor;
-+ (instancetype)steelBlueColor;
-+ (instancetype)robinEggColor;
-+ (instancetype)pastelBlueColor;
-+ (instancetype)turquoiseColor;
-+ (instancetype)skyBlueColor;
-+ (instancetype)indigoColor;
-+ (instancetype)denimColor;
-+ (instancetype)blueberryColor;
-+ (instancetype)cornflowerColor;
-+ (instancetype)babyBlueColor;
-+ (instancetype)midnightBlueColor;
-+ (instancetype)fadedBlueColor;
-+ (instancetype)icebergColor;
-+ (instancetype)waveColor;
+AGEColorDefine(tealColor);
+AGEColorDefine(steelBlueColor);
+AGEColorDefine(robinEggColor);
+AGEColorDefine(pastelBlueColor);
+AGEColorDefine(turquoiseColor);
+AGEColorDefine(skyBlueColor);
+AGEColorDefine(indigoColor);
+AGEColorDefine(denimColor);
+AGEColorDefine(blueberryColor);
+AGEColorDefine(cornflowerColor);
+AGEColorDefine(babyBlueColor);
+AGEColorDefine(midnightBlueColor);
+AGEColorDefine(fadedBlueColor);
+AGEColorDefine(icebergColor);
+AGEColorDefine(waveColor);
 
 // Greens
-+ (instancetype)emeraldColor;
-+ (instancetype)grassColor;
-+ (instancetype)pastelGreenColor;
-+ (instancetype)seafoamColor;
-+ (instancetype)paleGreenColor;
-+ (instancetype)cactusGreenColor;
-+ (instancetype)chartreuseColor;
-+ (instancetype)hollyGreenColor;
-+ (instancetype)oliveColor;
-+ (instancetype)oliveDrabColor;
-+ (instancetype)moneyGreenColor;
-+ (instancetype)honeydewColor;
-+ (instancetype)limeColor;
-+ (instancetype)cardTableColor;
+AGEColorDefine(emeraldColor);
+AGEColorDefine(grassColor);
+AGEColorDefine(pastelGreenColor);
+AGEColorDefine(seafoamColor);
+AGEColorDefine(paleGreenColor);
+AGEColorDefine(cactusGreenColor);
+AGEColorDefine(chartreuseColor);
+AGEColorDefine(hollyGreenColor);
+AGEColorDefine(oliveColor);
+AGEColorDefine(oliveDrabColor);
+AGEColorDefine(moneyGreenColor);
+AGEColorDefine(honeydewColor);
+AGEColorDefine(limeColor);
+AGEColorDefine(cardTableColor);
 
 // Reds
-+ (instancetype)salmonColor;
-+ (instancetype)brickRedColor;
-+ (instancetype)easterPinkColor;
-+ (instancetype)grapefruitColor;
-+ (instancetype)pinkColor;
-+ (instancetype)indianRedColor;
-+ (instancetype)strawberryColor;
-+ (instancetype)coralColor;
-+ (instancetype)maroonColor;
-+ (instancetype)watermelonColor;
-+ (instancetype)tomatoColor;
-+ (instancetype)pinkLipstickColor;
-+ (instancetype)paleRoseColor;
-+ (instancetype)crimsonColor;
+AGEColorDefine(salmonColor);
+AGEColorDefine(brickRedColor);
+AGEColorDefine(easterPinkColor);
+AGEColorDefine(grapefruitColor);
+AGEColorDefine(pinkColor);
+AGEColorDefine(indianRedColor);
+AGEColorDefine(strawberryColor);
+AGEColorDefine(coralColor);
+AGEColorDefine(maroonColor);
+AGEColorDefine(watermelonColor);
+AGEColorDefine(tomatoColor);
+AGEColorDefine(pinkLipstickColor);
+AGEColorDefine(paleRoseColor);
+AGEColorDefine(crimsonColor);
 
 // Purples
-+ (instancetype)eggplantColor;
-+ (instancetype)pastelPurpleColor;
-+ (instancetype)palePurpleColor;
-+ (instancetype)coolPurpleColor;
-+ (instancetype)violetColor;
-+ (instancetype)plumColor;
-+ (instancetype)lavenderColor;
-+ (instancetype)raspberryColor;
-+ (instancetype)fuschiaColor;
-+ (instancetype)grapeColor;
-+ (instancetype)periwinkleColor;
-+ (instancetype)orchidColor;
+AGEColorDefine(eggplantColor);
+AGEColorDefine(pastelPurpleColor);
+AGEColorDefine(palePurpleColor);
+AGEColorDefine(coolPurpleColor);
+AGEColorDefine(violetColor);
+AGEColorDefine(plumColor);
+AGEColorDefine(lavenderColor);
+AGEColorDefine(raspberryColor);
+AGEColorDefine(fuschiaColor);
+AGEColorDefine(grapeColor);
+AGEColorDefine(periwinkleColor);
+AGEColorDefine(orchidColor);
 
 // Yellows
-+ (instancetype)goldenrodColor;
-+ (instancetype)yellowGreenColor;
-+ (instancetype)bananaColor;
-+ (instancetype)mustardColor;
-+ (instancetype)buttermilkColor;
-+ (instancetype)goldColor;
-+ (instancetype)creamColor;
-+ (instancetype)lightCreamColor;
-+ (instancetype)wheatColor;
-+ (instancetype)beigeColor;
+AGEColorDefine(goldenrodColor);
+AGEColorDefine(yellowGreenColor);
+AGEColorDefine(bananaColor);
+AGEColorDefine(mustardColor);
+AGEColorDefine(buttermilkColor);
+AGEColorDefine(goldColor);
+AGEColorDefine(creamColor);
+AGEColorDefine(lightCreamColor);
+AGEColorDefine(wheatColor);
+AGEColorDefine(beigeColor);
 
 // Oranges
-+ (instancetype)peachColor;
-+ (instancetype)burntOrangeColor;
-+ (instancetype)pastelOrangeColor;
-+ (instancetype)cantaloupeColor;
-+ (instancetype)carrotColor;
-+ (instancetype)mandarinColor;
+AGEColorDefine(peachColor);
+AGEColorDefine(burntOrangeColor);
+AGEColorDefine(pastelOrangeColor);
+AGEColorDefine(cantaloupeColor);
+AGEColorDefine(carrotColor);
+AGEColorDefine(mandarinColor);
 
 // Browns
-+ (instancetype)chiliPowderColor;
-+ (instancetype)burntSiennaColor;
-+ (instancetype)chocolateColor;
-+ (instancetype)coffeeColor;
-+ (instancetype)cinnamonColor;
-+ (instancetype)almondColor;
-+ (instancetype)eggshellColor;
-+ (instancetype)sandColor;
-+ (instancetype)mudColor;
-+ (instancetype)siennaColor;
-+ (instancetype)dustColor;
+AGEColorDefine(chiliPowderColor);
+AGEColorDefine(burntSiennaColor);
+AGEColorDefine(chocolateColor);
+AGEColorDefine(coffeeColor);
+AGEColorDefine(cinnamonColor);
+AGEColorDefine(almondColor);
+AGEColorDefine(eggshellColor);
+AGEColorDefine(sandColor);
+AGEColorDefine(mudColor);
+AGEColorDefine(siennaColor);
+AGEColorDefine(dustColor);
 
 @end

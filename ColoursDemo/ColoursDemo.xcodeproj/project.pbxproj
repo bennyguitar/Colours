@@ -58,6 +58,7 @@
 		44C791CE182586210059592D /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		44C791D0182586210059592D /* ColoursDemo_Tests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ColoursDemo_Tests.m; sourceTree = "<group>"; };
 		44C791D2182586210059592D /* ColoursDemo Tests-Prefix.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "ColoursDemo Tests-Prefix.pch"; sourceTree = "<group>"; };
+		6520D8F01A83D114003B6BF0 /* AGEColor.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = AGEColor.h; path = ../../AGEColor.h; sourceTree = "<group>"; };
 		B6120DC7188DF0B60037E5EC /* AppDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
 		B6120DC8188DF0B60037E5EC /* AppDelegate.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AppDelegate.m; sourceTree = "<group>"; };
 		B65430821A4FAEAD00A28A8A /* ColoursDemo-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "ColoursDemo-Bridging-Header.h"; sourceTree = "<group>"; };
@@ -129,6 +130,7 @@
 		44C791B91823CB070059592D /* UIColor Category (Class Extension) */ = {
 			isa = PBXGroup;
 			children = (
+				6520D8F01A83D114003B6BF0 /* AGEColor.h */,
 				1E4C42E81851434200F323C1 /* Colours.h */,
 				1E4C42E91851434200F323C1 /* Colours.m */,
 				B65430831A4FAEAE00A28A8A /* Colours.swift */,
