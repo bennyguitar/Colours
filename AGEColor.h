@@ -22,11 +22,11 @@
 // THE SOFTWARE.
 
 #define AGEColorDefine(COLOR_NAME)    \
-+ (UIColor *)COLOR_NAME;
++ (instancetype)COLOR_NAME;
 
 #define AGEColorImplement(COLOR_NAME,COLOR)    \
-+ (UIColor *)COLOR_NAME{    \
-static UIColor* COLOR_NAME##_color;    \
++ (instancetype)COLOR_NAME{    \
+static id COLOR_NAME##_color;    \
 static dispatch_once_t COLOR_NAME##_onceToken;   \
 dispatch_once(&COLOR_NAME##_onceToken, ^{    \
 COLOR_NAME##_color = COLOR;  \
