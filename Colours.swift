@@ -39,13 +39,13 @@ extension Color {
     
     // MARK: - Color from Hex/RGBA/HSBA/CIE_LAB/CMYK
     convenience init(hex: String) {
-        var rgbInt: Int32 = 0
+        var rgbInt: UInt64 = 0
         let newHex: NSString = NSString(string: hex).stringByReplacingOccurrencesOfString("#", withString: "")
         var scanner = NSScanner(string: newHex)
-        scanner.scanInt(&rgbInt)
-        let r: CGFloat = CGFloat(((rgbInt & 0xFF0000) >> 16))/255.0
-        let g: CGFloat = CGFloat(((rgbInt & 0xFF00) >> 8))/255.0
-        let b: CGFloat = CGFloat((rgbInt & 0xFF))/255.0
+        scanner.scanHexLongLong(&rgbInt)
+        let r: CGFloat = CGFloat((rgbInt & 0xFF0000) >> 16)/255.0
+        let g: CGFloat = CGFloat((rgbInt & 0x00FF00) >> 8)/255.0
+        let b: CGFloat = CGFloat(rgbInt & 0x0000FF)/255.0
         self.init(red: r, green: g, blue: b, alpha: 1.0)
     }
     
