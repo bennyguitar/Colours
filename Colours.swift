@@ -41,7 +41,7 @@ extension Color {
     convenience init(hex: String) {
         var rgbInt: UInt64 = 0
         let newHex: NSString = NSString(string: hex).stringByReplacingOccurrencesOfString("#", withString: "")
-        var scanner = NSScanner(string: newHex)
+        var scanner = NSScanner(string: newHex as String)
         scanner.scanHexLongLong(&rgbInt)
         let r: CGFloat = CGFloat((rgbInt & 0xFF0000) >> 16)/255.0
         let g: CGFloat = CGFloat((rgbInt & 0x00FF00) >> 8)/255.0
@@ -146,7 +146,9 @@ extension Color {
         
         // Transfrom XYZ to L*a*b
         var deltaF: TransformBlock = { f in
-            return (f > pow((6.0/29.0), 3.0)) ? pow(f, 1.0/3.0) : (1/3)*pow((29.0/6.0), 2.0) * f + 4/29.0
+            let transformation = (f > pow((6.0/29.0), 3.0)) ? pow(f, 1.0/3.0) : (1/3) * pow((29.0/6.0), 2.0) * f + 4/29.0
+            
+            return (transformation)
         }
         let X = deltaF(x)
         let Y = deltaF(y)
