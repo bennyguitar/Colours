@@ -660,14 +660,14 @@ static CGFloat (^RAD)(CGFloat) = ^CGFloat (CGFloat degree){
     hPrime1 = fmodf(hPrime1, RAD(360.0));
     hPrime2 = fmodf(hPrime2, RAD(360.0));
     CGFloat deltahPrime = 0;
-    if (fabsf(hPrime1 - hPrime2) <= RAD(180.0)) {
+    if (fabs(hPrime1 - hPrime2) <= RAD(180.0)) {
         deltahPrime = hPrime2 - hPrime1;
     }
     else {
         deltahPrime = (hPrime2 <= hPrime1) ? hPrime2 - hPrime1 + RAD(360.0) : hPrime2 - hPrime1 - RAD(360.0);
     }
     CGFloat deltaHPrime = 2 * sqrt(cPrime1*cPrime2) * sin(deltahPrime/2);
-    CGFloat meanHPrime = (fabsf(hPrime1 - hPrime2) <= RAD(180.0)) ? (hPrime1 + hPrime2)/2 : (hPrime1 + hPrime2 + RAD(360.0))/2;
+    CGFloat meanHPrime = (fabs(hPrime1 - hPrime2) <= RAD(180.0)) ? (hPrime1 + hPrime2)/2 : (hPrime1 + hPrime2 + RAD(360.0))/2;
     CGFloat T = 1 - 0.17*cos(meanHPrime - RAD(30.0)) + 0.24*cos(2*meanHPrime)+0.32*cos(3*meanHPrime + RAD(6.0)) - 0.20*cos(4*meanHPrime - RAD(63.0));
     sL = 1 + (0.015 * pow((meanL - 50), 2))/sqrt(20 + pow((meanL - 50), 2));
     sC = 1 + 0.045*cMeanPrime;
