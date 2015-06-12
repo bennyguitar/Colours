@@ -267,3 +267,7 @@ Reap What I Sow!
 ================
 
 This project is distributed under the standard MIT License. Please use this and twist it in whatever fashion you wish - and recommend any cool changes to help the code.
+
+
+[![Bitdeli Badge](https://d2weczhvl823v0.cloudfront.net/bennyguitar/colours/trend.png)](https://bitdeli.com/free "Bitdeli Badge")
+
