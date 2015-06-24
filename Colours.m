@@ -247,6 +247,36 @@ static CGFloat (^RAD)(CGFloat) = ^CGFloat (CGFloat degree){
              kColoursCIE_alpha:colors[3],};
 }
 
+#pragma mark - LCH from Color
+- (NSArray*)CIE_LCHArray {
+    // www.brucelindbloom.com/index.html?Equations.html
+    NSArray *Lab = [self CIE_LabArray];
+    NSMutableArray *LCH = [Lab mutableCopy];
+    //L = L, a = a
+    //C
+    LCH[1] = @(sqrt(pow([Lab[1] doubleValue], 2) + pow([Lab[2] doubleValue], 2)));
+    
+    //H
+    double h = atan2([Lab[2] doubleValue], [Lab[1] doubleValue]);
+    h = h * 180/M_PI;
+    if (h < 0) {
+        h += 360;
+    } else if ( h >= 360) {
+        h -= 360;
+    }
+    LCH[2] = @(h);
+    
+    return LCH;
+}
+
+- (NSDictionary *)CIE_LCHDictionary {
+    NSArray *colors = [self CIE_LCHArray];
+    return @{kColoursCIE_L:colors[0],
+             kColoursCIE_C:colors[1],
+             kColoursCIE_H:colors[2],
+             kColoursCIE_alpha:colors[3],};
+}
+
 
 #pragma mark - Color from LAB
 + (instancetype)colorFromCIE_LabArray:(NSArray *)colors {
@@ -301,6 +331,36 @@ static CGFloat (^RAD)(CGFloat) = ^CGFloat (CGFloat degree){
         return [self colorFromCIE_LabArray:@[colors[kColoursCIE_L],
                                              colors[kColoursCIE_A],
                                              colors[kColoursCIE_B],
+                                             colors[kColoursCIE_alpha]]];
+    }
+    
+    return [[self class] clearColor];
+}
+
+#pragma mark - Color from LCH
+
++ (instancetype)colorFromCIE_LCHArray:(NSArray *)colors {
+    if (!colors) {
+        return [[self class] clearColor];
+    }
+    
+    NSMutableArray *Lab = [colors mutableCopy];
+    double H = [colors[2] doubleValue] * M_PI/180;;
+    
+    Lab[1] = @([colors[1] doubleValue] * cos(H));
+    Lab[2] = @([colors[1] doubleValue] * sin(H));
+    return [[self class] colorFromCIE_LabArray:Lab];
+}
+
++ (instancetype)colorFromCIE_LCHDictionary:(NSDictionary *)colors {
+    if (!colors) {
+        return [[self class] clearColor];
+    }
+    
+    if (colors[kColoursCIE_L] && colors[kColoursCIE_C] && colors[kColoursCIE_H] && colors[kColoursCIE_alpha]) {
+        return [self colorFromCIE_LCHArray:@[colors[kColoursCIE_L],
+                                             colors[kColoursCIE_C],
+                                             colors[kColoursCIE_H],
                                              colors[kColoursCIE_alpha]]];
     }
     

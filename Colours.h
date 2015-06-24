@@ -37,6 +37,8 @@ static NSString * kColoursCIE_L = @"LABa-L";
 static NSString * kColoursCIE_A = @"LABa-A";
 static NSString * kColoursCIE_B = @"LABa-B";
 static NSString * kColoursCIE_alpha = @"LABa-a";
+static NSString * kColoursCIE_C = @"LABa-C";
+static NSString * kColoursCIE_H = @"LABa-H";
 static NSString * kColoursCMYK_C = @"CMYK-c";
 static NSString * kColoursCMYK_M = @"CMYK-m";
 static NSString * kColoursCMYK_Y = @"CMYK-y";
@@ -145,6 +147,21 @@ typedef NS_ENUM(NSInteger, ColorComparison) {
 + (instancetype)colorFromCIE_LabDictionary:(NSDictionary *)colors;
 
 /**
+ Creates a Color from an array of 4 NSNumbers (L,a,b,alpha)
+ @param colors   4 NSNumbers for CIE_LAB between 0 - 1
+ @return Color
+ */
++ (instancetype)colorFromCIE_LCHArray:(NSArray *)colors;
+
+/**
+ Creates a Color from a dictionary of 4 NSNumbers
+ Keys: kColoursCIE_L, kColoursCIE_A, kColoursCIE_B, kColoursCIE_alpha
+ @param colors   4 NSNumbers for CIE_LAB between 0 - 1
+ @return Color
+ */
++ (instancetype)colorFromCIE_LCHDictionary:(NSDictionary *)colors;
+
+/**
  Creates a Color from an array of 4 NSNumbers (C,M,Y,K)
  @param colors   4 NSNumbers for CMYK between 0 - 1
  @return Color
@@ -205,6 +222,20 @@ typedef NS_ENUM(NSInteger, ColorComparison) {
  *  @return NSDictionary
  */
 - (NSDictionary *)CIE_LabDictionary;
+
+/**
+ *  Creates an array of 4 NSNumbers representing the float values of L*, a, b, alpha in that order.
+ *
+ *  @return NSArray
+ */
+- (NSArray*)CIE_LCHArray;
+
+/**
+ *  Creates a dictionary of 4 NSNumbers representing the float values with keys: kColoursCIE_L, kColoursCIE_A, kColoursCIE_B, kColoursCIE_alpha
+ *
+ *  @return NSDictionary
+ */
+- (NSDictionary *)CIE_LCHDictionary;
 
 /**
  *  Creates an array of 4 NSNumbers representing the float values of C, M, Y, K in that order.
