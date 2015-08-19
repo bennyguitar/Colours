@@ -167,6 +167,8 @@
 		B6C7B7691A536A6A00B6EF4C /* Project object */ = {
 			isa = PBXProject;
 			attributes = {
+				LastSwiftMigration = 0700;
+				LastSwiftUpdateCheck = 0700;
 				LastUpgradeCheck = 0610;
 				TargetAttributes = {
 					B6C7B7701A536A6A00B6EF4C = {
@@ -416,6 +418,7 @@
 				B6C7B7921A536A6A00B6EF4C /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		B6C7B7931A536A6A00B6EF4C /* Build configuration list for PBXNativeTarget "ColoursSwiftTests" */ = {
 			isa = XCConfigurationList;
@@ -424,6 +427,7 @@
 				B6C7B7951A536A6A00B6EF4C /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};

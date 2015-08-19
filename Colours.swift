@@ -40,8 +40,8 @@ extension Color {
     // MARK: - Color from Hex/RGBA/HSBA/CIE_LAB/CMYK
     convenience init(hex: String) {
         var rgbInt: UInt64 = 0
-        let newHex: NSString = NSString(string: hex).stringByReplacingOccurrencesOfString("#", withString: "")
-        var scanner = NSScanner(string: newHex as String)
+        let newHex = hex.stringByReplacingOccurrencesOfString("#", withString: "")
+        let scanner = NSScanner(string: newHex)
         scanner.scanHexLongLong(&rgbInt)
         let r: CGFloat = CGFloat((rgbInt & 0xFF0000) >> 16)/255.0
         let g: CGFloat = CGFloat((rgbInt & 0x00FF00) >> 8)/255.0
@@ -72,9 +72,9 @@ extension Color {
         Z = deltaXYZ(Z)*1.08883
         
         // Convert XYZ to RGB
-        var R = X*3.2406 + (Y * -1.5372) + (Z * -0.4986)
-        var G = (X * -0.9689) + Y*1.8758 + Z*0.0415
-        var B = X*0.0557 + (Y * -0.2040) + Z*1.0570
+        let R = X*3.2406 + (Y * -1.5372) + (Z * -0.4986)
+        let G = (X * -0.9689) + Y*1.8758 + Z*0.0415
+        let B = X*0.0557 + (Y * -0.2040) + Z*1.0570
         let deltaRGB: TransformBlock = { k in
             return (k > 0.0031308) ? 1.055 * (pow(k, (1/2.4))) - 0.055 : k * 12.92
         }
@@ -145,7 +145,7 @@ extension Color {
         let z = xyzT.z/108.883
         
         // Transfrom XYZ to L*a*b
-        var deltaF: TransformBlock = { f in
+        let deltaF: TransformBlock = { f in
             let transformation = (f > pow((6.0/29.0), 3.0)) ? pow(f, 1.0/3.0) : (1/3) * pow((29.0/6.0), 2.0) * f + 4/29.0
             
             return (transformation)
@@ -165,7 +165,7 @@ extension Color {
         let rgbaT = rgba()
 
         // Transfrom values to XYZ
-        var deltaR: TransformBlock = { R in
+        let deltaR: TransformBlock = { R in
             return (R > 0.04045) ? pow((R + 0.055)/1.055, 2.40) : (R/12.92)
         }
         let R = deltaR(rgbaT.r)
@@ -181,9 +181,9 @@ extension Color {
     func cmyk() -> (c: CGFloat, m: CGFloat, y: CGFloat, k: CGFloat) {
         // Convert RGB to CMY
         let rgbaT = rgba()
-        var C = 1 - rgbaT.r
-        var M = 1 - rgbaT.g
-        var Y = 1 - rgbaT.b
+        let C = 1 - rgbaT.r
+        let M = 1 - rgbaT.g
+        let Y = 1 - rgbaT.b
         
         // Find K
         let K = min(1, min(C, min(Y, M)))
@@ -854,7 +854,7 @@ extension Color {
     }
     
     private class func addDegree(addDegree: CGFloat, staticDegree: CGFloat) -> CGFloat {
-        var s = staticDegree + addDegree;
+        let s = staticDegree + addDegree;
         if (s > 360) {
             return s - 360;
         }
