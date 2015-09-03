@@ -1,6 +1,6 @@
 Pod::Spec.new do |s|
   s.name         = 'Colours'
-  s.version      = '5.7.0'
+  s.version      = '5.8.0'
   s.summary      = '100s of beautiful, predefined Colors and Color methods. Works for iOS/OSX.'
   s.author = {
     'Ben Gordon' => 'brgordon@ua.edu'
@@ -16,10 +16,5 @@ Pod::Spec.new do |s|
   s.ios.deployment_target = '5.0'
   s.osx.deployment_target = '10.7'
   s.requires_arc = true
-
-  # Swift Subspec
-  s.subspec "Swift" do |sp|
-    sp.source_files = "*.swift"
-  end
 
 end
