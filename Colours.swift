@@ -15,7 +15,7 @@ import AppKit
 public typealias Color = NSColor
 #endif
 
-extension Color {
+public extension Color {
     // MARK: - Closure
     typealias TransformBlock = CGFloat -> CGFloat
     
