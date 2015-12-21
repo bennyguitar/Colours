@@ -1,6 +1,6 @@
 Pod::Spec.new do |s|
   s.name         = 'Colours'
-  s.version      = '5.11.0'
+  s.version      = '5.12.0'
   s.summary      = '100s of beautiful, predefined Colors and Color methods. Works for iOS/OSX/tvOS.'
   s.author = {
     'Ben Gordon' => 'brgordon@ua.edu'
@@ -14,6 +14,7 @@ Pod::Spec.new do |s|
   s.default_subspec = 'ObjC'
   s.ios.deployment_target = '5.0'
   s.osx.deployment_target = '10.7'
+  s.tvos.deployment_target = '9.0'
 
   s.subspec 'ObjC' do |ss|
     ss.source_files = '*.{h,m}'

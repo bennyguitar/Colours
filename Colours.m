@@ -30,7 +30,7 @@ static CGFloat (^RAD)(CGFloat) = ^CGFloat (CGFloat degree){
 
 
 #pragma mark - Create correct iOS/OSX implementation
-#if TARGET_OS_IPHONE
+#if TARGET_OS_IPHONE || TARGET_OS_TV
 #import <UIKit/UIKit.h>
 @implementation UIColor (Colours)
 #define ColorClass UIColor
