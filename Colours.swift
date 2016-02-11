@@ -276,7 +276,7 @@ public extension Color {
     func blackOrWhiteContrastingColor() -> Color {
         let rgbaT = rgba()
         let value = 1 - ((0.299 * rgbaT.r) + (0.587 * rgbaT.g) + (0.114 * rgbaT.b));
-        return value > 0.5 ? Color.blackColor() : Color.whiteColor()
+        return value < 0.5 ? Color.blackColor() : Color.whiteColor()
     }
     
     
