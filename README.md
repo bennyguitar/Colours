@@ -10,7 +10,7 @@ Drag the included **Colours.h** and **Colours.m** files into your project. They 
 
 <code>#import "Colours.h"</code> into the classes you want to use this category in and you're all set.
 
-**Cocoapods**
+**CocoaPods**
 
 <code>pod 'Colours'</code>
 
