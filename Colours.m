@@ -46,29 +46,32 @@ static CGFloat (^RAD)(CGFloat) = ^CGFloat (CGFloat degree){
 #pragma mark - Color from Hex
 + (instancetype)colorFromHexString:(NSString *)hexString
 {
-    unsigned rgbValue = 0;
+    unsigned long long rgbValue = 0;
     int base = 0;
+    int mask = 0;
 
     hexString = [hexString stringByReplacingOccurrencesOfString:@"#" withString:@""];
     NSScanner *scanner = [NSScanner scannerWithString:hexString];
-    [scanner scanHexInt:&rgbValue];
+    [scanner scanHexLongLong:&rgbValue];
 
     switch (hexString.length) {
         case 3:
-            base = 4;
+            base = 8;
+            mask = 0xF;
             break;
         case 6:
             base = 16;
+            mask = 0xFF;
             break;
         default:
             return nil;
     }
 
-    int r = 0xFF & (rgbValue >> base);
-    int g = 0xFF & (rgbValue >> base / 2);
-    int b = 0xFF & (rgbValue >> 0);
+    CGFloat r = (CGFloat)(mask & (rgbValue >> base)) / (CGFloat)mask;
+    CGFloat g = (CGFloat)(mask & (rgbValue >> (base / 2))) / (CGFloat)mask;
+    CGFloat b = (CGFloat)(mask & (rgbValue >> 0)) / (CGFloat)mask;
 
-    return [[self class] colorWithR:r G:g B:b A:1.0];
+    return [[self class] colorWithRed:r green:g blue:b alpha:1.0];
 }
 
 
