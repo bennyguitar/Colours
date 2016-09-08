@@ -106,22 +106,18 @@ public extension Color {
     }
     
     func rgba() -> (r: CGFloat, g: CGFloat, b: CGFloat, a: CGFloat) {
-        var r: CGFloat = 0
-        var g: CGFloat = 0
-        var b: CGFloat = 0
-        var a: CGFloat = 0
-        
-        if self.respondsToSelector("getRed:green:blue:alpha:") {
-            self.getRed(&r, green: &g, blue: &b, alpha: &a)
-        } else {
-            let components = CGColorGetComponents(self.CGColor)
-            r = components[0]
-            g = components[1]
-            b = components[2]
-            a = components[3]
+        let components = CGColorGetComponents(self.CGColor)
+        let numberOfComponents = CGColorGetNumberOfComponents(self.CGColor)
+
+        switch numberOfComponents {
+        case 4:
+            return (components[0], components[1], components[2], components[3])
+        case 2:
+            return (components[0], components[0], components[0], components[1])
+        default:
+            // FIXME: Fallback to black
+            return (0, 0, 0, 1)
         }
-        
-        return (r, g, b, a)
     }
     
     func hsba() -> (h: CGFloat, s: CGFloat, b: CGFloat, a: CGFloat) {
@@ -130,7 +126,7 @@ public extension Color {
         var b: CGFloat = 0
         var a: CGFloat = 0
         
-        if self.respondsToSelector("getHue:saturation:brightness:alpha:") {
+        if self.respondsToSelector("getHue:saturation:brightness:alpha:") && CGColorGetNumberOfComponents(self.CGColor) == 4 {
             self.getHue(&h, saturation: &s, brightness: &b, alpha: &a)
         }
         
