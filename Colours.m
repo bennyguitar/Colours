@@ -47,11 +47,28 @@ static CGFloat (^RAD)(CGFloat) = ^CGFloat (CGFloat degree){
 + (instancetype)colorFromHexString:(NSString *)hexString
 {
     unsigned rgbValue = 0;
+    int base = 0;
+
     hexString = [hexString stringByReplacingOccurrencesOfString:@"#" withString:@""];
     NSScanner *scanner = [NSScanner scannerWithString:hexString];
     [scanner scanHexInt:&rgbValue];
-    
-    return [[self class] colorWithR:((rgbValue & 0xFF0000) >> 16) G:((rgbValue & 0xFF00) >> 8) B:(rgbValue & 0xFF) A:1.0];
+
+    switch (hexString.length) {
+        case 3:
+            base = 4;
+            break;
+        case 6:
+            base = 16;
+            break;
+        default:
+            return nil;
+    }
+
+    int r = 0xFF & (rgbValue >> base);
+    int g = 0xFF & (rgbValue >> base / 2);
+    int b = 0xFF & (rgbValue >> 0);
+
+    return [[self class] colorWithR:r G:g B:b A:1.0];
 }
 
 
