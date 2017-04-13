@@ -7,7 +7,7 @@
 //
 
 import Foundation
-#if os(iOS)
+#if os(iOS) || os(tvOS)
 import UIKit
 public typealias Color = UIColor
 #else
@@ -15,7 +15,7 @@ import AppKit
 public typealias Color = NSColor
 #endif
 
-extension Color {
+public extension Color {
     // MARK: - Closure
     typealias TransformBlock = CGFloat -> CGFloat
     
@@ -40,8 +40,8 @@ extension Color {
     // MARK: - Color from Hex/RGBA/HSBA/CIE_LAB/CMYK
     convenience init(hex: String) {
         var rgbInt: UInt64 = 0
-        let newHex: NSString = NSString(string: hex).stringByReplacingOccurrencesOfString("#", withString: "")
-        var scanner = NSScanner(string: newHex)
+        let newHex = hex.stringByReplacingOccurrencesOfString("#", withString: "")
+        let scanner = NSScanner(string: newHex)
         scanner.scanHexLongLong(&rgbInt)
         let r: CGFloat = CGFloat((rgbInt & 0xFF0000) >> 16)/255.0
         let g: CGFloat = CGFloat((rgbInt & 0x00FF00) >> 8)/255.0
@@ -72,9 +72,9 @@ extension Color {
         Z = deltaXYZ(Z)*1.08883
         
         // Convert XYZ to RGB
-        var R = X*3.2406 + (Y * -1.5372) + (Z * -0.4986)
-        var G = (X * -0.9689) + Y*1.8758 + Z*0.0415
-        var B = X*0.0557 + (Y * -0.2040) + Z*1.0570
+        let R = X*3.2406 + (Y * -1.5372) + (Z * -0.4986)
+        let G = (X * -0.9689) + Y*1.8758 + Z*0.0415
+        let B = X*0.0557 + (Y * -0.2040) + Z*1.0570
         let deltaRGB: TransformBlock = { k in
             return (k > 0.0031308) ? 1.055 * (pow(k, (1/2.4))) - 0.055 : k * 12.92
         }
@@ -106,22 +106,18 @@ extension Color {
     }
     
     func rgba() -> (r: CGFloat, g: CGFloat, b: CGFloat, a: CGFloat) {
-        var r: CGFloat = 0
-        var g: CGFloat = 0
-        var b: CGFloat = 0
-        var a: CGFloat = 0
-        
-        if self.respondsToSelector("getRed:green:blue:alpha:") {
-            self.getRed(&r, green: &g, blue: &b, alpha: &a)
-        } else {
-            let components = CGColorGetComponents(self.CGColor)
-            r = components[0]
-            g = components[1]
-            b = components[2]
-            a = components[3]
+        let components = CGColorGetComponents(self.CGColor)
+        let numberOfComponents = CGColorGetNumberOfComponents(self.CGColor)
+
+        switch numberOfComponents {
+        case 4:
+            return (components[0], components[1], components[2], components[3])
+        case 2:
+            return (components[0], components[0], components[0], components[1])
+        default:
+            // FIXME: Fallback to black
+            return (0, 0, 0, 1)
         }
-        
-        return (r, g, b, a)
     }
     
     func hsba() -> (h: CGFloat, s: CGFloat, b: CGFloat, a: CGFloat) {
@@ -130,7 +126,7 @@ extension Color {
         var b: CGFloat = 0
         var a: CGFloat = 0
         
-        if self.respondsToSelector("getHue:saturation:brightness:alpha:") {
+        if self.respondsToSelector("getHue:saturation:brightness:alpha:") && CGColorGetNumberOfComponents(self.CGColor) == 4 {
             self.getHue(&h, saturation: &s, brightness: &b, alpha: &a)
         }
         
@@ -145,8 +141,10 @@ extension Color {
         let z = xyzT.z/108.883
         
         // Transfrom XYZ to L*a*b
-        var deltaF: TransformBlock = { f in
-            return (f > pow((6.0/29.0), 3.0)) ? pow(f, 1.0/3.0) : (1/3)*pow((29.0/6.0), 2.0) * f + 4/29.0
+        let deltaF: TransformBlock = { f in
+            let transformation = (f > pow((6.0/29.0), 3.0)) ? pow(f, 1.0/3.0) : (1/3) * pow((29.0/6.0), 2.0) * f + 4/29.0
+            
+            return (transformation)
         }
         let X = deltaF(x)
         let Y = deltaF(y)
@@ -163,7 +161,7 @@ extension Color {
         let rgbaT = rgba()
 
         // Transfrom values to XYZ
-        var deltaR: TransformBlock = { R in
+        let deltaR: TransformBlock = { R in
             return (R > 0.04045) ? pow((R + 0.055)/1.055, 2.40) : (R/12.92)
         }
         let R = deltaR(rgbaT.r)
@@ -179,9 +177,9 @@ extension Color {
     func cmyk() -> (c: CGFloat, m: CGFloat, y: CGFloat, k: CGFloat) {
         // Convert RGB to CMY
         let rgbaT = rgba()
-        var C = 1 - rgbaT.r
-        var M = 1 - rgbaT.g
-        var Y = 1 - rgbaT.b
+        let C = 1 - rgbaT.r
+        let M = 1 - rgbaT.g
+        let Y = 1 - rgbaT.b
         
         // Find K
         let K = min(1, min(C, min(Y, M)))
@@ -274,7 +272,7 @@ extension Color {
     func blackOrWhiteContrastingColor() -> Color {
         let rgbaT = rgba()
         let value = 1 - ((0.299 * rgbaT.r) + (0.587 * rgbaT.g) + (0.114 * rgbaT.b));
-        return value > 0.5 ? Color.blackColor() : Color.whiteColor()
+        return value < 0.5 ? Color.blackColor() : Color.whiteColor()
     }
     
     
@@ -852,7 +850,7 @@ extension Color {
     }
     
     private class func addDegree(addDegree: CGFloat, staticDegree: CGFloat) -> CGFloat {
-        var s = staticDegree + addDegree;
+        let s = staticDegree + addDegree;
         if (s > 360) {
             return s - 360;
         }

@@ -30,7 +30,7 @@ static CGFloat (^RAD)(CGFloat) = ^CGFloat (CGFloat degree){
 
 
 #pragma mark - Create correct iOS/OSX implementation
-#if TARGET_OS_IPHONE
+#if TARGET_OS_IPHONE || TARGET_OS_TV
 #import <UIKit/UIKit.h>
 @implementation UIColor (Colours)
 #define ColorClass UIColor
@@ -247,6 +247,36 @@ static CGFloat (^RAD)(CGFloat) = ^CGFloat (CGFloat degree){
              kColoursCIE_alpha:colors[3],};
 }
 
+#pragma mark - LCH from Color
+- (NSArray*)CIE_LCHArray {
+    // www.brucelindbloom.com/index.html?Equations.html
+    NSArray *Lab = [self CIE_LabArray];
+    NSMutableArray *LCH = [Lab mutableCopy];
+    //L = L, a = a
+    //C
+    LCH[1] = @(sqrt(pow([Lab[1] doubleValue], 2) + pow([Lab[2] doubleValue], 2)));
+    
+    //H
+    double h = atan2([Lab[2] doubleValue], [Lab[1] doubleValue]);
+    h = h * 180/M_PI;
+    if (h < 0) {
+        h += 360;
+    } else if ( h >= 360) {
+        h -= 360;
+    }
+    LCH[2] = @(h);
+    
+    return LCH;
+}
+
+- (NSDictionary *)CIE_LCHDictionary {
+    NSArray *colors = [self CIE_LCHArray];
+    return @{kColoursCIE_L:colors[0],
+             kColoursCIE_C:colors[1],
+             kColoursCIE_H:colors[2],
+             kColoursCIE_alpha:colors[3],};
+}
+
 
 #pragma mark - Color from LAB
 + (instancetype)colorFromCIE_LabArray:(NSArray *)colors {
@@ -301,6 +331,36 @@ static CGFloat (^RAD)(CGFloat) = ^CGFloat (CGFloat degree){
         return [self colorFromCIE_LabArray:@[colors[kColoursCIE_L],
                                              colors[kColoursCIE_A],
                                              colors[kColoursCIE_B],
+                                             colors[kColoursCIE_alpha]]];
+    }
+    
+    return [[self class] clearColor];
+}
+
+#pragma mark - Color from LCH
+
++ (instancetype)colorFromCIE_LCHArray:(NSArray *)colors {
+    if (!colors) {
+        return [[self class] clearColor];
+    }
+    
+    NSMutableArray *Lab = [colors mutableCopy];
+    double H = [colors[2] doubleValue] * M_PI/180;;
+    
+    Lab[1] = @([colors[1] doubleValue] * cos(H));
+    Lab[2] = @([colors[1] doubleValue] * sin(H));
+    return [[self class] colorFromCIE_LabArray:Lab];
+}
+
++ (instancetype)colorFromCIE_LCHDictionary:(NSDictionary *)colors {
+    if (!colors) {
+        return [[self class] clearColor];
+    }
+    
+    if (colors[kColoursCIE_L] && colors[kColoursCIE_C] && colors[kColoursCIE_H] && colors[kColoursCIE_alpha]) {
+        return [self colorFromCIE_LCHArray:@[colors[kColoursCIE_L],
+                                             colors[kColoursCIE_C],
+                                             colors[kColoursCIE_H],
                                              colors[kColoursCIE_alpha]]];
     }
     
@@ -660,14 +720,14 @@ static CGFloat (^RAD)(CGFloat) = ^CGFloat (CGFloat degree){
     hPrime1 = fmodf(hPrime1, RAD(360.0));
     hPrime2 = fmodf(hPrime2, RAD(360.0));
     CGFloat deltahPrime = 0;
-    if (fabsf(hPrime1 - hPrime2) <= RAD(180.0)) {
+    if (fabs(hPrime1 - hPrime2) <= RAD(180.0)) {
         deltahPrime = hPrime2 - hPrime1;
     }
     else {
         deltahPrime = (hPrime2 <= hPrime1) ? hPrime2 - hPrime1 + RAD(360.0) : hPrime2 - hPrime1 - RAD(360.0);
     }
     CGFloat deltaHPrime = 2 * sqrt(cPrime1*cPrime2) * sin(deltahPrime/2);
-    CGFloat meanHPrime = (fabsf(hPrime1 - hPrime2) <= RAD(180.0)) ? (hPrime1 + hPrime2)/2 : (hPrime1 + hPrime2 + RAD(360.0))/2;
+    CGFloat meanHPrime = (fabs(hPrime1 - hPrime2) <= RAD(180.0)) ? (hPrime1 + hPrime2)/2 : (hPrime1 + hPrime2 + RAD(360.0))/2;
     CGFloat T = 1 - 0.17*cos(meanHPrime - RAD(30.0)) + 0.24*cos(2*meanHPrime)+0.32*cos(3*meanHPrime + RAD(6.0)) - 0.20*cos(4*meanHPrime - RAD(63.0));
     sL = 1 + (0.015 * pow((meanL - 50), 2))/sqrt(20 + pow((meanL - 50), 2));
     sC = 1 + 0.045*cMeanPrime;
