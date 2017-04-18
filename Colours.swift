@@ -40,12 +40,26 @@ public extension Color {
     // MARK: - Color from Hex/RGBA/HSBA/CIE_LAB/CMYK
     convenience init(hex: String) {
         var rgbInt: UInt64 = 0
+        var base: UInt64 = 0
+        var mask: UInt64 = 0
+
         let newHex = hex.stringByReplacingOccurrencesOfString("#", withString: "")
         let scanner = NSScanner(string: newHex)
         scanner.scanHexLongLong(&rgbInt)
-        let r: CGFloat = CGFloat((rgbInt & 0xFF0000) >> 16)/255.0
-        let g: CGFloat = CGFloat((rgbInt & 0x00FF00) >> 8)/255.0
-        let b: CGFloat = CGFloat(rgbInt & 0x0000FF)/255.0
+
+        switch (newHex.characters.count) {
+        case 3:
+            base = 8
+            mask = 0xF
+        default:
+            base = 16
+            mask = 0xFF
+        }
+
+        let r = CGFloat(mask & (rgbInt >> base)) / CGFloat(mask);
+        let g = CGFloat(mask & (rgbInt >> (base / 2))) / CGFloat(mask);
+        let b = CGFloat(mask & (rgbInt >> 0)) / CGFloat(mask);
+
         self.init(red: r, green: g, blue: b, alpha: 1.0)
     }
     
