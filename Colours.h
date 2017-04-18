@@ -111,7 +111,7 @@ typedef NS_ENUM(NSInteger, ColorComparison) {
 /**
  Creates a Color from a dictionary of 4 NSNumbers
  Keys: kColoursRGBA_R, kColoursRGBA_G, kColoursRGBA_B, kColoursRGBA_A
- @param rgbaDictionary   4 NSNumbers for rgba between 0 - 1
+ @param rgbaDict   4 NSNumbers for rgba between 0 - 1
  @return    Color
  */
 + (instancetype)colorFromRGBADictionary:(NSDictionary *)rgbaDict;
@@ -126,7 +126,7 @@ typedef NS_ENUM(NSInteger, ColorComparison) {
 /**
  Creates a Color from a dictionary of 4 NSNumbers
  Keys: kColoursHSBA_H, kColoursHSBA_S, kColoursHSBA_B, kColoursHSBA_A
- @param hsbaDictionary   4 NSNumbers for rgba between 0 - 1
+ @param hsbaDict   4 NSNumbers for rgba between 0 - 1
  @return    Color
  */
 + (instancetype)colorFromHSBADictionary:(NSDictionary *)hsbaDict;
@@ -163,7 +163,7 @@ typedef NS_ENUM(NSInteger, ColorComparison) {
 
 /**
  Creates a Color from an array of 4 NSNumbers (C,M,Y,K)
- @param colors   4 NSNumbers for CMYK between 0 - 1
+ @param cmyk   4 NSNumbers for CMYK between 0 - 1
  @return Color
  */
 + (instancetype)colorFromCMYKArray:(NSArray *)cmyk;
@@ -171,7 +171,7 @@ typedef NS_ENUM(NSInteger, ColorComparison) {
 /**
  Creates a Color from a dictionary of 4 NSNumbers
  Keys: kColoursCMYK_C, kColoursCMYK_M, kColoursCMYK_Y, kColoursCMYK_K
- @param colors   4 NSNumbers for CMYK between 0 - 1
+ @param cmyk   4 NSNumbers for CMYK between 0 - 1
  @return Color
  */
 + (instancetype)colorFromCMYKDictionary:(NSDictionary *)cmyk;
