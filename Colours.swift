@@ -17,32 +17,32 @@ public typealias Color = NSColor
 
 public extension Color {
     // MARK: - Closure
-    typealias TransformBlock = CGFloat -> CGFloat
+    typealias TransformBlock = (CGFloat) -> CGFloat
     
     // MARK: - Enums
     enum ColorScheme:Int {
-        case Analagous = 0, Monochromatic, Triad, Complementary
+        case analagous = 0, monochromatic, triad, complementary
     }
     
     enum ColorFormulation:Int {
-        case RGBA = 0, HSBA, LAB, CMYK
+        case rgba = 0, hsba, lab, cmyk
     }
     
     enum ColorDistance:Int {
-        case CIE76 = 0, CIE94, CIE2000
+        case cie76 = 0, cie94, cie2000
     }
     
     enum ColorComparison:Int {
-        case Darkness = 0, Lightness, Desaturated, Saturated, Red, Green, Blue
+        case darkness = 0, lightness, desaturated, saturated, red, green, blue
     }
     
     
     // MARK: - Color from Hex/RGBA/HSBA/CIE_LAB/CMYK
     convenience init(hex: String) {
         var rgbInt: UInt64 = 0
-        let newHex = hex.stringByReplacingOccurrencesOfString("#", withString: "")
-        let scanner = NSScanner(string: newHex)
-        scanner.scanHexLongLong(&rgbInt)
+        let newHex = hex.replacingOccurrences(of: "#", with: "")
+        let scanner = Scanner(string: newHex)
+        scanner.scanHexInt64(&rgbInt)
         let r: CGFloat = CGFloat((rgbInt & 0xFF0000) >> 16)/255.0
         let g: CGFloat = CGFloat((rgbInt & 0x00FF00) >> 8)/255.0
         let b: CGFloat = CGFloat(rgbInt & 0x0000FF)/255.0
@@ -106,14 +106,14 @@ public extension Color {
     }
     
     func rgba() -> (r: CGFloat, g: CGFloat, b: CGFloat, a: CGFloat) {
-        let components = CGColorGetComponents(self.CGColor)
-        let numberOfComponents = CGColorGetNumberOfComponents(self.CGColor)
+        let components = self.cgColor.components
+        let numberOfComponents = self.cgColor.numberOfComponents
 
         switch numberOfComponents {
         case 4:
-            return (components[0], components[1], components[2], components[3])
+            return (components![0], components![1], components![2], components![3])
         case 2:
-            return (components[0], components[0], components[0], components[1])
+            return (components![0], components![0], components![0], components![1])
         default:
             // FIXME: Fallback to black
             return (0, 0, 0, 1)
@@ -126,7 +126,7 @@ public extension Color {
         var b: CGFloat = 0
         var a: CGFloat = 0
         
-        if self.respondsToSelector("getHue:saturation:brightness:alpha:") && CGColorGetNumberOfComponents(self.CGColor) == 4 {
+        if self.responds(to: #selector(UIColor.getHue(_:saturation:brightness:alpha:))) && self.cgColor.numberOfComponents == 4 {
             self.getHue(&h, saturation: &s, brightness: &b, alpha: &a)
         }
         
@@ -142,9 +142,13 @@ public extension Color {
         
         // Transfrom XYZ to L*a*b
         let deltaF: TransformBlock = { f in
-            let transformation = (f > pow((6.0/29.0), 3.0)) ? pow(f, 1.0/3.0) : (1/3) * pow((29.0/6.0), 2.0) * f + 4/29.0
-            
-            return (transformation)
+            if f > pow((6.0/29.0), 3.0) {
+                return pow(f, 1.0/3.0)
+            }
+            let expressionA: CGFloat = (1/3)
+            let expressionB: CGFloat = pow((29.0/6.0), 2.0)
+            let expressionC: CGFloat = 4/29.0
+            return expressionA * expressionB * f + expressionC
         }
         let X = deltaF(x)
         let Y = deltaF(y)
@@ -254,15 +258,15 @@ public extension Color {
     
     
     // MARK: - Lighten/Darken Color
-    func lightenedColor(percentage: CGFloat) -> Color {
+    func lightenedColor(_ percentage: CGFloat) -> Color {
         return modifiedColor(percentage + 1.0)
     }
     
-    func darkenedColor(percentage: CGFloat) -> Color {
+    func darkenedColor(_ percentage: CGFloat) -> Color {
         return modifiedColor(1.0 - percentage)
     }
     
-    private func modifiedColor(percentage: CGFloat) -> Color {
+    fileprivate func modifiedColor(_ percentage: CGFloat) -> Color {
         let hsbaT = hsba()
         return Color(hsba: (hsbaT.h, hsbaT.s, hsbaT.b * percentage, hsbaT.a))
     }
@@ -272,7 +276,7 @@ public extension Color {
     func blackOrWhiteContrastingColor() -> Color {
         let rgbaT = rgba()
         let value = 1 - ((0.299 * rgbaT.r) + (0.587 * rgbaT.g) + (0.114 * rgbaT.b));
-        return value < 0.5 ? Color.blackColor() : Color.whiteColor()
+        return value < 0.5 ? Color.black : Color.white
     }
     
     
@@ -285,41 +289,41 @@ public extension Color {
     
     
     // MARK: - Color Scheme
-    func colorScheme(type: ColorScheme) -> [Color] {
+    func colorScheme(_ type: ColorScheme) -> [Color] {
         switch (type) {
-        case .Analagous:
+        case .analagous:
             return Color.analgousColors(self.hsba())
-        case .Monochromatic:
+        case .monochromatic:
             return Color.monochromaticColors(self.hsba())
-        case .Triad:
+        case .triad:
             return Color.triadColors(self.hsba())
         default:
             return Color.complementaryColors(self.hsba())
         }
     }
     
-    private class func analgousColors(hsbaT: (h: CGFloat, s: CGFloat, b: CGFloat, a: CGFloat)) -> [Color] {
+    fileprivate class func analgousColors(_ hsbaT: (h: CGFloat, s: CGFloat, b: CGFloat, a: CGFloat)) -> [Color] {
         return [Color(hsba: (self.addDegree(30, staticDegree: hsbaT.h*360)/360.0, hsbaT.s-0.05, hsbaT.b-0.1, hsbaT.a)),
                 Color(hsba: (self.addDegree(15, staticDegree: hsbaT.h*360)/360.0, hsbaT.s-0.05, hsbaT.b-0.05, hsbaT.a)),
                 Color(hsba: (self.addDegree(-15, staticDegree: hsbaT.h*360)/360.0, hsbaT.s-0.05, hsbaT.b-0.05, hsbaT.a)),
                 Color(hsba: (self.addDegree(-30, staticDegree: hsbaT.h*360)/360.0, hsbaT.s-0.05, hsbaT.b-0.1, hsbaT.a))]
     }
     
-    private class func monochromaticColors(hsbaT: (h: CGFloat, s: CGFloat, b: CGFloat, a: CGFloat)) -> [Color] {
+    fileprivate class func monochromaticColors(_ hsbaT: (h: CGFloat, s: CGFloat, b: CGFloat, a: CGFloat)) -> [Color] {
         return [Color(hsba: (hsbaT.h, hsbaT.s/2, hsbaT.b/3, hsbaT.a)),
                 Color(hsba: (hsbaT.h, hsbaT.s, hsbaT.b/2, hsbaT.a)),
                 Color(hsba: (hsbaT.h, hsbaT.s/3, 2*hsbaT.b/3, hsbaT.a)),
                 Color(hsba: (hsbaT.h, hsbaT.s, 4*hsbaT.b/5, hsbaT.a))]
     }
     
-    private class func triadColors(hsbaT: (h: CGFloat, s: CGFloat, b: CGFloat, a: CGFloat)) -> [Color] {
+    fileprivate class func triadColors(_ hsbaT: (h: CGFloat, s: CGFloat, b: CGFloat, a: CGFloat)) -> [Color] {
         return [Color(hsba: (self.addDegree(120, staticDegree: hsbaT.h*360)/360.0, 2*hsbaT.s/3, hsbaT.b-0.05, hsbaT.a)),
                 Color(hsba: (self.addDegree(120, staticDegree: hsbaT.h*360)/360.0, hsbaT.s, hsbaT.b, hsbaT.a)),
                 Color(hsba: (self.addDegree(240, staticDegree: hsbaT.h*360)/360.0, hsbaT.s, hsbaT.b, hsbaT.a)),
                 Color(hsba: (self.addDegree(240, staticDegree: hsbaT.h*360)/360.0, 2*hsbaT.s/3, hsbaT.b-0.05, hsbaT.a))]
     }
     
-    private class func complementaryColors(hsbaT: (h: CGFloat, s: CGFloat, b: CGFloat, a: CGFloat)) -> [Color] {
+    fileprivate class func complementaryColors(_ hsbaT: (h: CGFloat, s: CGFloat, b: CGFloat, a: CGFloat)) -> [Color] {
         return [Color(hsba: (hsbaT.h, hsbaT.s, 4*hsbaT.b/5, hsbaT.a)),
                 Color(hsba: (hsbaT.h, 5*hsbaT.s/7, hsbaT.b, hsbaT.a)),
                 Color(hsba: (self.addDegree(180, staticDegree: hsbaT.h*360)/360.0, hsbaT.s, hsbaT.b, hsbaT.a)),
@@ -845,11 +849,11 @@ public extension Color {
 
     
     // MARK: - Private Helpers
-    private class func colorWith(R: CGFloat, G: CGFloat, B: CGFloat, A: CGFloat) -> Color {
+    fileprivate class func colorWith(_ R: CGFloat, G: CGFloat, B: CGFloat, A: CGFloat) -> Color {
         return Color(rgba: (R/255.0, G/255.0, B/255.0, A))
     }
     
-    private class func addDegree(addDegree: CGFloat, staticDegree: CGFloat) -> CGFloat {
+    fileprivate class func addDegree(_ addDegree: CGFloat, staticDegree: CGFloat) -> CGFloat {
         let s = staticDegree + addDegree;
         if (s > 360) {
             return s - 360;
