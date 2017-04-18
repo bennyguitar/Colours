@@ -285,10 +285,12 @@
 				ORGANIZATIONNAME = "Ben Gordon";
 				TargetAttributes = {
 					44C791C4182586200059592D = {
+						LastSwiftMigration = 0820;
 						TestTargetID = C06758B116F6824200CE7AA1;
 					};
 					C06758B116F6824200CE7AA1 = {
 						DevelopmentTeam = RMTZ2ZJ8M5;
+						LastSwiftMigration = 0820;
 					};
 				};
 			};
@@ -416,6 +418,7 @@
 				INFOPLIST_FILE = "ColoursDemo Tests/ColoursDemo Tests-Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_VERSION = 3.0;
 				TEST_HOST = "$(BUNDLE_LOADER)";
 				WRAPPER_EXTENSION = xctest;
 			};
@@ -444,6 +447,7 @@
 				INFOPLIST_FILE = "ColoursDemo Tests/ColoursDemo Tests-Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_VERSION = 3.0;
 				TEST_HOST = "$(BUNDLE_LOADER)";
 				WRAPPER_EXTENSION = xctest;
 			};
@@ -524,6 +528,7 @@
 				PROVISIONING_PROFILE = "";
 				SWIFT_OBJC_BRIDGING_HEADER = "ColoursDemo/ColoursDemo-Bridging-Header.h";
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+				SWIFT_VERSION = 3.0;
 				WRAPPER_EXTENSION = app;
 			};
 			name = Debug;
@@ -546,6 +551,7 @@
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE = "";
 				SWIFT_OBJC_BRIDGING_HEADER = "ColoursDemo/ColoursDemo-Bridging-Header.h";
+				SWIFT_VERSION = 3.0;
 				WRAPPER_EXTENSION = app;
 			};
 			name = Release;

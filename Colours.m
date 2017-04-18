@@ -1281,7 +1281,7 @@ static CGFloat (^RAD)(CGFloat) = ^CGFloat (CGFloat degree){
 #pragma mark - RGBA Helper method
 + (instancetype)colorWithR:(CGFloat)red G:(CGFloat)green B:(CGFloat)blue A:(CGFloat)alpha
 {
-    return [[self class] colorWithCalibratedRed:red/255.0f green:green/255.0f blue:blue/255.0f alpha:alpha];
+    return [[self class] colorWithRed:red/255.0f green:green/255.0f blue:blue/255.0f alpha:alpha];
 }
 
 
