@@ -38,7 +38,7 @@ public extension Color {
     
     
     // MARK: - Color from Hex/RGBA/HSBA/CIE_LAB/CMYK
-    convenience init(hex: String) {
+    convenience init(hex: String, alpha: CGFloat = 1.0) {
         var rgbInt: UInt64 = 0
         let newHex = hex.replacingOccurrences(of: "#", with: "")
         let scanner = Scanner(string: newHex)
@@ -46,7 +46,7 @@ public extension Color {
         let r: CGFloat = CGFloat((rgbInt & 0xFF0000) >> 16)/255.0
         let g: CGFloat = CGFloat((rgbInt & 0x00FF00) >> 8)/255.0
         let b: CGFloat = CGFloat(rgbInt & 0x0000FF)/255.0
-        self.init(red: r, green: g, blue: b, alpha: 1.0)
+        self.init(red: r, green: g, blue: b, alpha: alpha)
     }
     
     convenience init(rgba: (r: CGFloat, g: CGFloat, b: CGFloat, a: CGFloat)) {
