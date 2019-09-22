@@ -36,17 +36,25 @@ public extension Color {
         case darkness = 0, lightness, desaturated, saturated, red, green, blue
     }
     
-    
     // MARK: - Color from Hex/RGBA/HSBA/CIE_LAB/CMYK
-    convenience init(hex: String) {
+    convenience init(hex: String, alpha: CGFloat = 1.0) {
         var rgbInt: UInt64 = 0
         let newHex = hex.replacingOccurrences(of: "#", with: "")
         let scanner = Scanner(string: newHex)
         scanner.scanHexInt64(&rgbInt)
-        let r: CGFloat = CGFloat((rgbInt & 0xFF0000) >> 16)/255.0
-        let g: CGFloat = CGFloat((rgbInt & 0x00FF00) >> 8)/255.0
-        let b: CGFloat = CGFloat(rgbInt & 0x0000FF)/255.0
-        self.init(red: r, green: g, blue: b, alpha: 1.0)
+        self.init(hex: rgbInt, alpha: alpha)
+    }
+    
+    /**
+     Creates a color from an hex integer (e.g. 0x3498db).
+     - parameter hex: A hexa-decimal UInt32 that represents a color.
+     - parameter alpha: The alpha channel.
+     */
+    convenience init(hex: UInt64, alpha: CGFloat = 1.0) {
+        let r: CGFloat = CGFloat((hex & 0xFF0000) >> 16)/255.0
+        let g: CGFloat = CGFloat((hex & 0x00FF00) >> 8)/255.0
+        let b: CGFloat = CGFloat(hex & 0x0000FF)/255.0
+        self.init(red: r, green: g, blue: b, alpha: alpha)
     }
     
     convenience init(rgba: (r: CGFloat, g: CGFloat, b: CGFloat, a: CGFloat)) {
@@ -126,7 +134,7 @@ public extension Color {
         var b: CGFloat = 0
         var a: CGFloat = 0
         
-        if self.responds(to: #selector(UIColor.getHue(_:saturation:brightness:alpha:))) && self.cgColor.numberOfComponents == 4 {
+        if self.responds(to: #selector(Color.getHue(_:saturation:brightness:alpha:))) && self.cgColor.numberOfComponents == 4 {
             self.getHue(&h, saturation: &s, brightness: &b, alpha: &a)
         }
         
@@ -866,3 +874,20 @@ public extension Color {
         }
     }
 }
+
+#if os(iOS) || os(tvOS)
+extension UIColor {
+    public func blended(withFraction fraction: CGFloat, of color: UIColor) -> UIColor? {
+        var r1: CGFloat = 1.0, g1: CGFloat = 1.0, b1: CGFloat = 1.0, a1: CGFloat = 1.0
+        var r2: CGFloat = 1.0, g2: CGFloat = 1.0, b2: CGFloat = 1.0, a2: CGFloat = 1.0
+        
+        self.getRed(&r1, green: &g1, blue: &b1, alpha: &a1)
+        color.getRed(&r2, green: &g2, blue: &b2, alpha: &a2)
+        
+        return UIColor(red: r1 * (1 - fraction) + r2 * fraction,
+                       green: g1 * (1 - fraction) + g2 * fraction,
+                       blue: b1 * (1 - fraction) + b2 * fraction,
+                       alpha: a1 * (1 - fraction) + a2 * fraction);
+    }
+}
+#endif
